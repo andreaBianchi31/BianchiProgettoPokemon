@@ -14,8 +14,11 @@ export class PokedexService
   searchType: string = this.baseURL + 'type/';
   searchEvolutionChain: string = this.baseURL + 'evolution-chain/';
   searchForms: string = this.baseURL + 'pokemon-form/';
+  searchGeneration: string = this.baseURL + 'generation/';
+  searchGame: string = this.baseURL + 'version-group/';
+  searchPokedex: string = this.baseURL + 'pokedex/';
 
-  listaPokemon: Pokemon[] = [];
+  pokemonList: Pokemon[] = [];
   //currentPokemon: Pokemon = this.getPokemonByID('pikachu');
 
 
@@ -26,13 +29,25 @@ export class PokedexService
 
   getPokemonList(): Pokemon[]
   {
-    return this.listaPokemon;
+    return this.pokemonList;
+  }
+
+
+  setPokemonList(pokemonList: Pokemon[])
+  {
+    this.pokemonList = pokemonList;
   }
 
 
   /*getCurrentPokemon(): Pokemon
   {
     //return this.currentPokemon;
+  }
+
+
+  setCurrentPokemon(currentPokemon: Pokemon)
+  {
+    this.currentPokemon = currentPokemon;
   }*/
 
 
@@ -66,7 +81,7 @@ export class PokedexService
   }
 
 
-  getPokemonByEvolutionChian(evolutionChain: string): Observable<any>
+  getPokemonByEvolutionChain(evolutionChain: string): Observable<any>
   {
     return this.httpAssistant.get(this.searchEvolutionChain + evolutionChain);
   }
@@ -76,4 +91,23 @@ export class PokedexService
   {
 
   }
+
+
+  getPokemonByGeneration(generation: string): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchGeneration + generation);
+  }
+
+
+  getPokemonByPokedex(pokedex: string): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchPokedex + pokedex);
+  }
+
+
+  getPokemonByGame(gameVersion: string): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchGame + gameVersion);
+  }
+
 }
