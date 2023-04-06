@@ -20,6 +20,7 @@ export class PokedexService
 
   pokemonList: Pokemon[] = [];
   //currentPokemon: Pokemon = this.getPokemonByID('pikachu');
+  favouritesList: Pokemon[] = [];
 
 
   constructor(private httpAssistant: HttpClient)
@@ -50,6 +51,24 @@ export class PokedexService
     this.currentPokemon = currentPokemon;
   }*/
 
+  getFavouritePokemonList(): Pokemon[]
+  {
+    return this.favouritesList;
+  }
+
+  addFavouritePokemon(pokemon: Pokemon)
+  {
+    this.favouritesList.push(pokemon);
+  }
+
+  removeFavouritePokemon(pokemon: Pokemon)
+  {
+    for (let index = 0; index < this.favouritesList.length; index++)
+    {
+      if (this.favouritesList[index] == pokemon)
+        this.favouritesList.splice(index, 1);
+    }
+  }
 
   getPokemonByID(id: string): Observable<any>
   {
@@ -68,11 +87,23 @@ export class PokedexService
     return this.httpAssistant.get(this.searchPokemonSpecies + id);
   }
 
-
-  getPokemonSpeciesByURL(url: string): Observable<any>
+  getPokemonSpeciesByURL2(url: string): Observable<any>
   {
     return this.httpAssistant.get(url);
   }
+
+  /*getPokemonSpeciesByURL(url: string): Pokemon
+  {
+    let pokemon: Pokemon;
+
+    this.httpAssistant.get(url).subscribe (
+      (data: any) => {
+        console.log(data);
+        pokemon = new Pokemon(data.name, '', '');
+        return pokemon;
+      }
+    );
+  }*/
 
 
   getPokemonByType(type: string): Observable<any>

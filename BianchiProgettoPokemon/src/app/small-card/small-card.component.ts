@@ -9,8 +9,9 @@ import { Pokemon } from '../common/pokemon';
 })
 export class SmallCardComponent
 {
-  //pokemon: Pokemon;
+  @Input() pokemon: Pokemon;
 
+  name: string;
   artwork: string;
   officialArtworkNormal: string;
   officialArtworkShiny: string;
@@ -23,8 +24,24 @@ export class SmallCardComponent
 
   constructor(pokedex: PokedexService)
   {
-    this.officialArtworkNormal = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/800.png';
-    this.officialArtworkShiny = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/800.png';
+    this.pokemon = new Pokemon ('SEES di Prova', '', '');
+    this.name = this.pokemon.name;
+    this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
+    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;
+
+    this.redStarNormal = '../assets/images/star-icon-red-normal.png';
+    this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
+
+    this.redStar = this.redStarNormal;
+    this.artwork = this.officialArtworkNormal;
+    this.isShiny = false;
+  }
+
+  ngOnInit()
+  {
+    this.name = this.pokemon.name;
+    this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
+    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;
 
     this.redStarNormal = '../assets/images/star-icon-red-normal.png';
     this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
@@ -50,6 +67,5 @@ export class SmallCardComponent
 
     this.isShiny = !this.isShiny;
   }
-
   
 }
