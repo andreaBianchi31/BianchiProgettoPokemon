@@ -24,7 +24,6 @@ export class Pokemon
 
     evolutionChain: string;
     flavorText: string;
-    description: string;
 
 
     constructor(name: string, description: string,
@@ -41,8 +40,11 @@ export class Pokemon
         specialDefence: number,
         type1: string,
         type2: string,
+        isBaby: boolean,
         isLegendary: boolean,
-        isMythical: boolean)
+        isMythical: boolean,
+        evolutionChain: string,
+        flavorText: string)
         {
             this.name = name;
             this.description = description;
@@ -62,7 +64,12 @@ export class Pokemon
             this.type1 = type1;
             this.type2 = type2;
 
+            this.isBaby = isBaby;
             this.isLegendary = isLegendary;
             this.isMythical = isMythical;
+
+            this.evolutionChain = evolutionChain;
+            this.flavorText = flavorText;
         }
 }
+
