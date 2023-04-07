@@ -8,23 +8,37 @@ import { Observable } from 'rxjs';
 })
 export class PokedexService
 {
-  baseURL: string = 'https://pokeapi.co/api/v2/';
-  searchPokemon: string = this.baseURL + 'pokemon/';
-  searchPokemonSpecies: string = this.baseURL + 'pokemon-species/';
-  searchType: string = this.baseURL + 'type/';
-  searchEvolutionChain: string = this.baseURL + 'evolution-chain/';
-  searchForms: string = this.baseURL + 'pokemon-form/';
-  searchGeneration: string = this.baseURL + 'generation/';
-  searchGame: string = this.baseURL + 'version-group/';
-  searchPokedex: string = this.baseURL + 'pokedex/';
+  searchBaseURL: string = 'https://pokeapi.co/api/v2/';
+  searchPokemon: string = this.searchBaseURL + 'pokemon/';
+  searchPokemonSpecies: string = this.searchBaseURL + 'pokemon-species/';
+  searchType: string = this.searchBaseURL + 'type/';
+  searchEvolutionChain: string = this.searchBaseURL + 'evolution-chain/';
+  searchForms: string = this.searchBaseURL + 'pokemon-form/';
+  searchGeneration: string = this.searchBaseURL + 'generation/';
+  searchGame: string = this.searchBaseURL + 'version-group/';
+  searchPokedex: string = this.searchBaseURL + 'pokedex/';
 
   pokemonList: Pokemon[] = [];
   //currentPokemon: Pokemon = this.getPokemonByID('pikachu');
   favouritesList: Pokemon[] = [];
 
+  language: string = 'eng'
+
 
   constructor(private httpAssistant: HttpClient)
   {
+  }
+
+
+  getLanguage(): string
+  {
+    return this.language;
+  }
+
+
+  setLanguage(language: string)
+  {
+    this.language = language;
   }
 
 
@@ -146,7 +160,7 @@ export class PokedexService
   {
     for(let i = 0; i <= pokemonList.length-1; i++)
     {
-        for(let j = 0; j < ( pokemonList.length - i -1); j++)
+        for(let j = 0; j < (pokemonList.length-i-1); j++)
         {
             if(pokemonList[j].id > pokemonList[j+1].id)
             {
@@ -158,6 +172,6 @@ export class PokedexService
     }
 
     return pokemonList;
-}
+  }
 
 }

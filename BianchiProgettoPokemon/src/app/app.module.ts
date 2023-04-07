@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SmallCardComponent } from './small-card/small-card.component';
 import { CardContainerComponent } from './card-container/card-container.component';
+import { CoolCardComponent } from './cool-card/cool-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SmallCardComponent,
-    CardContainerComponent
+    CardContainerComponent,
+    CoolCardComponent
   ],
   imports: [
     BrowserModule,
