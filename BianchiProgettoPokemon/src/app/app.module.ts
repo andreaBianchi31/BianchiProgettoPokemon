@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SmallCardComponent } from './small-card/small-card.component';
 import { CardContainerComponent } from './card-container/card-container.component';
 import { CoolCardComponent } from './cool-card/cool-card.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CoolCardComponent } from './cool-card/cool-card.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     Title

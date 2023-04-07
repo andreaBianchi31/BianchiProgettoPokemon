@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class PokedexService
 {
+  missingNo: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
+
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';
   searchPokemonSpecies: string = this.searchBaseURL + 'pokemon-species/';
@@ -19,14 +21,34 @@ export class PokedexService
   searchPokedex: string = this.searchBaseURL + 'pokedex/';
 
   pokemonList: Pokemon[] = [];
-  //currentPokemon: Pokemon = this.getPokemonByID('pikachu');
+  currentPokemon: Pokemon = this.missingNo;
   favouritesList: Pokemon[] = [];
 
-  language: string = 'eng'
+  language: string = 'eng';
+
+
+  /*
+  =====> MESSAGGIO IMPORTANTE <====
+  Questo sito web sfutta PokéAPI per ricavare dati precisi e abbondanti, sempre aggiornati.
+  Nonostante ciò, i dati dei pokemon di 9° Generazione (in particolare le loro immagini)
+  non sono del tutto aggiornati. Portate pazienza e scusate per il disagio!
+
+  ====> IMPORTANT MESSAGE <=====
+  This website relies on PokéAPI [link] to get accurate and abundant data that is always up to date.
+  Despite this, the data of the 9th Generation pokemon (expecially their images) are not
+  quite up to date. It doesn't depend on me. PokéAPI dev-team is keen on keeping the data
+  updated. Please be patient and sorry for the inconvenience!
+  */
 
 
   constructor(private httpAssistant: HttpClient)
   {
+  }
+
+
+  getMissingNo(): Pokemon
+  {
+    return this.missingNo;
   }
 
 
@@ -54,16 +76,17 @@ export class PokedexService
   }
 
 
-  /*getCurrentPokemon(): Pokemon
+  getCurrentPokemon(): Pokemon
   {
-    //return this.currentPokemon;
+    return this.currentPokemon;
   }
 
 
-  setCurrentPokemon(currentPokemon: Pokemon)
+  setCurrentPokemon(pokemon: Pokemon)
   {
-    this.currentPokemon = currentPokemon;
-  }*/
+    this.currentPokemon = pokemon;
+  }
+
 
   getFavouritePokemonList(): Pokemon[]
   {
@@ -106,19 +129,6 @@ export class PokedexService
     return this.httpAssistant.get(url);
   }
 
-  /*getPokemonSpeciesByURL(url: string): Pokemon
-  {
-    let pokemon: Pokemon;
-
-    this.httpAssistant.get(url).subscribe (
-      (data: any) => {
-        console.log(data);
-        pokemon = new Pokemon(data.name, '', '');
-        return pokemon;
-      }
-    );
-  }*/
-
 
   getPokemonByType(type: string): Observable<any>
   {
@@ -156,8 +166,9 @@ export class PokedexService
   }
 
 
-  bubbleSortPokemonList(pokemonList: Pokemon[]): Pokemon[]
+  sortPokemonList(pokemonList: Pokemon[]): Pokemon[]
   {
+    // BubbleSort
     for(let i = 0; i <= pokemonList.length-1; i++)
     {
         for(let j = 0; j < (pokemonList.length-i-1); j++)

@@ -1,6 +1,10 @@
 
 <app-cool-card></app-cool-card>
 
+<select [(ngModel)] = "generation" (change)="getPokemonByGeneration()">
+    <option *ngFor="let gen of generationList">{{gen}}</option>
+</select>
+
 <div>
     <app-small-card *ngFor="let pokemon of pokemonList; let i = index" [pokemon]="pokemon"></app-small-card>
 </div>
