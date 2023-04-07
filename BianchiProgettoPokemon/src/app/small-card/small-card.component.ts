@@ -24,7 +24,7 @@ export class SmallCardComponent
 
   constructor(pokedex: PokedexService)
   {
-    this.pokemon = new Pokemon ('SEES di Prova', '', '');
+    this.pokemon = new Pokemon (10000, 'SEES di Prova', '', '');
     this.name = this.pokemon.name;
     this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
     this.officialArtworkShiny = this.pokemon.officialArtworkShiny;

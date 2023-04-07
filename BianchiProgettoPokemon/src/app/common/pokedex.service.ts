@@ -141,4 +141,23 @@ export class PokedexService
     return this.httpAssistant.get(this.searchGame + gameVersion);
   }
 
+
+  bubbleSortPokemonList(pokemonList: Pokemon[]): Pokemon[]
+  {
+    for(let i = 0; i <= pokemonList.length-1; i++)
+    {
+        for(let j = 0; j < ( pokemonList.length - i -1); j++)
+        {
+            if(pokemonList[j].id > pokemonList[j+1].id)
+            {
+              let temp = pokemonList[j]
+              pokemonList[j] = pokemonList[j + 1]
+              pokemonList[j+1] = temp
+            }
+        }
+    }
+
+    return pokemonList;
+}
+
 }
