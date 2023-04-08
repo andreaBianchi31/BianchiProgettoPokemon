@@ -8,13 +8,17 @@ import { SmallCardComponent } from './small-card/small-card.component';
 import { CardContainerComponent } from './card-container/card-container.component';
 import { CoolCardComponent } from './cool-card/cool-card.component';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SmallCardComponent,
     CardContainerComponent,
-    CoolCardComponent
+    CoolCardComponent,
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
