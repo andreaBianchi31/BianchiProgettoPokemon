@@ -10,6 +10,7 @@ import { CoolCardComponent } from './cool-card/cool-card.component';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LoginComponent } from './login/login.component';
     CardContainerComponent,
     CoolCardComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,

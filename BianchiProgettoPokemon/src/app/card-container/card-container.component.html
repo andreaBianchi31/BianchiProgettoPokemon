@@ -1,11 +1,22 @@
 
+<!--
+<app-navbar></app-navbar>
+
 <app-cool-card></app-cool-card>
 
-<select [(ngModel)] = "generation" (change)="getPokemonByGeneration()">
-    <option *ngFor="let gen of generationList">{{gen}}</option>
+<app-slider></app-slider>
+-->
+
+<select [(ngModel)]="generation" (change)="getPokemonByGeneration()">
+    <option *ngFor="let gen of generationList" [value]="gen">{{gen}}</option>
 </select>
 
-<div>
+<div *ngIf="arrivati; else nonArrivati">
+    <p>{{pokemonList.length}} pokemon species found</p>
     <app-small-card *ngFor="let pokemon of pokemonList; let i = index" [pokemon]="pokemon"></app-small-card>
 </div>
+
+<ng-template #nonArrivati>
+    <p class="font-bold">Data not available...</p>
+</ng-template>
 
