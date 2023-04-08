@@ -15,14 +15,19 @@ export class SmallCardComponent
   artwork: string;
   officialArtworkNormal: string;
   officialArtworkShiny: string;
+
+  redStarNormal: string = '../assets/images/star-icon-red-normal.png';
+  redStarShiny: string = '../assets/images/star-icon-red-shiny.png';
+  redStar: string = this.redStarNormal;
+  isFavourite: boolean;
+
+  favouriteNo: string = '../assets/images/heart-icon-normal.png';
+  favouriteYes: string = '../assets/images/heart-icon-favourite.png';
+  favourite: string = this.favouriteNo;
   isShiny: boolean;
 
-  redStar: string;
-  redStarNormal: string;
-  redStarShiny: string;
 
-
-  constructor(pokedex: PokedexService)
+  constructor(private pokedex: PokedexService)
   {
     this.pokemon = new Pokemon (10000, 'SEES di Prova', '', '');
     this.name = this.pokemon.name;
@@ -35,6 +40,7 @@ export class SmallCardComponent
     this.redStar = this.redStarNormal;
     this.artwork = this.officialArtworkNormal;
     this.isShiny = false;
+    this.isFavourite = false;
   }
 
   ngOnInit()
@@ -49,6 +55,7 @@ export class SmallCardComponent
     this.redStar = this.redStarNormal;
     this.artwork = this.officialArtworkNormal;
     this.isShiny = false;
+    this.isFavourite = false;
   }
 
 
@@ -66,6 +73,23 @@ export class SmallCardComponent
     }
 
     this.isShiny = !this.isShiny;
+  }
+
+  
+  invertFavourite()
+  {
+    if (this.isFavourite)
+    {
+      this.favourite = this.favouriteNo;
+      this.pokedex.removeFavouritePokemon(this.pokemon);
+    }
+    else
+    {
+      this.favourite = this.favouriteYes;
+      this.pokedex.addFavouritePokemon(this.pokemon);
+    }
+
+    this.isFavourite = !this.isFavourite;
   }
   
 }

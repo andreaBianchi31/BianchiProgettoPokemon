@@ -45,6 +45,7 @@ export class CardContainerComponent
         }
       }
     );
+
     console.log('Searching pokemon of Generation n. ' + this.generation);
     this.title.setTitle('Pokedex -  Generation n.' + this.generation);
   }

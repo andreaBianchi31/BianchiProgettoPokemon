@@ -22,7 +22,7 @@ export class PokedexService
 
   pokemonList: Pokemon[] = [];
   currentPokemon: Pokemon = this.missingNo;
-  favouritesList: Pokemon[] = [];
+  favouriteList: Pokemon[] = [];
 
   language: string = 'eng';
 
@@ -88,24 +88,38 @@ export class PokedexService
   }
 
 
+// ======================================================================================================================================================
+
+
   getFavouritePokemonList(): Pokemon[]
   {
-    return this.favouritesList;
+    this.favouriteList = this.sortPokemonList(this.favouriteList);
+    return this.favouriteList;
   }
+
 
   addFavouritePokemon(pokemon: Pokemon)
   {
-    this.favouritesList.push(pokemon);
+    this.favouriteList.push(pokemon);
+    this.favouriteList = this.sortPokemonList(this.favouriteList);
+    console.log(this.favouriteList);
   }
+
 
   removeFavouritePokemon(pokemon: Pokemon)
   {
-    for (let index = 0; index < this.favouritesList.length; index++)
+    for (let index = 0; index < this.favouriteList.length; index++)
     {
-      if (this.favouritesList[index] == pokemon)
-        this.favouritesList.splice(index, 1);
+      if (this.favouriteList[index].id == pokemon.id)
+        this.favouriteList.splice(index, 1);
     }
+    this.favouriteList = this.sortPokemonList(this.favouriteList);
+    console.log(this.favouriteList);
   }
+
+
+// ======================================================================================================================================================
+
 
   getPokemonByID(id: string): Observable<any>
   {
