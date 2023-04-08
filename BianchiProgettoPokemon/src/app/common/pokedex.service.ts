@@ -21,6 +21,7 @@ export class PokedexService
   searchGeneration: string = this.searchBaseURL + 'generation/';
   searchGame: string = this.searchBaseURL + 'version-group/';
   searchPokedex: string = this.searchBaseURL + 'pokedex/';
+  serachRegion: string = this.searchBaseURL + 'region/';
 
   pokemonList: Pokemon[] = [];
   currentPokemon: Pokemon = this.missingNo;
@@ -140,7 +141,7 @@ export class PokedexService
     return this.httpAssistant.get(this.searchPokemonSpecies + id);
   }
 
-  getPokemonSpeciesByURL2(url: string): Observable<any>
+  getPokemonSpeciesByURL(url: string): Observable<any>
   {
     return this.httpAssistant.get(url);
   }
@@ -179,6 +180,13 @@ export class PokedexService
   getPokemonByGame(gameVersion: string): Observable<any>
   {
     return this.httpAssistant.get(this.searchGame + gameVersion);
+  }
+
+
+
+  getPokemonByRegion(region: string): Observable<any>
+  {
+    return this.httpAssistant.get(this.serachRegion + region);
   }
 
 

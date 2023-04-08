@@ -22,12 +22,14 @@ export class CardContainerComponent
     this.title.setTitle('Pokedex - Home');
     this.generation = 1;
     this.getPokemonByGeneration();
-    console.log(this.pokemonList);
     this.arrivati = false;
   }
 
   getPokemonByGeneration()
   {
+    console.log('Searching pokemon of Generation ' + this.generation + '...');
+    this.title.setTitle('Pokedex -  Generation ' + this.generation);
+
     this.arrivati = false;
 
     let dati = this.pokedex.getPokemonByGeneration('' + this.generation).subscribe(
@@ -38,7 +40,7 @@ export class CardContainerComponent
           let pokemonSpeciesList = data.pokemon_species;
 
           pokemonSpeciesList.forEach((pokemon: any) => {
-            this.pokedex.getPokemonSpeciesByURL2(pokemon.url).subscribe(
+            this.pokedex.getPokemonSpeciesByURL(pokemon.url).subscribe(
               data => {
                 let pokemon = new Pokemon(data.id, data.name, '', '');
                 this.pokemonList.push(pokemon);
@@ -47,16 +49,57 @@ export class CardContainerComponent
                 {
                   this.arrivati = true;
                   this.pokemonList = this.pokedex.sortPokemonList(this.pokemonList);
+                  console.log(this.pokemonList.length + ' pokemon species found!');
                 }
               }
             );
           });
         }
+        else
+        {
+          console.log('Failed search!');
+        }
       }
     );
+  }
 
-    console.log('Searching pokemon of Generation ' + this.generation + '...');
-    this.title.setTitle('Pokedex -  Generation ' + this.generation);
+
+  getPokemonByRegion()
+  {
+    console.log('Searching pokemon from ' + this.generation + ' region...');
+    this.title.setTitle('Pokedex - ' + this.generation + ' region');
+
+    this.arrivati = false;
+
+    let dati = this.pokedex.getPokemonByRegion('' + this.generation).subscribe(
+      data => {
+        if (data != undefined)
+        {
+          this.pokemonList = [];
+          let pokemonSpeciesList = data.pokemon_species;
+
+          pokemonSpeciesList.forEach((pokemon: any) => {
+            this.pokedex.getPokemonSpeciesByURL(pokemon.url).subscribe(
+              data => {
+                let pokemon = new Pokemon(data.id, data.name, '', '');
+                this.pokemonList.push(pokemon);
+
+                if (pokemonSpeciesList.length == this.pokemonList.length)
+                {
+                  this.arrivati = true;
+                  this.pokemonList = this.pokedex.sortPokemonList(this.pokemonList);
+                  console.log(this.pokemonList.length + ' pokemon species found!');
+                }
+              }
+            );
+          });
+        }
+        else
+        {
+          console.log('Failed search!');
+        }
+      }
+    );
   }
 
 }

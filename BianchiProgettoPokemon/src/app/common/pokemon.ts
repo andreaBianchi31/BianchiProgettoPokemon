@@ -1,10 +1,13 @@
+import { HttpClient } from "@angular/common/http";
+import { PokedexService } from "./pokedex.service";
+
 export class Pokemon
 {
     id: number;
     name: string;
     officialArtworkNormal: string;
     officialArtworkShiny: string;
-
+    
     /*
 
     pokedexNumber: number;
