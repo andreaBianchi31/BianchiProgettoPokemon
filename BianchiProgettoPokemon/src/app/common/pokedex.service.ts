@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
 import { Observable } from 'rxjs';
+import { PokemonSpecies } from './pokemon-species';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class PokedexService
 {
   missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
-  missingNo: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
+  missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
+  //  \missingNoSpecies: PokemonSpecies;
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';
@@ -24,7 +26,7 @@ export class PokedexService
   serachRegion: string = this.searchBaseURL + 'region/';
 
   pokemonList: Pokemon[] = [];
-  currentPokemon: Pokemon = this.missingNo;
+  currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];
 
   language: string = 'eng';
@@ -51,7 +53,7 @@ export class PokedexService
 
   getMissingNo(): Pokemon
   {
-    return this.missingNo;
+    return this.missingNoPokemon;
   }
 
 

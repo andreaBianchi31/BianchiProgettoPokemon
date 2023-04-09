@@ -13,7 +13,7 @@ export class CardContainerComponent
   pokemonList: Pokemon[] = [];
 
   generation: number;
-  generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   datiDisponibili: boolean;
 
@@ -26,7 +26,7 @@ export class CardContainerComponent
     this.datiDisponibili = false;
   }
 
-  
+
   getPokemonByGeneration()
   {
     console.log('Searching pokemon of Generation ' + this.generation + '...');
@@ -36,8 +36,6 @@ export class CardContainerComponent
 
     let dati = this.pokedex.getPokemonByGeneration('' + this.generation).subscribe(
       data => {
-        if (data != undefined)
-        {
           this.pokemonList = [];
           let pokemonSpeciesList = data.pokemon_species;
 
@@ -56,50 +54,9 @@ export class CardContainerComponent
               }
             )
           });
-        }
-        else
-        {
-          console.log('Failed search!');
-        }
-      }
-    );
-  }
-
-
-  getPokemonByRegion()
-  {
-    console.log('Searching pokemon from ' + this.generation + ' region...');
-    this.title.setTitle('Pokedex - ' + this.generation + ' region');
-
-    this.datiDisponibili = false;
-
-    let dati = this.pokedex.getPokemonByRegion('' + this.generation).subscribe(
-      data => {
-        if (data != undefined)
-        {
-          this.pokemonList = [];
-          let pokemonSpeciesList = data.pokemon_species;
-
-          pokemonSpeciesList.forEach((pokemon: any) => {
-            this.pokedex.getPokemonSpeciesByURL(pokemon.url).subscribe(
-              data => {
-                let pokemon = new Pokemon(data.id, data.name, '', '');
-                this.pokemonList.push(pokemon);
-
-                if (pokemonSpeciesList.length == this.pokemonList.length)
-                {
-                  this.datiDisponibili = true;
-                  this.pokemonList = this.pokedex.sortPokemonList(this.pokemonList);
-                  console.log(this.pokemonList.length + ' pokemon species found!');
-                }
-              }
-            );
-          });
-        }
-        else
-        {
-          console.log('Failed search!');
-        }
+      },
+      (error) => {
+        console.log('Failed search!');
       }
     );
   }
