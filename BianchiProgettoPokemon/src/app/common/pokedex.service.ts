@@ -12,7 +12,8 @@ export class PokedexService
   missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
   missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
-  //  \missingNoSpecies: PokemonSpecies;
+  //missingNoSpecies: PokemonSpecies; (-151)
+  //missingNoPokemon: Pokemon; (-151)
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';

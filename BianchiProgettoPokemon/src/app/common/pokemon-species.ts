@@ -4,8 +4,6 @@ import { Pokemon } from "./pokemon";
 
 export class PokemonSpecies
 {
-    //missingNo: PokemonSpecies; (-151)
-
     id: number = 0;
     name: string = '';
     pokedexNumber: number = 0; //numero pokedex
@@ -19,6 +17,7 @@ export class PokemonSpecies
     category: string = ''; //genera
     varieties: Pokemon[] = []; //forme alternative
     generation: number = 0;
+    //defaultPokemon: Pokemon; //pokemon da mostrare (es. immagine)
 
     arrivati: boolean = false;
 
@@ -39,8 +38,6 @@ export class PokemonSpecies
         arrivati: boolean,
         httpAssistant: HttpClient)
     {
-
-
         this.id = id;
         this.name = name;
         this.pokedexNumber = pokedexNumber;
@@ -85,6 +82,16 @@ export class PokemonSpecies
             case 'generation-viii': this.generation = 8; break;
             case 'generation-ix': this.generation = 9; break;
         }
+
+        if(this.varieties.length == 0)
+        {
+            //this.defaultPokemon = httpAssistant.missingNoPokemon;
+        }
+        else
+        {
+            //this.defaultPokemon = this.varieties[0];
+        }
+        
     }
 
     
