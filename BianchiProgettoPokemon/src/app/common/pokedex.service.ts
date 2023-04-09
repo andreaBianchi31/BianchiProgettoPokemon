@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class PokedexService
 {
-  missingNumberNormal: string = '../assets/images/utility/missing-number-normal.jpg';
-  missingNumberShiny: string = '../assets/images/utility/missing-number-normal.jpg';
+  missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
+  missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
   missingNo: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';

@@ -5,7 +5,7 @@ export class PokemonSpecies
 {
     id: number = 0;
     name: string = '';
-    order: number = 0; //numero pokedex
+    pokedexNumber: number = 0; //numero pokedex
     isBaby: boolean = false;
     isLegendary: boolean = false;
     isMythical: boolean = false;
@@ -17,9 +17,36 @@ export class PokemonSpecies
     varieties: Pokemon[] = []; //forme alternative
     generation: number = 0;
 
+    arrivati: boolean = false;
 
-    constructor()
+
+    constructor(id: number,
+        name: string,
+        pokedexNumber: number,
+        isBaby: boolean,
+        isLegendary: boolean,
+        isMythical: boolean,
+        flavorTextEntries: string[],
+        formDescriptions: string,
+        category: string,
+        varieties: string[],
+        generation: number,
+        arrivati: boolean)
     {
-
+        this.id = id;
+        this.name = name;
+        this.pokedexNumber = pokedexNumber;
+        this.isBaby = isBaby;
+        this.isLegendary = isLegendary;
     }
+
+    
+    equals(pokemon: Pokemon): boolean
+    {
+        if (pokemon == null || pokemon.id != this.id)
+            return false;
+        else
+            return true;
+    }
+
 }

@@ -15,22 +15,24 @@ export class CardContainerComponent
   generation: number;
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  arrivati: boolean;
+  datiDisponibili: boolean;
+
 
   constructor(private pokedex: PokedexService, private title: Title)
   {
     this.title.setTitle('Pokedex - Home');
     this.generation = 1;
     this.getPokemonByGeneration();
-    this.arrivati = false;
+    this.datiDisponibili = false;
   }
 
+  
   getPokemonByGeneration()
   {
     console.log('Searching pokemon of Generation ' + this.generation + '...');
     this.title.setTitle('Pokedex -  Generation ' + this.generation);
 
-    this.arrivati = false;
+    this.datiDisponibili = false;
 
     let dati = this.pokedex.getPokemonByGeneration('' + this.generation).subscribe(
       data => {
@@ -41,18 +43,18 @@ export class CardContainerComponent
 
           pokemonSpeciesList.forEach((pokemon: any) => {
             this.pokedex.getPokemonSpeciesByURL(pokemon.url).subscribe(
-              data => {
+              (data: any) => {
                 let pokemon = new Pokemon(data.id, data.name, '', '');
                 this.pokemonList.push(pokemon);
 
                 if (pokemonSpeciesList.length == this.pokemonList.length)
                 {
-                  this.arrivati = true;
+                  this.datiDisponibili = true;
                   this.pokemonList = this.pokedex.sortPokemonList(this.pokemonList);
                   console.log(this.pokemonList.length + ' pokemon species found!');
                 }
               }
-            );
+            )
           });
         }
         else
@@ -69,7 +71,7 @@ export class CardContainerComponent
     console.log('Searching pokemon from ' + this.generation + ' region...');
     this.title.setTitle('Pokedex - ' + this.generation + ' region');
 
-    this.arrivati = false;
+    this.datiDisponibili = false;
 
     let dati = this.pokedex.getPokemonByRegion('' + this.generation).subscribe(
       data => {
@@ -86,7 +88,7 @@ export class CardContainerComponent
 
                 if (pokemonSpeciesList.length == this.pokemonList.length)
                 {
-                  this.arrivati = true;
+                  this.datiDisponibili = true;
                   this.pokemonList = this.pokedex.sortPokemonList(this.pokemonList);
                   console.log(this.pokemonList.length + ' pokemon species found!');
                 }

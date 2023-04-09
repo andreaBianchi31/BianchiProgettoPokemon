@@ -25,6 +25,8 @@ export class Pokemon
     specialDefense: number;
     speed: number;
 
+    varieties: Pokemon[];
+    pokemonSpecies: PokemonSpecies;
     speciesName: string;
     speciesURL: string;
 
@@ -45,4 +47,33 @@ export class Pokemon
         this.officialArtworkNormal = officialArtworkNormal;
         this.officialArtworkShiny = officialArtworkShiny;
     }
+
+
+    // EQUALS => ID
+    equals(pokemon: Pokemon): boolean
+    {
+        if (pokemon == null || pokemon.id != this.id)
+            return false;
+        else
+            return true;
+    }
+
+    
+    equalsName(pokemon: Pokemon): boolean
+    {
+        if (pokemon == null || pokemon.name != this.name)
+            return false;
+        else
+            return true;
+    }
+
+
+    /* EQUALS => specie (ID)
+    equalsSpecies(pokemon: Pokemon): boolean
+    {
+        if (pokemon == null || !pokemon.pokemonSpecies.equals(this.pokemonSpecies))
+            return false;
+        else
+            return true;
+    }*/
 }
