@@ -13,7 +13,7 @@ export class CardContainerComponent
   pokemonList: Pokemon[] = [];
 
   generation: number;
-  generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   datiDisponibili: boolean;
 
@@ -40,7 +40,7 @@ export class CardContainerComponent
           let pokemonSpeciesList = data.pokemon_species;
 
           pokemonSpeciesList.forEach((pokemon: any) => {
-            this.pokedex.getPokemonSpeciesByURL(pokemon.url).subscribe(
+            this.pokedex.getPokemonSpeciesByUrl(pokemon.url).subscribe(
               (data: any) => {
                 let pokemon = new Pokemon(data.id, data.name, '', '');
                 this.pokemonList.push(pokemon);

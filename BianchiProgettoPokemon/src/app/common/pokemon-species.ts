@@ -10,9 +10,9 @@ export class PokemonSpecies
     isBaby: boolean = false;
     isLegendary: boolean = false;
     isMythical: boolean = false;
-    evolvesFromSpecies: PokemonSpecies[] = [];
+    evolvesFromSpecies: any; // PokemonSpecies
     evolutionChain: PokemonSpecies[] = [];
-    flavorTextEntries: string[] = ['', '', '', '', ''];
+    flavorTextEntries: string[] = [''];
     formDescription: string = ''; //non per tutti i pokemon, opzionale ("NB: descrizione")
     category: string = ''; //genera
     varieties: Pokemon[] = []; //forme alternative
@@ -29,14 +29,14 @@ export class PokemonSpecies
         isLegendary: boolean,
         isMythical: boolean,
         evolvesFromSpecies: any,
-        evolutionChain: string[],
-        flavorTextEntries: string[],
-        formDescription: string,
+        evolutionChain: any,
+        flavorTextEntries: any[],
+        formDescription: any,
         category: string,
         varieties: string[],
         generation: string,
         arrivati: boolean,
-        httpAssistant: HttpClient)
+        pokedex: PokedexService)
     {
         this.id = id;
         this.name = name;
@@ -44,34 +44,14 @@ export class PokemonSpecies
         this.isBaby = isBaby;
         this.isLegendary = isLegendary;
         this.isMythical = isMythical;
-        
-        // evolvesFrom => ricerca (specie unica)
-
-        if (evolvesFromSpecies == null)
-        {
-            // setta a nullo
-            //this.evolvesFromSpecies = ;
-        }
-        else
-        {
-            httpAssistant.get(evolvesFromSpecies).subscribe(
-                (data) => {
-
-                }
-            );
-        }
-
-        // evolutionChian => ricerca (multiple species)
-
-        // flavor text entries => fare un vettore con tutte
-
-        this.formDescription = formDescription;
         this.category = category;
-        
-        // varieties => ricerca (pokemon normali, multpli)
 
-        switch(generation)
-        {
+        if (formDescription == null)
+            this.formDescription = 'no-description';
+        else
+            this.formDescription = formDescription;
+        
+        switch(generation) {
             case 'generation-i': this.generation = 1; break;
             case 'generation-ii': this.generation = 2; break;
             case 'generation-iii': this.generation = 3; break;
@@ -82,6 +62,64 @@ export class PokemonSpecies
             case 'generation-viii': this.generation = 8; break;
             case 'generation-ix': this.generation = 9; break;
         }
+
+
+        // ===> EVOLVES FROM
+        if (evolvesFromSpecies == null)
+        {
+            // setta a nullo
+            //this.evolvesFromSpecies = ;
+        }
+        else
+        {
+            pokedex.getPokemonSpeciesByUrl(evolvesFromSpecies.url).subscribe (
+                (data) => {
+                    this.evolvesFromSpecies = new PokemonSpecies(0, '', 0, true, true, true, '', [''], [''], '', '', [''], '', true, pokedex);
+                }
+            );
+        }
+
+
+        // ===> EVOLUTION CHAIN
+        pokedex.getPokemonByEvolutionChain(evolutionChain.url).subscribe (
+            (data) => {
+                let evolutionList = data.chain.evolves_to;
+                let creature: PokemonSpecies;
+
+                evolutionList.forEach((monster: any) => {
+                    pokedex.getPokemonSpeciesByUrl(monster.species.url).subscribe (
+                        (data: any) => {
+                            monster.evolves_to.forEach((other: any) => {
+                                pokedex.getPokemonSpeciesByUrl(other.species.url).subscribe (
+                                    (data: any) => {
+                                        creature = new PokemonSpecies(0, '', 0, true, true, true, '', [''], [''], '', '', [''], '', true, pokedex);
+                                        this.evolutionChain.push(creature);
+                                    }
+                                );
+                            });
+                            creature = new PokemonSpecies(0, '', 0, true, true, true, '', [''], [''], '', '', [''], '', true, pokedex);
+                            this.evolutionChain.push(creature);
+                        }
+                    );
+                });
+            }
+        );
+
+
+        // ===> FLAVOR TEXT ENTRIES
+        let entryText = '';
+        flavorTextEntries.forEach(entry => {
+            if (entry.language.name == pokedex.getLanguage())
+            {
+                entryText = entry.flavor_text;
+                entryText = entryText.replace("\n"," ");
+                this.flavorTextEntries.push(entryText);
+            }
+        });
+
+        
+        // varieties => ricerca (pokemon normali, multpli)
+
 
         if(this.varieties.length == 0)
         {

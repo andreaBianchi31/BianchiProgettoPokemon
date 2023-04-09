@@ -139,17 +139,6 @@ export class PokedexService
   }
 
 
-  getPokemonSpeciesByID(id: string): Observable<any>
-  {
-    return this.httpAssistant.get(this.searchPokemonSpecies + id);
-  }
-
-  getPokemonSpeciesByURL(url: string): Observable<any>
-  {
-    return this.httpAssistant.get(url);
-  }
-
-
   getPokemonByType(type: string): Observable<any>
   {
     return this.httpAssistant.get(this.searchType + type);
@@ -210,6 +199,17 @@ export class PokedexService
     }
 
     return pokemonList;
+  }
+
+
+  getPokemonSpecies(name: string): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchPokemonSpecies + name);
+  }
+  
+  getPokemonSpeciesByUrl(url: string): Observable<any>
+  {
+    return this.httpAssistant.get(url);
   }
 
 }
