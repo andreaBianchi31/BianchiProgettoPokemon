@@ -12,7 +12,7 @@ export class PokemonSpecies
     isMythical: boolean = false;
     evolvesFromSpecies: any; // PokemonSpecies
     evolutionChain: PokemonSpecies[] = [];
-    flavorTextEntries: string[] = [''];
+    flavorTextEntries: string[] = [];
     formDescription: string = ''; //non per tutti i pokemon, opzionale ("NB: descrizione")
     category: string = ''; //genera
     varieties: Pokemon[] = []; //forme alternative
@@ -82,7 +82,7 @@ export class PokemonSpecies
             default: this.generation = 1; break;
         }
 
-        
+
         // ===> FLAVOR TEXT ENTRIES
         let entryText = '';
         flavorTextEntries.forEach(entry => {
@@ -91,7 +91,9 @@ export class PokemonSpecies
                 entryText = entry.flavor_text;
                 entryText = entryText.replace(/\n/g,' ');
                 entryText = entryText.replace(/\f/g,' ');
-                //console.log(entryText);
+                entryText = entryText.replace('POKéMON', 'Pokémon');
+                entryText = entryText.trim();
+
                 this.flavorTextEntries.push(entryText);
             }
         });

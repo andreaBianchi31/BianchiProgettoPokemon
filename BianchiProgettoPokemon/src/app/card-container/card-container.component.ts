@@ -45,14 +45,13 @@ export class CardContainerComponent
               (data: any) => {
                 let pokemon = new PokemonSpecies(data.id, data.names, data.order, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.generation, data.generation.name, this.pokedex);
                 this.pokemonList.push(pokemon);
-                console.log(pokemon);
 
                 if (pokemonSpeciesList.length == this.pokemonList.length)
                 {
                   this.datiDisponibili = true;
                   this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
                   console.log(this.pokemonList.length + ' pokemon species found!');
-                  //console.log(this.pokemonList);
+                  console.log(this.pokemonList);
                 }
               }
             )
