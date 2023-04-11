@@ -14,7 +14,7 @@ export class CardContainerComponent
   pokemonList: PokemonSpecies[] = [];
 
   generation: number;
-  generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
   datiDisponibili: boolean;
 
