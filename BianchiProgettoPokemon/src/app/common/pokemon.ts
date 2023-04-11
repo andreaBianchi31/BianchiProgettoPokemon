@@ -58,22 +58,14 @@ export class Pokemon
             return true;
     }
 
-    
-    equalsName(pokemon: Pokemon): boolean
-    {
-        if (pokemon == null || pokemon.name != this.name)
-            return false;
-        else
-            return true;
-    }
 
-
-    /* EQUALS => specie (ID)
+    //EQUALS => specie (ID)
     equalsSpecies(pokemon: Pokemon): boolean
     {
+        /*
         if (pokemon == null || !pokemon.pokemonSpecies.equals(this.pokemonSpecies))
             return false;
-        else
+        else*/
             return true;
-    }*/
+    }
 }

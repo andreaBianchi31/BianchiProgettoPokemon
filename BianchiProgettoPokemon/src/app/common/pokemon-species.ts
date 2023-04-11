@@ -4,22 +4,24 @@ import { Pokemon } from "./pokemon";
 
 export class PokemonSpecies
 {
-    id: number = 0;
-    name: string = 'sos';
-    pokedexNumber: number = 0; //numero pokedex
+    id: number = -151;
+    name: string = 'MissingNo';
+    pokedexNumber: number = -151; //numero pokedex
     isBaby: boolean = false;
     isLegendary: boolean = false;
     isMythical: boolean = false;
     evolvesFromSpecies: any; // PokemonSpecies
     evolutionChain: PokemonSpecies[] = [];
     flavorTextEntries: string[] = [];
-    formDescription: string = ''; //non per tutti i pokemon, opzionale ("NB: descrizione")
-    category: string = ''; //genera
+    formDescription: string = 'This Pokémon species does not exist. This is a Missing Number pokemon, an error that was not meant to exist.'; //non per tutti i pokemon, opzionale ("NB: descrizione")
+    category: string = 'Missing Number pokémon'; //genera
     varieties: Pokemon[] = []; //forme alternative
-    generation: number = 0;
+    generation: number = 1;
     //defaultPokemon: Pokemon; //pokemon da mostrare (es. immagine)
 
     //arrivati: boolean = false;
+
+    pokedex: PokedexService;
 
 
     /*
@@ -40,13 +42,14 @@ export class PokemonSpecies
         generation: string,
         pokedex: PokedexService)
     {
-        // ===> GENERICS
+        // ===> GENERIC
         this.id = id;
         this.pokedexNumber = pokedexNumber;
         this.isBaby = isBaby;
         this.isLegendary = isLegendary;
         this.isMythical = isMythical;
         this.category = category;
+        this.pokedex = pokedex;
 
 
         // ===> NAME
@@ -84,7 +87,10 @@ export class PokemonSpecies
 
 
         // ===> FLAVOR TEXT ENTRIES
-        let entryText = '';
+
+        this.flavorTextEntries = pokedex.getEntryByLanguage(flavorTextEntries, pokedex.language);
+
+        /*let entryText = '';
         flavorTextEntries.forEach(entry => {
             if (entry.language != undefined && entry.language != null && entry.language.name == pokedex.language)
             {
@@ -96,7 +102,7 @@ export class PokemonSpecies
 
                 this.flavorTextEntries.push(entryText);
             }
-        });
+        });*/
 
 
         /*
@@ -162,6 +168,12 @@ export class PokemonSpecies
             return false;
         else
             return true;
+    }
+
+
+    changeEntries(language: string)
+    {
+        this.flavorTextEntries = this.pokedex.getEntryByLanguage(this.flavorTextEntries, language);
     }
 
 }

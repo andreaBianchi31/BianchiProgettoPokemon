@@ -11,6 +11,7 @@ export class PokedexService
 {
   missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
+  missingNumberSprite: string = '../assets/images/missing-number/missing-number-sprite.png';
   missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
   //missingNoSpecies: PokemonSpecies; (-151)
   //missingNoPokemon: Pokemon; (-151)
@@ -233,6 +234,28 @@ export class PokedexService
   getPokemonSpeciesByUrl(url: string): Observable<any>
   {
     return this.httpAssistant.get(url);
+  }
+
+
+  getEntryByLanguage(flavorTextEntries: any[], language: string): string[]
+  {
+    let finalEntries: string[] = [];
+    
+    let entryText = '';
+    flavorTextEntries.forEach(entry => {
+        if (entry.language != undefined && entry.language != null && entry.language.name == language)
+        {
+            entryText = entry.flavor_text;
+            entryText = entryText.replace(/\n/g,' ');
+            entryText = entryText.replace(/\f/g,' ');
+            entryText = entryText.replace('POKéMON', 'Pokémon');
+            entryText = entryText.trim();
+
+            finalEntries.push(entryText);
+        }
+    });
+
+    return finalEntries;
   }
 
 }
