@@ -13,7 +13,7 @@ export class PokemonSpecies
     evolvesFromSpecies: any; // PokemonSpecies
     evolutionChain: PokemonSpecies[] = [];
     flavorTextEntries: string[] = [];
-    formDescription: string = 'This Pokémon species does not exist. This is a Missing Number pokemon, an error that was not meant to exist.'; //non per tutti i pokemon, opzionale ("NB: descrizione")
+    formDescription: string = 'This Pokémon species does not exist. This is an error that was not meant to happen.'; //non per tutti i pokemon, opzionale ("NB: descrizione")
     category: string = 'Missing Number pokémon'; //genera
     varieties: Pokemon[] = []; //forme alternative
     generation: number = 1;
@@ -25,9 +25,9 @@ export class PokemonSpecies
 
 
     /*
-    evolvesFromSpecies: any,
-    evolutionChain: any,
-    varieties: string[],
+    evolvesFromSpecies: Pokemon;
+    evolutionChain: Pokemon[];
+    varieties: Pokemon[];
     */
 
     constructor(id: number,
