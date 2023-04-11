@@ -5,7 +5,7 @@ import { Pokemon } from "./pokemon";
 export class PokemonSpecies
 {
     id: number = 0;
-    name: string = '';
+    name: string = 'sos';
     pokedexNumber: number = 0; //numero pokedex
     isBaby: boolean = false;
     isLegendary: boolean = false;
@@ -19,39 +19,57 @@ export class PokemonSpecies
     generation: number = 0;
     //defaultPokemon: Pokemon; //pokemon da mostrare (es. immagine)
 
-    arrivati: boolean = false;
+    //arrivati: boolean = false;
 
+
+    /*
+    evolvesFromSpecies: any,
+    evolutionChain: any,
+    varieties: string[],
+    */
 
     constructor(id: number,
-        name: string,
+        names: any[],
         pokedexNumber: number,
         isBaby: boolean,
         isLegendary: boolean,
         isMythical: boolean,
-        evolvesFromSpecies: any,
-        evolutionChain: any,
         flavorTextEntries: any[],
         formDescription: any,
         category: string,
-        varieties: string[],
         generation: string,
-        arrivati: boolean,
         pokedex: PokedexService)
     {
+        // ===> GENERICS
         this.id = id;
-        this.name = name;
         this.pokedexNumber = pokedexNumber;
         this.isBaby = isBaby;
         this.isLegendary = isLegendary;
         this.isMythical = isMythical;
         this.category = category;
 
+
+        // ===> NAME
+        let nomeTrovato = false;
+        for (let index = 0; index < names.length && !nomeTrovato; index++)
+        {
+            if ((names[index].language.name + '') == pokedex.language) {
+                this.name = names[index].name;
+                nomeTrovato = true;
+            }
+        }
+
+
+        // ===> FORM DESCRIPTION
         if (formDescription == null)
             this.formDescription = 'no-description';
         else
             this.formDescription = formDescription;
-        
-        switch(generation) {
+
+
+        // ===> GENERATION
+        switch(generation)
+        {
             case 'generation-i': this.generation = 1; break;
             case 'generation-ii': this.generation = 2; break;
             case 'generation-iii': this.generation = 3; break;
@@ -61,9 +79,25 @@ export class PokemonSpecies
             case 'generation-vii': this.generation = 7; break;
             case 'generation-viii': this.generation = 8; break;
             case 'generation-ix': this.generation = 9; break;
+            default: this.generation = 1; break;
         }
 
+        
+        // ===> FLAVOR TEXT ENTRIES
+        let entryText = '';
+        flavorTextEntries.forEach(entry => {
+            if (entry.language != undefined && entry.language != null && entry.language.name == pokedex.language)
+            {
+                entryText = entry.flavor_text;
+                entryText = entryText.replace(/\n/g,' ');
+                entryText = entryText.replace(/\f/g,' ');
+                //console.log(entryText);
+                this.flavorTextEntries.push(entryText);
+            }
+        });
 
+
+        /*
         // ===> EVOLVES FROM
         if (evolvesFromSpecies == null)
         {
@@ -104,23 +138,8 @@ export class PokemonSpecies
                 });
             }
         );
-
-
-        // ===> FLAVOR TEXT ENTRIES
-        let entryText = '';
-        flavorTextEntries.forEach(entry => {
-            if (entry.language.name == pokedex.getLanguage())
-            {
-                entryText = entry.flavor_text;
-                entryText = entryText.replace("\n"," ");
-                this.flavorTextEntries.push(entryText);
-            }
-        });
-
         
         // varieties => ricerca (pokemon normali, multpli)
-
-
         if(this.varieties.length == 0)
         {
             //this.defaultPokemon = httpAssistant.missingNoPokemon;
@@ -130,12 +149,14 @@ export class PokemonSpecies
             //this.defaultPokemon = this.varieties[0];
         }
         
+        */
+        
     }
 
     
-    equals(pokemon: Pokemon): boolean
+    equals(pokemon: PokemonSpecies): boolean
     {
-        if (pokemon == null || pokemon.id != this.id)
+        if (pokemon == null || pokemon == undefined || pokemon.id != this.id)
             return false;
         else
             return true;

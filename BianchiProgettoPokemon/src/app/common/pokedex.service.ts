@@ -14,6 +14,8 @@ export class PokedexService
   missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
   //missingNoSpecies: PokemonSpecies; (-151)
   //missingNoPokemon: Pokemon; (-151)
+  typeNormal: string = '../assets/images/types/type-';
+  typeUnknown: string = '../assets/images/types/unknown-';
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';
@@ -30,7 +32,7 @@ export class PokedexService
   currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];
 
-  language: string = 'eng';
+  language: string = 'en';
 
 
   /*
@@ -202,10 +204,31 @@ export class PokedexService
   }
 
 
+  sortPokemonSpeciesList(pokemonList: PokemonSpecies[]): PokemonSpecies[]
+  {
+    // BubbleSort
+    for(let i = 0; i <= pokemonList.length-1; i++)
+    {
+        for(let j = 0; j < (pokemonList.length-i-1); j++)
+        {
+            if(pokemonList[j].id > pokemonList[j+1].id)
+            {
+              let temp = pokemonList[j]
+              pokemonList[j] = pokemonList[j + 1]
+              pokemonList[j+1] = temp
+            }
+        }
+    }
+
+    return pokemonList;
+  }
+
+
   getPokemonSpecies(name: string): Observable<any>
   {
     return this.httpAssistant.get(this.searchPokemonSpecies + name);
   }
+  
   
   getPokemonSpeciesByUrl(url: string): Observable<any>
   {

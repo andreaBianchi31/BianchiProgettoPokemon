@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 import { Pokemon } from '../common/pokemon';
+import { PokemonSpecies } from '../common/pokemon-species';
 
 @Component({
   selector: 'app-small-card',
@@ -9,12 +10,12 @@ import { Pokemon } from '../common/pokemon';
 })
 export class SmallCardComponent
 {
-  @Input() pokemon: Pokemon;
+  @Input() pokemon: PokemonSpecies;
 
   name: string;
-  artwork: string;
+  /*artwork: string;
   officialArtworkNormal: string;
-  officialArtworkShiny: string;
+  officialArtworkShiny: string;*/
 
   redStarNormal: string = '../assets/images/star-icon-red-normal.png';
   redStarShiny: string = '../assets/images/star-icon-red-shiny.png';
@@ -29,16 +30,16 @@ export class SmallCardComponent
 
   constructor(private pokedex: PokedexService)
   {
-    this.pokemon = new Pokemon (10000, 'SEES di Prova', '', '');
+    this.pokemon = new PokemonSpecies(151, [], 151, true, true, true, [''], '', '', '', pokedex);
     this.name = this.pokemon.name;
-    this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
-    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;
+    /*this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
+    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;*/
 
     this.redStarNormal = '../assets/images/star-icon-red-normal.png';
     this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
 
     this.redStar = this.redStarNormal;
-    this.artwork = this.officialArtworkNormal;
+    //this.artwork = this.officialArtworkNormal;
     this.isShiny = false;
     this.isFavourite = false;
   }
@@ -46,21 +47,21 @@ export class SmallCardComponent
   ngOnInit()
   {
     this.name = this.pokemon.name;
-    this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
-    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;
+    /*this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
+    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;*/
 
     this.redStarNormal = '../assets/images/star-icon-red-normal.png';
     this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
 
     this.redStar = this.redStarNormal;
-    this.artwork = this.officialArtworkNormal;
+    //this.artwork = this.officialArtworkNormal;
     this.isShiny = false;
     this.isFavourite = false;
   }
 
 
   invertArtwork()
-  {
+  {/*
     if (this.isShiny)
     {
       this.artwork = this.officialArtworkNormal;
@@ -72,12 +73,12 @@ export class SmallCardComponent
       this.redStar = this.redStarShiny;
     }
 
-    this.isShiny = !this.isShiny;
+    this.isShiny = !this.isShiny;*/
   }
 
   
   invertFavourite()
-  {
+  {/*
     if (this.isFavourite)
     {
       this.favourite = this.favouriteNo;
@@ -89,7 +90,7 @@ export class SmallCardComponent
       this.pokedex.addFavouritePokemon(this.pokemon);
     }
 
-    this.isFavourite = !this.isFavourite;
+    this.isFavourite = !this.isFavourite;*/
   }
   
 }
