@@ -92,7 +92,7 @@ export class Pokemon
             this.pixelBackShiny = sprites.back_shiny;
         
         // OFFICIAL - DEFAULT
-        if (sprites.other['official-artwork'].front_deafult == null)
+        if (sprites.other['official-artwork'].front_default == null)
             this.officialArtworkDefault = pokedex.missingNumberNormal;
         else
             this.officialArtworkDefault = sprites.other['official-artwork'].front_default;
