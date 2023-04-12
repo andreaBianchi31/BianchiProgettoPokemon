@@ -175,7 +175,7 @@ export class PokemonSpecies
         this.varieties.forEach((variety: any) => {
             pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
                 (data) => {
-                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.height, data.weight, data.types, data.stats, pokedex);
+                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.height, data.weight, data.types, data.stats, data.forms, pokedex);
                     this.pokemonVarieties.push(pokemon);
                 }
             );
@@ -184,6 +184,32 @@ export class PokemonSpecies
             {
                 this.defaultPokemon = this.pokemonVarieties[0];
             }
+        });
+    }
+
+
+    setPokemonFormNames(pokedex: PokedexService)
+    {
+        this.pokemonVarieties.forEach((variety: Pokemon) => {
+            console.log(variety.forms);
+            variety.forms.forEach((form: any) => {
+                pokedex.getPokemonFormByUrl(form.url).subscribe (
+                    (data: any) => {
+                        let trovato = false;
+                        for (let index = 0; index < data.names.length && !trovato; index++)
+                        {
+                            if (data.names[index].language.name == pokedex.getLanguage())
+                            {
+                                console.log(data.names[index].name);
+                                variety.name = data.names[index].name;
+                                trovato = true;
+                            }
+                        }
+    
+                        this.defaultPokemon = this.pokemonVarieties[0];
+                    }
+                ); 
+            });
         });
     }
 

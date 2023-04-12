@@ -154,9 +154,9 @@ export class PokedexService
   }
 
 
-  getPokemonForms(name: string)
+  getPokemonFormByUrl(url: string)
   {
-
+    return this.httpAssistant.get(url);
   }
 
 

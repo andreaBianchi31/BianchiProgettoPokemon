@@ -28,15 +28,18 @@ export class Pokemon
     specialAttack: number = 0;
     specialDefense: number = 0;
     speed: number = 0;
+
+    forms: any[] = [];
     
 
     constructor(id: number, name: string, pokedexNumber: number, sprites: any, height: number, weight: number,
-        types: any, stats: any[], pokedex: PokedexService)
+        types: any, stats: any[], forms: any[], pokedex: PokedexService)
     {
         // ===> GENERIC
         this.id = id;
         this.name = name;
         this.pokedexNumber = pokedexNumber;
+        this.forms = forms;
         this.height = height/10;
         this.weight = weight/1000;
 

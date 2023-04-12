@@ -53,6 +53,7 @@ export class CardContainerComponent
                   console.log(this.pokemonList.length + ' pokemon species found!');
                   console.log(this.pokemonList);
                   this.getAllVarieties();
+                  this.getAllFormNames();
                 }
               }
             )
@@ -69,6 +70,13 @@ export class CardContainerComponent
   {
     this.pokemonList.forEach((pokemon: PokemonSpecies) => {
       pokemon.setPokemonVarieties(this.pokedex);
+    });
+  }
+
+  getAllFormNames()
+  {
+    this.pokemonList.forEach((pokemon: PokemonSpecies) => {
+      pokemon.setPokemonFormNames(this.pokedex);
     });
   }
 
