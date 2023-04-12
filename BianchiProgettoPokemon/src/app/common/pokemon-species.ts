@@ -15,16 +15,14 @@ export class PokemonSpecies
     flavorTextEntries: string[] = [];
     formDescription: string = 'This Pokémon species does not exist. This is an error that was not meant to happen.'; //non per tutti i pokemon, opzionale ("NB: descrizione")
     category: string = 'Missing Number pokémon'; //genera
-    varieties: Pokemon[] = []; //forme alternative
     generation: number = 1;
-    //defaultPokemon: Pokemon; //pokemon da mostrare (es. immagine)
 
-    //arrivati: boolean = false;
+    varieties: any[] = []; //forme alternative
+    pokemonVarieties: Pokemon[] = [];
+    defaultPokemon: Pokemon = this.varieties[0]; //pokemon da mostrare (es. immagine)
 
-    pokedex: PokedexService;
 
-
-    /*
+    /* DA IMPLEMENTARE (non necessari)
     evolvesFromSpecies: Pokemon;
     evolutionChain: Pokemon[];
     varieties: Pokemon[];
@@ -40,6 +38,7 @@ export class PokemonSpecies
         formDescription: any,
         category: string,
         generation: string,
+        varieties: any[],
         pokedex: PokedexService)
     {
         // ===> GENERIC
@@ -49,7 +48,6 @@ export class PokemonSpecies
         this.isLegendary = isLegendary;
         this.isMythical = isMythical;
         this.category = category;
-        this.pokedex = pokedex;
 
 
         // ===> NAME
@@ -87,8 +85,13 @@ export class PokemonSpecies
 
 
         // ===> FLAVOR TEXT ENTRIES
-
         this.flavorTextEntries = pokedex.getEntryByLanguage(flavorTextEntries, pokedex.language);
+
+
+        // ===> VARIETIES
+        this.varieties = varieties;
+
+        
 
         /*let entryText = '';
         flavorTextEntries.forEach(entry => {
@@ -147,16 +150,6 @@ export class PokemonSpecies
             }
         );
         
-        // varieties => ricerca (pokemon normali, multpli)
-        if(this.varieties.length == 0)
-        {
-            //this.defaultPokemon = httpAssistant.missingNoPokemon;
-        }
-        else
-        {
-            //this.defaultPokemon = this.varieties[0];
-        }
-        
         */
         
     }
@@ -171,9 +164,27 @@ export class PokemonSpecies
     }
 
 
-    changeEntries(language: string)
+    changeEntries(language: string, pokedex: PokedexService)
     {
-        this.flavorTextEntries = this.pokedex.getEntryByLanguage(this.flavorTextEntries, language);
+        this.flavorTextEntries = pokedex.getEntryByLanguage(this.flavorTextEntries, language);
+    }
+
+
+    setPokemonVarieties(pokedex: PokedexService)
+    {
+        this.varieties.forEach((variety: any) => {
+            pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
+                (data) => {
+                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.height, data.weight, data.types, data.stats, pokedex);
+                    this.pokemonVarieties.push(pokemon);
+                }
+            );
+
+            if (this.pokemonVarieties.length == this.varieties.length)
+            {
+                this.defaultPokemon = this.pokemonVarieties[0];
+            }
+        });
     }
 
 }

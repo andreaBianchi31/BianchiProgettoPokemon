@@ -12,7 +12,7 @@ export class PokedexService
   missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
   missingNumberSprite: string = '../assets/images/missing-number/missing-number-sprite.png';
-  missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
+  //missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
   //missingNoSpecies: PokemonSpecies; (-151)
   //missingNoPokemon: Pokemon; (-151)
   typeNormal: string = '../assets/images/types/type-';
@@ -30,7 +30,7 @@ export class PokedexService
   serachRegion: string = this.searchBaseURL + 'region/';
 
   pokemonList: Pokemon[] = [];
-  currentPokemon: Pokemon = this.missingNoPokemon;
+  //currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];
 
   language: string = 'it';
@@ -44,9 +44,9 @@ export class PokedexService
 
   ====> IMPORTANT MESSAGE <=====
   This website relies on PokéAPI [link] to get accurate and abundant data that is always up to date.
-  Despite this, the data of the 9th Generation pokemon (expecially their images) are not
-  quite up to date. It doesn't depend on me. PokéAPI dev-team is keen on keeping the data
-  updated. Please be patient and sorry for the inconvenience!
+  Despite this, the data of the 9th Generation pokemon, expecially their images, are not  up to date.
+  It doesn't depend on me. PokéAPI dev-team is keen on keeping the data updated.
+  Please be patient and sorry for the inconvenience!
   */
 
 
@@ -55,10 +55,10 @@ export class PokedexService
   }
 
 
-  getMissingNo(): Pokemon
+  /*getMissingNo(): Pokemon
   {
-    return this.missingNoPokemon;
-  }
+    //return this.missingNoPokemon;
+  }*/
 
 
   getLanguage(): string
@@ -85,15 +85,15 @@ export class PokedexService
   }
 
 
-  getCurrentPokemon(): Pokemon
+  /*getCurrentPokemon(): Pokemon
   {
     return this.currentPokemon;
-  }
+  }*/
 
 
   setCurrentPokemon(pokemon: Pokemon)
   {
-    this.currentPokemon = pokemon;
+    //this.currentPokemon = pokemon;
   }
 
 

@@ -30,7 +30,7 @@ export class SmallCardComponent
 
   constructor(private pokedex: PokedexService)
   {
-    this.pokemon = new PokemonSpecies(151, [], 151, true, true, true, [''], '', '', '', pokedex);
+    this.pokemon = new PokemonSpecies(151, [], 151, true, true, true, [''], '', '', '', [], pokedex);
     this.name = this.pokemon.name;
     /*this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
     this.officialArtworkShiny = this.pokemon.officialArtworkShiny;*/

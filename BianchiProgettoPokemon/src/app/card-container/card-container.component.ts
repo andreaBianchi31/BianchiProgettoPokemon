@@ -43,7 +43,7 @@ export class CardContainerComponent
           pokemonSpeciesList.forEach((pokemon: any) => {
             this.pokedex.getPokemonSpeciesByUrl(pokemon.url).subscribe(
               (data: any) => {
-                let pokemon = new PokemonSpecies(data.id, data.names, data.order, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.generation, data.generation.name, this.pokedex);
+                let pokemon = new PokemonSpecies(data.id, data.names, data.order, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.generation, data.generation.name, data.varieties, this.pokedex);
                 this.pokemonList.push(pokemon);
 
                 if (pokemonSpeciesList.length == this.pokemonList.length)
@@ -52,6 +52,7 @@ export class CardContainerComponent
                   this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
                   console.log(this.pokemonList.length + ' pokemon species found!');
                   console.log(this.pokemonList);
+                  this.getAllVarieties();
                 }
               }
             )
@@ -61,6 +62,14 @@ export class CardContainerComponent
         console.log('Failed search!');
       }
     );
+  }
+
+
+  getAllVarieties()
+  {
+    this.pokemonList.forEach((pokemon: PokemonSpecies) => {
+      pokemon.setPokemonVarieties(this.pokedex);
+    });
   }
 
 }
