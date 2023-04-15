@@ -175,38 +175,56 @@ export class PokemonSpecies
         this.varieties.forEach((variety: any) => {
             pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
                 (data) => {
-                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.height, data.weight, data.types, data.stats, data.forms, pokedex);
+                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
                     this.pokemonVarieties.push(pokemon);
+
+                    if (this.pokemonVarieties.length == this.varieties.length) {
+                        let avanti = true;
+                        for (let index = 0; index < this.pokemonVarieties.length && avanti; index++) {
+                            if (this.pokemonVarieties[index].isDefault)
+                            {
+                                this.defaultPokemon = this.pokemonVarieties[index];
+                                //console.log(this.defaultPokemon);
+                                avanti = false;
+                            }
+                        }
+
+                        this.setPokemonFormNames(pokedex);
+                    }
                 }
             );
-
-            if (this.pokemonVarieties.length == this.varieties.length)
-            {
-                this.defaultPokemon = this.pokemonVarieties[0];
-            }
         });
+
+        //this.setPokemonFormNames(pokedex);
     }
 
 
     setPokemonFormNames(pokedex: PokedexService)
     {
-        this.pokemonVarieties.forEach((variety: Pokemon) => {
+        this.pokemonVarieties.forEach((variety: any) => {
             console.log(variety.forms);
             variety.forms.forEach((form: any) => {
                 pokedex.getPokemonFormByUrl(form.url).subscribe (
                     (data: any) => {
-                        let trovato = false;
-                        for (let index = 0; index < data.names.length && !trovato; index++)
+
+                        if (data.names.length == 0) {
+                            variety.name = variety.name.charAt(0).toUpperCase() + variety.name.slice(1);
+                        }
+                        else
                         {
-                            if (data.names[index].language.name == pokedex.getLanguage())
-                            {
-                                console.log(data.names[index].name);
-                                variety.name = data.names[index].name;
-                                trovato = true;
+                            let trovato = false;
+                            for (let index = 0; index < data.names.length && !trovato; index++) {
+                                if (data.names[index].language.name == pokedex.getLanguage()) {
+                                    //console.log(data.names[index].name);
+                                    variety.name = data.names[index].name;
+                                    trovato = true;
+                                }
                             }
                         }
-    
-                        this.defaultPokemon = this.pokemonVarieties[0];
+
+                        if (this.pokemonVarieties.length == data.names.length) {
+                            console.log(this.pokemonVarieties);
+                        }
                     }
                 ); 
             });

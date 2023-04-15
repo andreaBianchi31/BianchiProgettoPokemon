@@ -33,7 +33,7 @@ export class PokedexService
   //currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];
 
-  language: string = 'it';
+  language: string = 'en';
 
 
   /*

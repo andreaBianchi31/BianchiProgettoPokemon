@@ -30,10 +30,11 @@ export class Pokemon
     speed: number = 0;
 
     forms: any[] = [];
+    isDefault: boolean = true;
     
 
     constructor(id: number, name: string, pokedexNumber: number, sprites: any, height: number, weight: number,
-        types: any, stats: any[], forms: any[], pokedex: PokedexService)
+        types: any, stats: any[], forms: any[], isDefault: boolean, pokedex: PokedexService)
     {
         // ===> GENERIC
         this.id = id;
@@ -42,6 +43,7 @@ export class Pokemon
         this.forms = forms;
         this.height = height/10;
         this.weight = weight/1000;
+        this.isDefault = isDefault;
 
 
         // ===> STATS

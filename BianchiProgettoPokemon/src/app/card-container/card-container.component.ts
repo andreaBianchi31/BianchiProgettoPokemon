@@ -17,6 +17,7 @@ export class CardContainerComponent
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
   datiDisponibili: boolean;
+  cambioForma: boolean;
 
 
   constructor(private pokedex: PokedexService, private title: Title)
@@ -25,6 +26,7 @@ export class CardContainerComponent
     this.generation = 1;
     this.getPokemonByGeneration();
     this.datiDisponibili = false;
+    this.cambioForma = false;
   }
 
 
@@ -33,6 +35,7 @@ export class CardContainerComponent
     console.log('Searching pokemon of Generation ' + this.generation + '...');
     this.title.setTitle('Pokedex -  Generation ' + this.generation);
 
+    this.pokemonList = [];
     this.datiDisponibili = false;
 
     let dati = this.pokedex.getPokemonByGeneration('' + this.generation).subscribe (
@@ -66,17 +69,20 @@ export class CardContainerComponent
   }
 
 
+  // Setta tutte le forme alternative di ogni pokemon
   getAllVarieties()
   {
-    this.pokemonList.forEach((pokemon: PokemonSpecies) => {
-      pokemon.setPokemonVarieties(this.pokedex);
+    this.pokemonList.forEach((pokemonSpecie: PokemonSpecies) => {
+      pokemonSpecie.setPokemonVarieties(this.pokedex);
     });
   }
 
+
+  // Setta i nomi di tutte le forme di pokemon
   getAllFormNames()
   {
-    this.pokemonList.forEach((pokemon: PokemonSpecies) => {
-      pokemon.setPokemonFormNames(this.pokedex);
+    this.pokemonList.forEach((pokemonSpecie: PokemonSpecies) => {
+      pokemonSpecie.setPokemonFormNames(this.pokedex);
     });
   }
 
