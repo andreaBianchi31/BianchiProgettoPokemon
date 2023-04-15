@@ -20,6 +20,7 @@ export class PokemonSpecies
     varieties: any[] = []; //forme alternative
     pokemonVarieties: Pokemon[] = [];
     defaultPokemon: Pokemon = this.varieties[0]; //pokemon da mostrare (es. immagine)
+    defaultPokemonArtwork: string | null = null;
 
 
     /* DA IMPLEMENTARE (non necessari)
@@ -36,7 +37,7 @@ export class PokemonSpecies
         isMythical: boolean,
         flavorTextEntries: any[],
         formDescription: any,
-        category: string,
+        category: any,
         generation: string,
         varieties: any[],
         pokedex: PokedexService)
@@ -51,12 +52,12 @@ export class PokemonSpecies
 
 
         // ===> NAME
-        let nomeTrovato = false;
-        for (let index = 0; index < names.length && !nomeTrovato; index++)
+        let trovato = false;
+        for (let index = 0; index < names.length && !trovato; index++)
         {
             if ((names[index].language.name + '') == pokedex.language) {
                 this.name = names[index].name;
-                nomeTrovato = true;
+                trovato = true;
             }
         }
 
@@ -66,6 +67,18 @@ export class PokemonSpecies
             this.formDescription = 'no-description';
         else
             this.formDescription = formDescription;
+
+
+        // ===> CATEGORY
+
+        trovato = false;
+        for (let index = 0; index < category.length && !trovato; index++)
+        {
+            if ((category[index].language.name + '') == pokedex.language) {
+                this.category = category[index].genus;
+                trovato = true;
+            }
+        }
 
 
         // ===> GENERATION
@@ -184,6 +197,7 @@ export class PokemonSpecies
                             if (this.pokemonVarieties[index].isDefault)
                             {
                                 this.defaultPokemon = this.pokemonVarieties[index];
+                                this.defaultPokemonArtwork = this.pokemonVarieties[index].officialArtworkDefault;
                                 //console.log(this.defaultPokemon);
                                 avanti = false;
                             }
@@ -194,15 +208,13 @@ export class PokemonSpecies
                 }
             );
         });
-
-        //this.setPokemonFormNames(pokedex);
     }
 
 
     setPokemonFormNames(pokedex: PokedexService)
     {
         this.pokemonVarieties.forEach((variety: any) => {
-            console.log(variety.forms);
+            //console.log(variety.forms);
             variety.forms.forEach((form: any) => {
                 pokedex.getPokemonFormByUrl(form.url).subscribe (
                     (data: any) => {
@@ -223,12 +235,13 @@ export class PokemonSpecies
                         }
 
                         if (this.pokemonVarieties.length == data.names.length) {
-                            console.log(this.pokemonVarieties);
+                            //console.log(this.pokemonVarieties);
                         }
                     }
                 ); 
             });
         });
     }
+
 
 }

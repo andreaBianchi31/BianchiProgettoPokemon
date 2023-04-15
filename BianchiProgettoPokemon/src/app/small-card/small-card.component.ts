@@ -12,10 +12,11 @@ export class SmallCardComponent
 {
   @Input() pokemon: PokemonSpecies;
 
-  name: string;
   /*artwork: string;
   officialArtworkNormal: string;
   officialArtworkShiny: string;*/
+
+  missingNumberArtwork: string = '../assets/images/missing-number/missing-number-sprite.png';
 
   redStarNormal: string = '../assets/images/star-icon-red-normal.png';
   redStarShiny: string = '../assets/images/star-icon-red-shiny.png';
@@ -27,26 +28,33 @@ export class SmallCardComponent
   favourite: string = this.favouriteNo;
   isShiny: boolean;
 
+  goooo: boolean = false;
+
 
   constructor(private pokedex: PokedexService)
   {
-    this.pokemon = new PokemonSpecies(151, [], 151, true, true, true, [''], '', '', '', [], pokedex);
-    this.name = this.pokemon.name;
-    /*this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
-    this.officialArtworkShiny = this.pokemon.officialArtworkShiny;*/
+    this.pokemon = new PokemonSpecies(0, [], 0, false, false, false, [], '', '', '', [], pokedex);
+
+    //console.log(this.pokemon.defaultPokemon.officialArtworkDefault);
+    if (this.pokemon.defaultPokemonArtwork != null)
+    {
+      this.goooo = true;
+    }
 
     this.redStarNormal = '../assets/images/star-icon-red-normal.png';
     this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
 
     this.redStar = this.redStarNormal;
-    //this.artwork = this.officialArtworkNormal;
     this.isShiny = false;
     this.isFavourite = false;
   }
 
   ngOnInit()
   {
-    this.name = this.pokemon.name;
+    if (this.pokemon.defaultPokemonArtwork != null)
+    {
+      this.goooo = true;
+    }
     /*this.officialArtworkNormal = this.pokemon.officialArtworkNormal;
     this.officialArtworkShiny = this.pokemon.officialArtworkShiny;*/
 

@@ -12,7 +12,7 @@ export class PokedexService
   missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
   missingNumberSprite: string = '../assets/images/missing-number/missing-number-sprite.png';
-  //missingNoPokemon: Pokemon = new Pokemon(-151, 'MissingNo', '', '');
+  //missingNoPokemon: Pokemon;
   //missingNoSpecies: PokemonSpecies; (-151)
   //missingNoPokemon: Pokemon; (-151)
   typeNormal: string = '../assets/images/types/type-';
