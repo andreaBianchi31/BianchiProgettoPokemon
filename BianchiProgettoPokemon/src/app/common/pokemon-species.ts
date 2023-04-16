@@ -4,9 +4,9 @@ import { Pokemon } from "./pokemon";
 
 export class PokemonSpecies
 {
-    id: number = -151;
+    id: number = 0;
     name: string = 'MissingNo';
-    pokedexNumber: number = -151; //numero pokedex
+    pokedexNumber: number = 0; //numero pokedex
     isBaby: boolean = false;
     isLegendary: boolean = false;
     isMythical: boolean = false;
@@ -20,7 +20,7 @@ export class PokemonSpecies
     varieties: any[] = []; //forme alternative
     pokemonVarieties: Pokemon[] = [];
     defaultPokemon: Pokemon = this.varieties[0]; //pokemon da mostrare (es. immagine)
-    defaultPokemonArtwork: string | null = null;
+    defaultPokemonArtwork: string = '../assets/images/utility/pokeball-icon.png';
 
 
     /* DA IMPLEMENTARE (non necessari)
@@ -31,7 +31,7 @@ export class PokemonSpecies
 
     constructor(id: number,
         names: any[],
-        pokedexNumber: number,
+        pokedexNumbers: any[],
         isBaby: boolean,
         isLegendary: boolean,
         isMythical: boolean,
@@ -44,11 +44,11 @@ export class PokemonSpecies
     {
         // ===> GENERIC
         this.id = id;
-        this.pokedexNumber = pokedexNumber;
         this.isBaby = isBaby;
         this.isLegendary = isLegendary;
         this.isMythical = isMythical;
         this.category = category;
+        this.defaultPokemonArtwork = pokedex.imageNotAvailable;
 
 
         // ===> NAME
@@ -70,12 +70,23 @@ export class PokemonSpecies
 
 
         // ===> CATEGORY
-
         trovato = false;
         for (let index = 0; index < category.length && !trovato; index++)
         {
             if ((category[index].language.name + '') == pokedex.language) {
                 this.category = category[index].genus;
+                trovato = true;
+            }
+        }
+
+
+        // ===> POKEDEX NUMBER
+        trovato = false;
+        for (let index = 0; index < pokedexNumbers.length && !trovato; index++)
+        {
+            console.log(pokedexNumbers[index].pokedex.name);
+            if ((pokedexNumbers[index].pokedex.name + '') == 'national') {
+                this.pokedexNumber = pokedexNumbers[index].entry_number;
                 trovato = true;
             }
         }
@@ -188,7 +199,7 @@ export class PokemonSpecies
         this.varieties.forEach((variety: any) => {
             pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
                 (data) => {
-                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
+                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
                     this.pokemonVarieties.push(pokemon);
 
                     if (this.pokemonVarieties.length == this.varieties.length) {

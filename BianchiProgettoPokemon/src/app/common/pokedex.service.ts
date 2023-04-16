@@ -17,6 +17,7 @@ export class PokedexService
   //missingNoPokemon: Pokemon; (-151)
   typeNormal: string = '../assets/images/types/type-';
   typeUnknown: string = '../assets/images/types/unknown-';
+  imageNotAvailable: string = '../assets/images/utility/pokeball-icon.png';
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';
@@ -28,7 +29,7 @@ export class PokedexService
   searchGame: string = this.searchBaseURL + 'version-group/';
   searchPokedex: string = this.searchBaseURL + 'pokedex/';
   serachRegion: string = this.searchBaseURL + 'region/';
-
+  
   pokemonList: Pokemon[] = [];
   //currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];
@@ -250,7 +251,6 @@ export class PokedexService
             entryText = entryText.replace(/\f/g,' ');
             entryText = entryText.replace('POKéMON', 'Pokémon');
             entryText = entryText.trim();
-
             finalEntries.push(entryText);
         }
     });

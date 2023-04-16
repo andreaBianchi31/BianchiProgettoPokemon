@@ -3,11 +3,11 @@ import { PokedexService } from "./pokedex.service";
 
 export class Pokemon
 {
-    id: number = -151; //order
+    id: number = 0; //order
     name: string = 'MissingNo';
 
-    officialArtworkDefault: string = '../images/missing-number/missing-number-normal.jpg';
-    officialArtworkShiny: string = '../images/missing-number/missing-number-shiny.jpg';
+    officialArtworkDefault: string = '../images/missing-number/missing-number-sprite.png';
+    officialArtworkShiny: string = '../images/missing-number/missing-number-sprite.png';
 
     pixelFrontDefault: string = '../images/missing-number/missing-number-sprite.png';
     pixelFrontShiny: string = '../images/missing-number/missing-number-sprite.png';
@@ -33,8 +33,9 @@ export class Pokemon
     isDefault: boolean = true;
     
 
-    constructor(id: number, name: string, pokedexNumber: number, sprites: any, height: number, weight: number,
-        types: any, stats: any[], forms: any[], isDefault: boolean, pokedex: PokedexService)
+    constructor(id: number, name: string, pokedexNumber: number, sprites: any, pixelFrontDefault: any, pixelFrontShiny: any,
+        pixelBackDefault: any, pixelBackShiny: any, officialArtworkDefault: any, officialArtworkShiny: any,
+        height: number, weight: number, types: any, stats: any[], forms: any[], isDefault: boolean, pokedex: PokedexService)
     {
         // ===> GENERIC
         this.id = id;
@@ -73,40 +74,40 @@ export class Pokemon
         // ===> ARTWORK & SPRITES
 
         // FRONT - DEFAULT
-        if (sprites.front_default == null)
-            this.pixelFrontDefault = pokedex.missingNumberSprite;
+        if (pixelFrontDefault == null)
+            this.pixelFrontDefault = pokedex.imageNotAvailable;
         else
-            this.pixelFrontDefault = sprites.front_default;
+            this.pixelFrontDefault = pixelFrontDefault;
         
         // BACK - DEFAULT
-        if (sprites.back_default == null)
+        if (pixelBackDefault == null)
             this.pixelBackDefault = this.pixelFrontDefault;
         else
-            this.pixelBackDefault = sprites.back_default;
+            this.pixelBackDefault = pixelBackDefault;
         
         // FRONT - SHINY
-        if (sprites.front_shiny == null)
-            this.pixelFrontShiny = pokedex.missingNumberSprite;
+        if (pixelFrontShiny == null)
+            this.pixelFrontShiny = pokedex.imageNotAvailable;
         else
-            this.pixelFrontShiny = sprites.front_shiny;
+            this.pixelFrontShiny = pixelFrontShiny;
         
         // BACK - SHINY
-        if (sprites.back_shiny == null)
+        if (pixelBackShiny == null)
             this.pixelBackShiny = this.pixelFrontShiny;
         else
-            this.pixelBackShiny = sprites.back_shiny;
+            this.pixelBackShiny = pixelBackShiny;
         
         // OFFICIAL - DEFAULT
-        if (sprites.other['official-artwork'].front_default == null)
-            this.officialArtworkDefault = pokedex.missingNumberNormal;
+        if (officialArtworkDefault == null)
+            this.officialArtworkDefault = pokedex.imageNotAvailable;
         else
-            this.officialArtworkDefault = sprites.other['official-artwork'].front_default;
+            this.officialArtworkDefault = officialArtworkDefault;
         
         // OFFICIAL - SHINY
-        if (sprites.other['official-artwork'].front_shiny == null)
-            this.officialArtworkShiny = pokedex.missingNumberShiny;
+        if (officialArtworkShiny == null)
+            this.officialArtworkShiny = this.officialArtworkDefault;
         else
-            this.officialArtworkShiny = sprites.other['official-artwork'].front_shiny;
+            this.officialArtworkShiny = officialArtworkShiny;
         
     }
 

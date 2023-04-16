@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { SliderComponent } from './slider/slider.component';
+import { BigCardComponent } from './big-card/big-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SliderComponent } from './slider/slider.component';
     CoolCardComponent,
     NavbarComponent,
     LoginComponent,
-    SliderComponent
+    SliderComponent,
+    BigCardComponent
   ],
   imports: [
     BrowserModule,
