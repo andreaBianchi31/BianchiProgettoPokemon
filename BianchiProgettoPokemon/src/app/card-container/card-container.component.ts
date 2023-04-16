@@ -36,6 +36,9 @@ export class CardContainerComponent
     {
       console.log('Searching pokemon of All Generations...');
       this.title.setTitle('Pokedex - All Generations');
+
+      this.pokemonList = [];
+      this.datiDisponibili = false;
     }
     else
     {

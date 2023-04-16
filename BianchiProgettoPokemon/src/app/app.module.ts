@@ -12,6 +12,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { SliderComponent } from './slider/slider.component';
 import { BigCardComponent } from './big-card/big-card.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { BigCardComponent } from './big-card/big-card.component';
     NavbarComponent,
     LoginComponent,
     SliderComponent,
-    BigCardComponent
+    BigCardComponent,
+    FooterComponent,
+    AboutUsComponent,
+    InfoPokemonComponent
   ],
   imports: [
     BrowserModule,
