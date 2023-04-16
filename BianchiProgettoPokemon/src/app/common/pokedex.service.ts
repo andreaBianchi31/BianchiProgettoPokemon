@@ -29,7 +29,10 @@ export class PokedexService
   searchGame: string = this.searchBaseURL + 'version-group/';
   searchPokedex: string = this.searchBaseURL + 'pokedex/';
   serachRegion: string = this.searchBaseURL + 'region/';
-  
+
+  lastPokemonNumber: number = 905
+  searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';;
+
   pokemonList: Pokemon[] = [];
   //currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];

@@ -13,6 +13,7 @@
 <div class="justify-center">
 <p>Generation <select [(ngModel)]="generation" (change)="getPokemonByGeneration()">
   <option *ngFor="let gen of generationList" [value]="gen">{{gen}}</option>
+  <option value="0">All</option>
 </select>
 </p>
 
@@ -48,12 +49,12 @@
 <div>
 
   <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6">
-    
-    <h5 class="mb-3 text-base font-semibold text-gray-900 md:text-xl">
+
+    <h5 class="mb-3 text-base font-bold text-gray-900 md:text-xl">
         List of Pokemon Species
     </h5>
 
-    <p class="text-sm font-normal text-gray-500">{{pokemonList.length}} pokémon species found.</p>
+    <p class="text-sm font-semibold italic text-gray-500">{{pokemonList.length}} pokémon species found.</p>
 
     <div class="my-4 grid grid-cols-2" *ngIf="datiDisponibili; else nonArrivati">
       <app-small-card *ngFor="let pokemon of pokemonList; let i = index" [pokemon]="pokemon" class="m-2"></app-small-card>
@@ -75,7 +76,7 @@
 </div>
 
 <div class="w-full h-full bg-green-300">
-
+  <app-big-card></app-big-card>
 </div>
 
 

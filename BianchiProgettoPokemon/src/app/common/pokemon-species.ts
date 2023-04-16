@@ -84,7 +84,6 @@ export class PokemonSpecies
         trovato = false;
         for (let index = 0; index < pokedexNumbers.length && !trovato; index++)
         {
-            console.log(pokedexNumbers[index].pokedex.name);
             if ((pokedexNumbers[index].pokedex.name + '') == 'national') {
                 this.pokedexNumber = pokedexNumbers[index].entry_number;
                 trovato = true;
