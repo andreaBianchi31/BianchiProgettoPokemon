@@ -2,7 +2,9 @@
 
 <div class="ml-6">
     <p>Search Pokémon by <select [(ngModel)]="parameter">
-    <option *ngFor="let parameter of searchParametersList" [value]="parameter">{{parameter}}</option>
+        <option value="generation">Generation</option>
+        <option value="game-versions">Game Version</option>
+        <option value="favourites">Favourites</option>
     </select>
     </p>
 </div>
@@ -15,6 +17,35 @@
     </select>
     </p>
 </div>
+
+
+<div class="ml-6">
+    <p>Game Version<select [(ngModel)]="game" (change)="getPokemonByGameversion()">
+        <option value="1">National</option>
+        <option value="2">Red | Blue | Yellow</option>
+        <option value="3">Gold | Silver | Crystal</option>
+        <option value="4">Ruby | Sapphire | Emerald</option>
+        <option value="5">Diamond | Pearl</option>
+        <option value="6">Platinum</option>
+        <option value="7">HeartGold | SoulSilver</option>
+        <option value="8">Black | White</option>
+        <option value="9">Black 2 | White 2</option>
+        <option value="11">Pokemon Conquest</option>
+        <option value="12">X | Y (plain)</option>
+        <option value="13">X | Y (coast)</option>
+        <option value="14">X | Y (mountain)</option>
+        <option value="15">OmegaRuby | AlphaSapphire</option>
+        <option value="16">Sun | Moon</option>
+        <option value="21">UltraSun | UltraMoon</option>
+        <option value="26">Let's Go Pikachu | Eevee</option>
+        <option value="27">Sword | Shield</option>
+        <option value="28">Isle of Armor</option>
+        <option value="29">Chrown Tundra</option>
+        <option value="30">Legends: Arceus</option>
+    </select>
+    </p>
+</div>
+
 
 
 <div class="grid grid-cols-2 content-center p-6 gap-6">

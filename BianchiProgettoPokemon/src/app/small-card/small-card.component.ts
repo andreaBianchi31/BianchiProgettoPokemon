@@ -70,19 +70,19 @@ export class SmallCardComponent
 
   
   invertFavourite()
-  {/*
-    if (this.isFavourite)
-    {
-      this.favourite = this.favouriteNo;
-      this.pokedex.removeFavouritePokemon(this.pokemon);
-    }
+  {
+    if (this.pokemon.preferito)
+      this.pokedex.removeFavouritePokemonSpecies(this.pokemon);
     else
-    {
-      this.favourite = this.favouriteYes;
-      this.pokedex.addFavouritePokemon(this.pokemon);
-    }
+      this.pokedex.addFavouritePokemonSpecies(this.pokemon);
 
-    this.isFavourite = !this.isFavourite;*/
+    this.pokemon.preferito = !this.pokemon.preferito;
+  }
+
+
+  scrollToTop()
+  {
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
   
 }

@@ -22,6 +22,8 @@ export class PokemonSpecies
     defaultPokemon: Pokemon = this.varieties[0]; //pokemon da mostrare (es. immagine)
     defaultPokemonArtwork: string = '../assets/images/utility/pokeball-icon.png';
 
+    preferito: boolean = false;
+
 
     /* DA IMPLEMENTARE (non necessari)
     evolvesFromSpecies: Pokemon;
@@ -49,6 +51,13 @@ export class PokemonSpecies
         this.isMythical = isMythical;
         this.category = category;
         this.defaultPokemonArtwork = pokedex.imageNotAvailable;
+
+        
+        // ===> FAVOURITE
+        if (this.isPokemonPreferito(pokedex))
+            this.preferito = true;
+        else
+            this.preferito = false;
 
 
         // ===> NAME
@@ -180,7 +189,8 @@ export class PokemonSpecies
     
     equals(pokemon: PokemonSpecies): boolean
     {
-        if (pokemon == null || pokemon == undefined || pokemon.id != this.id)
+        //console.log(pokemon.pokedexNumber + ' - ' + this.pokedexNumber);
+        if (pokemon == null || pokemon == undefined || pokemon.pokedexNumber != this.pokedexNumber)
             return false;
         else
             return true;
@@ -253,5 +263,13 @@ export class PokemonSpecies
         });
     }
 
+
+    isPokemonPreferito(pokedex: PokedexService)
+    {
+        if (pokedex.indexOfPokemonSpecies(pokedex.favouriteList, this) == -1)
+            return false;
+        else
+            return true;
+    }
 
 }
