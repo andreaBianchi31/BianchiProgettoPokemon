@@ -96,13 +96,37 @@ export class MaxiContainerComponent
   {
     if (this.generation == 0)
     {
-      this.title.setTitle('Pokedex - All Generations');
+      this.title.setTitle('Pokedex - All Games');
       this.pokemonList = [];
       this.datiDisponibili = false;
     }
     else
     {
-      this.title.setTitle('Pokedex -  ' + this.generation);
+      let tmp = 'Pokedex - ';
+      switch(this.game) {
+        case 1: tmp += 'National'; break;
+        case 2: tmp += 'Red | Blue | Yellow'; break;
+        case 3: tmp += 'Gold | Silver | Crystal'; break;
+        case 4: tmp += 'Ruby | Sapphire | Emerald'; break;
+        case 5: tmp += 'Diamond | Pearl'; break;
+        case 6: tmp += 'Platinum'; break;
+        case 7: tmp += 'HeartGold | SoulSilver'; break;
+        case 8: tmp += 'Black | White'; break;
+        case 9: tmp += 'Black 2 | White 2'; break;
+        case 11: tmp += 'Pokemon Conquest'; break;
+        case 12: tmp += 'X | Y (plain)'; break;
+        case 13: tmp += 'X | Y (coast)'; break;
+        case 14: tmp += 'National'; break;
+        case 15: tmp += 'National'; break;
+        case 16: tmp += 'Sun | Moon'; break;
+        case 21: tmp += 'UltraSun | UltraMoon'; break;
+        case 26: tmp += 'Let\'s Go Pikachu | Eevee'; break;
+        case 27: tmp += 'Sword | Shield'; break;
+        case 28: tmp += 'Isle of Armoral'; break;
+        case 29: tmp += 'Chrown Tundra'; break;
+        case 30: tmp += 'Legends: Arceus'; break;
+      }
+      this.title.setTitle(tmp);
 
       this.pokemonList = [];
       this.datiDisponibili = false;
@@ -111,8 +135,6 @@ export class MaxiContainerComponent
         (data) => {
             this.pokemonList = [];
             let pokemonSpeciesList = data.pokemon_entries;
-            console.log(data);
-            console.log(pokemonSpeciesList);
 
             pokemonSpeciesList.forEach((pokemon: any) => {
               this.pokedex.getPokemonSpeciesByUrl(pokemon.pokemon_species.url).subscribe(
