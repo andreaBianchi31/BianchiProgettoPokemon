@@ -1,22 +1,25 @@
-import { Component, Input } from '@angular/core';
-import { PokedexService } from '../common/pokedex.service';
-import { Pokemon } from '../common/pokemon';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { PokedexService } from '../common/pokedex.service';
 import { PokemonSpecies } from '../common/pokemon-species';
 
 @Component({
-  selector: 'app-card-container',
-  templateUrl: './card-container.component.html',
-  styleUrls: ['./card-container.component.css']
+  selector: 'app-maxi-container',
+  templateUrl: './maxi-container.component.html',
+  styleUrls: ['./maxi-container.component.css']
 })
-export class CardContainerComponent
+export class MaxiContainerComponent
 {
-  @Input() pokemonList: PokemonSpecies[] = [];
-  @Input() datiDisponibili: boolean = false;
+  pokemonList: PokemonSpecies[] = [];
 
-  /*
-  generation: number;
+  generation: number = 1;
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  game: string = 'blue-red';
+  gamesList: string[] = [];
+
+  parameter: string = 'Generation';
+  searchParametersList: string[] = ['Generation', 'Game', 'Favourite'];
 
   datiDisponibili: boolean;
   cambioForma: boolean;
@@ -87,6 +90,5 @@ export class CardContainerComponent
     this.pokemonList.forEach((pokemonSpecie: PokemonSpecies) => {
       pokemonSpecie.setPokemonVarieties(this.pokedex);
     });
-  }*/
-
+  }
 }

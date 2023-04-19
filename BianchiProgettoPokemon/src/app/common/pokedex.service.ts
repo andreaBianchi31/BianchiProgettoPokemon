@@ -34,7 +34,6 @@ export class PokedexService
   searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';;
 
   pokemonList: Pokemon[] = [];
-  //currentPokemon: Pokemon = this.missingNoPokemon;
   favouriteList: Pokemon[] = [];
 
   language: string = 'en';
@@ -104,6 +103,7 @@ export class PokedexService
 // ======================================================================================================================================================
 
 
+  //===> USELESS <===
   getFavouritePokemonList(): Pokemon[]
   {
     this.favouriteList = this.sortPokemonList(this.favouriteList);
@@ -113,9 +113,16 @@ export class PokedexService
 
   addFavouritePokemon(pokemon: Pokemon)
   {
-    this.favouriteList.push(pokemon);
-    this.favouriteList = this.sortPokemonList(this.favouriteList);
-    console.log(this.favouriteList);
+    if (this.indexOf(this.favouriteList, pokemon) != -1)
+    {
+      this.favouriteList.push(pokemon);
+      this.favouriteList = this.sortPokemonList(this.favouriteList);
+      console.log(this.favouriteList);
+    }
+    else
+    {
+      console.log(pokemon.name + 'is alreay one of your favourite pokemon!')
+    }
   }
 
 
@@ -123,11 +130,22 @@ export class PokedexService
   {
     for (let index = 0; index < this.favouriteList.length; index++)
     {
-      if (this.favouriteList[index].id == pokemon.id)
+      if (this.favouriteList[index].equals(pokemon))
         this.favouriteList.splice(index, 1);
     }
     this.favouriteList = this.sortPokemonList(this.favouriteList);
     console.log(this.favouriteList);
+  }
+
+
+  indexOf(pokemonList: Pokemon[], pokemon: Pokemon)
+  {
+    for (let index = 0; index < pokemonList.length; index++)
+    {
+      if (pokemonList[index].equals(pokemon))
+        return index;
+    }
+    return -1;
   }
 
 

@@ -15,6 +15,8 @@ import { BigCardComponent } from './big-card/big-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
+import { MiniCardComponent } from './mini-card/mini-card.component';
+import { MaxiContainerComponent } from './maxi-container/maxi-container.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
     BigCardComponent,
     FooterComponent,
     AboutUsComponent,
-    InfoPokemonComponent
+    InfoPokemonComponent,
+    MiniCardComponent,
+    MaxiContainerComponent
   ],
   imports: [
     BrowserModule,

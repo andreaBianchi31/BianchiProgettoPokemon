@@ -31,6 +31,8 @@ export class Pokemon
 
     forms: any[] = [];
     isDefault: boolean = true;
+
+    favouritePokemon: Pokemon[] = [];
     
 
     constructor(id: number, name: string, pokedexNumber: number, sprites: any, pixelFrontDefault: any, pixelFrontShiny: any,
