@@ -6,6 +6,7 @@ export class Pokemon
     id: number = 0; //order
     name: string = 'MissingNo';
     category: string = 'Missing Number Pokemon';
+    generation: number = 0;
 
     officialArtworkDefault: string = '../images/missing-number/missing-number-sprite.png';
     officialArtworkShiny: string = '../images/missing-number/missing-number-sprite.png';
@@ -32,9 +33,9 @@ export class Pokemon
 
     forms: any[] = [];
     isDefault: boolean = true;
-    
+    pokemonVarieties: Pokemon[] = [];
 
-    constructor(id: number, name: string, category: string, pokedexNumber: number, sprites: any, pixelFrontDefault: any, pixelFrontShiny: any,
+    constructor(id: number, name: string, category: string, generation: number, pokedexNumber: number, pixelFrontDefault: any, pixelFrontShiny: any,
         pixelBackDefault: any, pixelBackShiny: any, officialArtworkDefault: any, officialArtworkShiny: any,
         height: number, weight: number, types: any, stats: any[], forms: any[], isDefault: boolean, pokedex: PokedexService)
     {
@@ -46,6 +47,8 @@ export class Pokemon
         this.height = height/10;
         this.weight = weight/1000;
         this.isDefault = isDefault;
+        this.category = category;
+        this.generation = generation;
 
 
         // ===> STATS
@@ -76,7 +79,7 @@ export class Pokemon
 
         // FRONT - DEFAULT
         if (pixelFrontDefault == null)
-            this.pixelFrontDefault = pokedex.imageNotAvailable;
+            this.pixelFrontDefault = this.officialArtworkDefault;
         else
             this.pixelFrontDefault = pixelFrontDefault;
         
@@ -88,7 +91,7 @@ export class Pokemon
         
         // FRONT - SHINY
         if (pixelFrontShiny == null)
-            this.pixelFrontShiny = pokedex.imageNotAvailable;
+            this.pixelFrontShiny = this.pixelBackDefault;
         else
             this.pixelFrontShiny = pixelFrontShiny;
         

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 import { Pokemon } from '../common/pokemon';
 import { Title } from '@angular/platform-browser';
@@ -13,6 +13,8 @@ export class CardContainerComponent
 {
   @Input() pokemonList: PokemonSpecies[] = [];
   @Input() datiDisponibili: boolean = false;
+
+  @Output() pokemonForm = new EventEmitter<Pokemon>();
 
   /*
   generation: number;
@@ -88,5 +90,10 @@ export class CardContainerComponent
       pokemonSpecie.setPokemonVarieties(this.pokedex);
     });
   }*/
+
+  modificaPokemon(pokemon: Pokemon)
+  {
+    this.pokemonForm.emit(pokemon);
+  }
 
 }

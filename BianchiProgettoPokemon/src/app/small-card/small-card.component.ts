@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 import { Pokemon } from '../common/pokemon';
 import { PokemonSpecies } from '../common/pokemon-species';
@@ -10,7 +10,8 @@ import { PokemonSpecies } from '../common/pokemon-species';
 })
 export class SmallCardComponent
 {
-  @Input() pokemon: PokemonSpecies;
+  @Input() pokemonSpecies: PokemonSpecies;
+  @Output() pokemonForm = new EventEmitter<Pokemon>();
 
   /*artwork: string;
   officialArtworkNormal: string;
@@ -31,7 +32,7 @@ export class SmallCardComponent
 
   constructor(private pokedex: PokedexService)
   {
-    this.pokemon = new PokemonSpecies(0, [], [], false, false, false, [], '', '', '', [], pokedex);
+    this.pokemonSpecies = new PokemonSpecies(0, [], [], false, false, false, [], '', '', '', [], pokedex);
 
     this.redStarNormal = '../assets/images/star-icon-red-normal.png';
     this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
@@ -41,6 +42,7 @@ export class SmallCardComponent
     this.isFavourite = false;
   }
 
+  
   ngOnInit()
   {
     this.redStarNormal = '../assets/images/star-icon-red-normal.png';
@@ -52,38 +54,9 @@ export class SmallCardComponent
   }
 
 
-  invertArtwork()
-  {/*
-    if (this.isShiny)
-    {
-      this.artwork = this.officialArtworkNormal;
-      this.redStar = this.redStarNormal;
-    }
-    else
-    {
-      this.artwork = this.officialArtworkShiny;
-      this.redStar = this.redStarShiny;
-    }
-
-    this.isShiny = !this.isShiny;*/
-  }
-
-  
-  invertFavourite()
-  {
-    if (this.pokemon.preferito)
-      this.pokedex.removeFavouritePokemonSpecies(this.pokemon);
-    else
-      this.pokedex.addFavouritePokemonSpecies(this.pokemon);
-
-    this.pokemon.preferito = !this.pokemon.preferito;
-  }
-
-
   clickCard()
   {
-    this.pokedex.setCurrentPokemon(this.pokemon.varieties[0]);
-
+    this.pokemonForm.emit(this.pokemonSpecies.defaultPokemon);
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
   

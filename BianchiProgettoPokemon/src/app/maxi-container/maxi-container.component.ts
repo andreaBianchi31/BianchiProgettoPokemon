@@ -190,4 +190,10 @@ export class MaxiContainerComponent
       }
     );
   }
+
+  modificaPokemon(pokemon: Pokemon)
+  {
+    this.selectedPokemon = pokemon;
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
 }

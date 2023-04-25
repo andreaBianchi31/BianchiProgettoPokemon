@@ -1,17 +1,47 @@
-<div class="p-4">
+<div class="p-4 w-full h-full bg-white border border-gray-200 rounded-lg shadow">
     
     <div *ngIf="currentPokemon != null; else PokemonVuoto">
+
         <div class="text-4xl font-bold">#{{currentPokemon.pokedexNumber}} - {{currentPokemon.name}}</div>
-        <div class="text-base italic">{{currentPokemon.category}}</div>
-        <div>Immagine</div>
-        <div>Generazione</div>
-        <div>Aggiungi ai preferiti (cuore)</div>
-        <div>Mostra versione shiny (stella)</div>
+
+        <div class="text-xl italic mt-4 mb-8">{{currentPokemon.category}}</div>
+            
+        <div class="flex justify-center my-8">
+            <img [src]="artwork" class="w-96 border-2 rounded-3xl border-gray-500 bg-slate-100">
+        </div>
+
+        <div class="flex justify-between px-24">
+            <button (click)="changeFrontBack()">
+                <img [src]="arrow" class="w-16">
+            </button>
+
+            <button (click)="changeShiny()">
+                <img [src]="redStar" class="w-16">
+            </button>
+
+            <button (click)="changeFavourite()">
+                <img [src]="heart" class="w-16">
+            </button>
+        </div>
+
+        <div class="border-t-2 border-t-slate-400 pt-4 mt-4">Generation: {{currentPokemon.generation}}</div>
+
         <div>Diagramma statistiche</div>
-        <div>Lista descrizioni</div>
-        <div class="text-xl font-bold">Pokemon Correlati</div>
+
+        <div>Description List</div>
+
+        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Related Pokémon</div>
+
+        <div>Alternative Forms</div>
+
+        <div>
+            <button *ngFor="let pokemon of currentPokemon.pokemonVarieties" >
+                <app-mini-card [pokemon]="pokemon" (click)="changeCurrentPokemon(pokemon)"></app-mini-card>
+            </button>
+        </div>
+
         <div>Line Evolutiva</div>
-        <div>Forme Alternative</div>
+
     </div>
 
     <ng-template #PokemonVuoto>

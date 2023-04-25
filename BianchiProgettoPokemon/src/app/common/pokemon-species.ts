@@ -66,6 +66,7 @@ export class PokemonSpecies
         {
             if ((names[index].language.name + '') == pokedex.language) {
                 this.name = names[index].name;
+                this.name.replace('-', '.');
                 trovato = true;
             }
         }
@@ -208,18 +209,19 @@ export class PokemonSpecies
         this.varieties.forEach((variety: any) => {
             pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
                 (data) => {
-                    let pokemon = new Pokemon(data.id, data.name, this.category, this.pokedexNumber, data.sprites, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
+                    let pokemon = new Pokemon(data.id, data.name, this.category, this.generation, this.pokedexNumber, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
                     this.pokemonVarieties.push(pokemon);
+                    //console.log(this.name + ': ' + this.pokemonVarieties.length + ' - ' + this.varieties.length)
 
-                    if (this.pokemonVarieties.length == this.varieties.length) {
-                        let avanti = true;
-                        for (let index = 0; index < this.pokemonVarieties.length && avanti; index++) {
+                    if (this.pokemonVarieties.length == this.varieties.length)
+                    {
+                        for (let index = 0; index < this.pokemonVarieties.length; index++)
+                        {
+                            this.pokemonVarieties[index].pokemonVarieties = this.pokemonVarieties;
                             if (this.pokemonVarieties[index].isDefault)
                             {
                                 this.defaultPokemon = this.pokemonVarieties[index];
                                 this.defaultPokemonArtwork = this.pokemonVarieties[index].officialArtworkDefault;
-                                //console.log(this.defaultPokemon);
-                                avanti = false;
                             }
                         }
 
@@ -236,11 +238,11 @@ export class PokemonSpecies
     setPokemonFormNames(pokedex: PokedexService): Pokemon[]
     {
         this.pokemonVarieties.forEach((variety: any) => {
-            //console.log(variety.forms);
+            /*if (variety.forms.length > 1)
+                console.log(variety.forms);*/
             variety.forms.forEach((form: any) => {
                 pokedex.getPokemonFormByUrl(form.url).subscribe (
                     (data: any) => {
-
                         if (data.names.length == 0) {
                             variety.name = variety.name.charAt(0).toUpperCase() + variety.name.slice(1);
                         }
@@ -249,15 +251,15 @@ export class PokemonSpecies
                             let trovato = false;
                             for (let index = 0; index < data.names.length && !trovato; index++) {
                                 if (data.names[index].language.name == pokedex.getLanguage()) {
-                                    //console.log(data.names[index].name);
                                     variety.name = data.names[index].name;
                                     trovato = true;
                                 }
                             }
                         }
 
-                        if (this.pokemonVarieties.length == data.names.length) {
-                            //console.log(this.pokemonVarieties);
+                        if (variety.isDefault)
+                        {
+                            this.defaultPokemon.name = this.name;
                         }
                     }
                 ); 
@@ -270,10 +272,10 @@ export class PokemonSpecies
 
     isPokemonPreferito(pokedex: PokedexService)
     {
-        if (pokedex.indexOfPokemonSpecies(pokedex.favouriteList, this) == -1)
-            return false;
-        else
+        if (pokedex.isFavouritePokemon(this.defaultPokemon))
             return true;
+        else
+            return false;
     }
 
 }

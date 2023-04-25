@@ -34,7 +34,7 @@ export class PokedexService
   searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
 
   pokemonList: Pokemon[] = [];
-  favouriteList: PokemonSpecies[] = [];
+  favouriteList: Pokemon[] = [];
 
   language: string = 'en';
 
@@ -106,16 +106,16 @@ export class PokedexService
 
 
   //===> USELESS <===
-  getFavouritePokemonListSorted(): PokemonSpecies[]
+  getFavouritePokemonListSorted(): Pokemon[]
   {
     this.favouriteList = this.sortPokemonList(this.favouriteList);
     return this.favouriteList;
   }
 
 
-  addFavouritePokemonSpecies(pokemon: PokemonSpecies)
+  addFavouritePokemonSpecies(pokemon: Pokemon)
   {
-    if (this.indexOfPokemonSpecies(this.favouriteList, pokemon) == -1)
+    if (this.indexOfPokemon(this.favouriteList, pokemon) == -1)
     {
       this.favouriteList.push(pokemon);
       this.favouriteList = this.sortPokemonList(this.favouriteList);
@@ -128,7 +128,7 @@ export class PokedexService
   }
 
 
-  removeFavouritePokemonSpecies(pokemon: PokemonSpecies)
+  removeFavouritePokemonSpecies(pokemon: Pokemon)
   {
     for (let index = 0; index < this.favouriteList.length; index++) {
       if (this.favouriteList[index].equals(pokemon))
@@ -147,6 +147,15 @@ export class PokedexService
         return index;
     }
     return -1;
+  }
+
+
+  isFavouritePokemon(pokemon: Pokemon): boolean
+  {
+    if (this.indexOfPokemon(this.favouriteList, pokemon) != -1)
+      return true;
+    
+    return false;
   }
 
 
@@ -220,7 +229,7 @@ export class PokedexService
   }
 
 
-  sortPokemonList(pokemonList: PokemonSpecies[]): PokemonSpecies[]
+  sortPokemonList(pokemonList: Pokemon[]): Pokemon[]
   {
     // BubbleSort
     for(let i = 0; i <= pokemonList.length-1; i++)
