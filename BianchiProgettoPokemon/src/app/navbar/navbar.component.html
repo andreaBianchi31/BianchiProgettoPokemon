@@ -1,83 +1,27 @@
-<!--<div>
-    <nav class="fixed top-0 z-10 bg-gray-50 w-full">
-    <div class="md:hidden py-4 px-8 flex justify-between">
-         <div class="text-xl">Logo</div>
-         <div>
-           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-</svg>
-         </div>
-    </div>
-     
-  <div class="hidden md:grid grid-cols-4 gap-2 py-3 shadow-md">
-      <div class="invisible"></div>
-      <div>
-        <ul class="inline-grid grid-cols-3 gap-x-2">
-          <li>Home</li>
-          <li>Popular Posts</li>
-          <li>Latest Posts</li>
-        </ul>
-      </div>
-      <div>
-        <form>
-          <div class="relative">
-           <span class="absolute p-2 insert-y-0"> 
-             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-</svg>
-           </span>
-           <input type="search" class="w-full px-8 py-1 border border-gray-300 focus:outline-none rounded-md">
-          </div>
-        </form>
-      </div>
-      <div>
-        <ul class="inline-grid grid-cols-3 gap-x-2">
-          <li>Account</li>
-          <li>Messages</li>
-          <li>Log out</li>
-        </ul>
-      </div>
-  </div>
-  
-</nav>
-        <form class="md:hidden px-4 mt-16 mb-4">
-          <div class="relative">
-           <span class="absolute p-2 insert-y-0"> 
-             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-</svg>
-           </span>
-           <input type="search" class="w-full px-8 py-1 border border-gray-300 focus:outline-none rounded-md">
-          </div>
-        </form>
-    
-</div>-->
 
-
-
-<nav class="bg-gray-300 border-gray-200 fixed top-0 z-10 w-full">
+<nav class="bg-gradient-to-r from-yellow-500 via-yellow-200 to-yellow-500 border-gray-200 fixed top-0 z-10 w-full">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="#" class="flex items-center">
         <img src="../assets/images/utility/pokedex-icon.png" class="h-8 mr-3" alt="Pokédex Logo" />
-        <div class="font-bold italic ml-4">by Bianchi Andrea</div>
+        <div class="font-bold italic ml-4 text-blue-800 text-lg">by Bianchi Andrea</div>
     </a>
     <!--<button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
       <span class="sr-only">Open main menu</span>
       <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
     </button>-->
-    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:border-0">
+    <div class="w-auto block" id="navbar-default">
+      <ul class="font-medium flex p-0 rounded-lg flex-row space-x-8 mt-0">
         <li class="border-2 border-dashed border-black rounded">
-          <a href="#" class="block py-2 pl-3 pr-4 text-red-600 bg-transparent p-2 font-bold hover:underline hover:text-red-600">Home</a>
+          <a href="#" class="block py-2 pl-3 pr-4 text-blue-800 bg-transparent p-2 font-bold hover:text-blue-800">Home</a>
         </li>
         <li class="border-2 border-double border-black rounded">
-          <a href="#" class="block py-2 pl-3 pr-4 text-black bg-transparent p-2 font-bold hover:underline hover:text-red-600">About Us</a>
+          <a href="#" class="block py-2 pl-3 pr-4 text-black bg-transparent p-2 font-bold hover:text-blue-800">About Us</a>
         </li>
-        <li class="border-2 border-double border-black rounded">
-          <a href="#" class="block py-2 pl-3 pr-4 text-black bg-transparent p-2 font-bold hover:underline hover:text-red-600">What is a Pokemon?</a>
+        <li class="border-2 border-double border-black rounded hover:bg-blue-200 hover:border-blue-800 hover:border-dashed">
+          <a href="#" class="block py-2 pl-3 pr-4 text-black bg-transparent p-2 font-bold hover:text-blue-800">What is a Pokemon?</a>
         </li>
-        <li class="border-2 border-double border-black rounded">
-          <a href="https://pokeapi.co/" class="block py-2 pl-3 pr-4 text-black bg-transparent p-2 font-bold hover:underline hover:text-red-600">PokéAPI</a>
+        <li class="border-2 border-dashed border-black rounded">
+          <a href="https://pokeapi.co/" class="block py-2 pl-3 pr-4 text-black bg-transparent p-2 font-bold hover:text-blue-800">PokéAPI</a>
         </li>
       </ul>
     </div>

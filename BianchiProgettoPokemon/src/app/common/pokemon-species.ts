@@ -203,12 +203,12 @@ export class PokemonSpecies
     }
 
 
-    setPokemonVarieties(pokedex: PokedexService)
+    setPokemonVarieties(pokedex: PokedexService): Pokemon[]
     {
         this.varieties.forEach((variety: any) => {
             pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
                 (data) => {
-                    let pokemon = new Pokemon(data.id, data.name, this.pokedexNumber, data.sprites, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
+                    let pokemon = new Pokemon(data.id, data.name, this.category, this.pokedexNumber, data.sprites, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, pokedex);
                     this.pokemonVarieties.push(pokemon);
 
                     if (this.pokemonVarieties.length == this.varieties.length) {
@@ -228,10 +228,12 @@ export class PokemonSpecies
                 }
             );
         });
+
+        return this.pokemonVarieties;
     }
 
 
-    setPokemonFormNames(pokedex: PokedexService)
+    setPokemonFormNames(pokedex: PokedexService): Pokemon[]
     {
         this.pokemonVarieties.forEach((variety: any) => {
             //console.log(variety.forms);
@@ -261,6 +263,8 @@ export class PokemonSpecies
                 ); 
             });
         });
+
+        return this.pokemonVarieties;
     }
 
 

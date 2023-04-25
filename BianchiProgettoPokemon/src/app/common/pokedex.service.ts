@@ -30,13 +30,15 @@ export class PokedexService
   searchPokedex: string = this.searchBaseURL + 'pokedex/';
   serachRegion: string = this.searchBaseURL + 'region/';
 
-  lastPokemonNumber: number = 905
-  searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';;
+  lastPokemonNumber: number = 905;
+  searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
 
   pokemonList: Pokemon[] = [];
   favouriteList: PokemonSpecies[] = [];
 
   language: string = 'en';
+
+  currentPokemon: Pokemon | null = null;
 
 
   /*
@@ -88,15 +90,15 @@ export class PokedexService
   }
 
 
-  /*getCurrentPokemon(): Pokemon
+  getCurrentPokemon(): Pokemon | null
   {
     return this.currentPokemon;
-  }*/
+  }
 
 
   setCurrentPokemon(pokemon: Pokemon)
   {
-    //this.currentPokemon = pokemon;
+    this.currentPokemon = pokemon;
   }
 
 
@@ -261,6 +263,12 @@ export class PokedexService
   getPokemonSpecies(name: string): Observable<any>
   {
     return this.httpAssistant.get(this.searchPokemonSpecies + name);
+  }
+
+
+  getAllPokemonSpecies(): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchPokemonSpecies + '?limit=' + this.lastPokemonNumber);
   }
   
   

@@ -80,8 +80,10 @@ export class SmallCardComponent
   }
 
 
-  scrollToTop()
+  clickCard()
   {
+    this.pokedex.setCurrentPokemon(this.pokemon.varieties[0]);
+
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
   

@@ -5,6 +5,7 @@ export class Pokemon
 {
     id: number = 0; //order
     name: string = 'MissingNo';
+    category: string = 'Missing Number Pokemon';
 
     officialArtworkDefault: string = '../images/missing-number/missing-number-sprite.png';
     officialArtworkShiny: string = '../images/missing-number/missing-number-sprite.png';
@@ -33,7 +34,7 @@ export class Pokemon
     isDefault: boolean = true;
     
 
-    constructor(id: number, name: string, pokedexNumber: number, sprites: any, pixelFrontDefault: any, pixelFrontShiny: any,
+    constructor(id: number, name: string, category: string, pokedexNumber: number, sprites: any, pixelFrontDefault: any, pixelFrontShiny: any,
         pixelBackDefault: any, pixelBackShiny: any, officialArtworkDefault: any, officialArtworkShiny: any,
         height: number, weight: number, types: any, stats: any[], forms: any[], isDefault: boolean, pokedex: PokedexService)
     {
