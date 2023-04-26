@@ -12,14 +12,14 @@ import { Pokemon } from '../common/pokemon';
 export class MaxiContainerComponent
 {
   pokemonList: PokemonSpecies[] = [];
-  selectedPokemon: Pokemon | null = null;
+  selectedPokemon!: Pokemon;
 
   generation: number = 1;
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
   game: number = 1;
 
-  parameter: string = 'eneration';
+  parameter: string = 'generation';
 
   datiDisponibili: boolean;
   cambioForma: boolean;
