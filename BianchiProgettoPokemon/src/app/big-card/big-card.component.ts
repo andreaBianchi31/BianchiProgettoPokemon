@@ -14,8 +14,6 @@ export class BigCardComponent
   @Input() currentPokemon: Pokemon | null = null;
   @Output() newSelectedForm = new EventEmitter<Pokemon>();
 
-  chart: any = document.getElementById('chart');
-
   ngOnChanges(changes: SimpleChanges)
   {
     this.artwork = changes['currentPokemon'].currentValue.pixelFrontDefault;
@@ -35,27 +33,6 @@ export class BigCardComponent
     {
       this.heart = this.heartNormal;
     }
-
-
-    let statChart = new Chart(this.chart, {
-      type: 'radar',
-      data: {
-        labels: ['HP', 'ATTACK', 'DEFENSE', 'SPECIAL ATTACK', 'SPECIAL DEFENSE', 'SPEED'],
-        datasets: [
-          {
-            label: 'Stats',
-            data: [65, 59, 90, 81, 56, 55, 40],
-            fill: true,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            pointBackgroundColor: 'rgb(255, 99, 132)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 99, 132)'
-          }
-        ]
-      }
-    });
   }
 
   artwork: string = '';

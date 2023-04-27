@@ -26,9 +26,8 @@
 
         <div class="border-t-2 border-t-slate-400 pt-4 mt-4">Generation: {{currentPokemon.generation}}</div>
 
-        <div>
-            <canvas id="chart"></canvas>
-        </div>
+        <app-my-chart [stats]="[currentPokemon.hp, currentPokemon.attack, currentPokemon.defense, currentPokemon.specialAttack, currentPokemon.specialDefense, currentPokemon.speed]"  [hp]="currentPokemon.hp" [attack]="currentPokemon.attack" [defense]="currentPokemon.defense"
+        [specialAttack]="currentPokemon.attack" [specialDefense]="currentPokemon.specialDefense" [speed]="currentPokemon.speed"></app-my-chart>
 
         <div>Description List</div>
 

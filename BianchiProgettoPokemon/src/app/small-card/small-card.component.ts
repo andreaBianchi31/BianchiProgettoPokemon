@@ -13,19 +13,15 @@ export class SmallCardComponent
   @Input() pokemonSpecies: PokemonSpecies;
   @Output() pokemonForm = new EventEmitter<Pokemon>();
 
-  /*artwork: string;
-  officialArtworkNormal: string;
-  officialArtworkShiny: string;*/
+  missingNumberArtwork: string = this.pokedex.basePath + '/utility/pokeball-icon.png';
 
-  missingNumberArtwork: string = '../assets/images/utility/pokeball-icon.png';
-
-  redStarNormal: string = '../assets/images/star-icon-red-normal.png';
-  redStarShiny: string = '../assets/images/star-icon-red-shiny.png';
+  redStarNormal: string = this.pokedex.basePath + '/star-icon-red-normal.png';
+  redStarShiny: string = this.pokedex.basePath + '/star-icon-red-shiny.png';
   redStar: string = this.redStarNormal;
   isFavourite: boolean;
 
-  favouriteNo: string = '../assets/images/heart-icon-normal.png';
-  favouriteYes: string = '../assets/images/heart-icon-favourite.png';
+  favouriteNo: string = this.pokedex.basePath + '/heart-icon-normal.png';
+  favouriteYes: string = this.pokedex.basePath + '/heart-icon-favourite.png';
   favourite: string = this.favouriteNo;
   isShiny: boolean;
 
@@ -33,9 +29,6 @@ export class SmallCardComponent
   constructor(private pokedex: PokedexService)
   {
     this.pokemonSpecies = new PokemonSpecies(0, [], [], false, false, false, [], '', '', '', [], pokedex);
-
-    this.redStarNormal = '../assets/images/star-icon-red-normal.png';
-    this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
 
     this.redStar = this.redStarNormal;
     this.isShiny = false;
@@ -45,8 +38,8 @@ export class SmallCardComponent
   
   ngOnInit()
   {
-    this.redStarNormal = '../assets/images/star-icon-red-normal.png';
-    this.redStarShiny = '../assets/images/star-icon-red-shiny.png';
+    this.redStarNormal = this.pokedex.basePath + '/star-icon-red-normal.png';
+    this.redStarShiny = this.pokedex.basePath + '/star-icon-red-shiny.png';
 
     this.redStar = this.redStarNormal;
     this.isShiny = false;

@@ -64,7 +64,7 @@ export class PokemonSpecies
         let trovato = false;
         for (let index = 0; index < names.length && !trovato; index++)
         {
-            if ((names[index].language.name + '') == pokedex.language) {
+            if ((names[index].language.name + '') == pokedex.getLanguage()) {
                 this.name = names[index].name;
                 this.name.replace('-', '.');
                 trovato = true;
@@ -83,7 +83,7 @@ export class PokemonSpecies
         trovato = false;
         for (let index = 0; index < category.length && !trovato; index++)
         {
-            if ((category[index].language.name + '') == pokedex.language) {
+            if ((category[index].language.name + '') == pokedex.getLanguage()) {
                 this.category = category[index].genus;
                 trovato = true;
             }
@@ -118,7 +118,7 @@ export class PokemonSpecies
 
 
         // ===> FLAVOR TEXT ENTRIES
-        this.flavorTextEntries = pokedex.getEntryByLanguage(flavorTextEntries, pokedex.language);
+        this.flavorTextEntries = pokedex.getEntryByLanguage(flavorTextEntries, pokedex.getLanguage());
 
 
         // ===> VARIETIES

@@ -9,15 +9,13 @@ import { PokemonSpecies } from './pokemon-species';
 })
 export class PokedexService
 {
-  missingNumberNormal: string = '../assets/images/missing-number/missing-number-normal.jpg';
-  missingNumberShiny: string = '../assets/images/missing-number/missing-number-shiny.jpg';
-  missingNumberSprite: string = '../assets/images/missing-number/missing-number-sprite.png';
-  //missingNoPokemon: Pokemon;
-  //missingNoSpecies: PokemonSpecies; (-151)
-  //missingNoPokemon: Pokemon; (-151)
-  typeNormal: string = '../assets/images/types/type-';
-  typeUnknown: string = '../assets/images/types/unknown-';
-  imageNotAvailable: string = '../assets/images/utility/pokeball-icon.png';
+  basePath: string = '../assets/images';
+  missingNumberNormal: string = this.basePath + '/missing-number/missing-number-normal.jpg';
+  missingNumberShiny: string = this.basePath + '/missing-number/missing-number-shiny.jpg';
+  missingNumberSprite: string = this.basePath + '/missing-number/missing-number-sprite.png';
+  imageNotAvailable: string = this.basePath + 'utility/pokeball-icon.png';
+  typeNormal: string = this.basePath + '/types/type-';
+  typeUnknown: string = this.basePath + 'types/unknown-';
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';
@@ -33,12 +31,11 @@ export class PokedexService
   lastPokemonNumber: number = 905;
   searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
 
-  pokemonList: Pokemon[] = [];
-  favouriteList: Pokemon[] = [];
+  private favouriteList: Pokemon[] = [];
 
-  language: string = 'en';
+  private language: string = 'en';
 
-  currentPokemon: Pokemon | null = null;
+  currentPokemon!: Pokemon;
 
 
   /*
@@ -60,12 +57,6 @@ export class PokedexService
   }
 
 
-  /*getMissingNo(): Pokemon
-  {
-    //return this.missingNoPokemon;
-  }*/
-
-
   getLanguage(): string
   {
     return this.language;
@@ -75,18 +66,6 @@ export class PokedexService
   setLanguage(language: string)
   {
     this.language = language;
-  }
-
-
-  getPokemonList(): Pokemon[]
-  {
-    return this.pokemonList;
-  }
-
-
-  setPokemonList(pokemonList: Pokemon[])
-  {
-    this.pokemonList = pokemonList;
   }
 
 
