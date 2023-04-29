@@ -3,6 +3,7 @@ import { Chart } from 'chart.js';
 import { PokedexService } from '../common/pokedex.service';
 import { Pokemon } from '../common/pokemon';
 import { PokemonSpecies } from '../common/pokemon-species';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-big-card',
@@ -25,7 +26,7 @@ export class BigCardComponent
     this.isFront = true;
     this.isShiny = false;
 
-    if (this.currentPokemon != null && this.pokedex.isFavouritePokemon(this.currentPokemon))
+    if (this.currentPokemon != null && this.pokedex.isFavouritePokemonSpecies(this.currentPokemon.pokedexNumber))
     {
       this.heart = this.heartFavourite;
     }
@@ -53,7 +54,7 @@ export class BigCardComponent
   heartFavourite: string = this.basePath + 'heart-icon-favourite.png';
   heart: string = this.heartNormal;
 
-  constructor(private pokedex: PokedexService)
+  constructor(private pokedex: PokedexService, private title: Title)
   {
     this.currentPokemon = null;
   }
@@ -117,14 +118,14 @@ export class BigCardComponent
   {
     if (this.currentPokemon != null)
     {
-      if (this.pokedex.isFavouritePokemon(this.currentPokemon))
+      if (this.pokedex.isFavouritePokemonSpecies(this.currentPokemon.pokedexNumber))
       {
-        this.pokedex.removeFavouritePokemonSpecies(this.currentPokemon);
+        this.pokedex.removeFavouritePokemonSpecies(this.currentPokemon.pokedexNumber);
         this.heart = this.heartNormal;
       }
       else
       {
-        this.pokedex.addFavouritePokemonSpecies(this.currentPokemon);
+        this.pokedex.addFavouritePokemonSpecies(this.currentPokemon.pokedexNumber);
         this.heart = this.heartFavourite;
       }
     }
@@ -133,6 +134,7 @@ export class BigCardComponent
   changeCurrentPokemon(pokemon: Pokemon)
   {
     this.newSelectedForm.emit(pokemon);
+    this.title.setTitle('Pokédex - ' + pokemon.name);
     console.log(pokemon);
   }
 }

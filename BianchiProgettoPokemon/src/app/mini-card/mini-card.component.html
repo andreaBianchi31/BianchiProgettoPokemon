@@ -1,7 +1,7 @@
 
 <div class="h-44 w-32 bg-gray-100 rounded-xl flex flex-col justify-center shadow duration-300 hover:bg-white hover:shadow-xl m-7">
-    <div *ngIf="pokemon != null">
-        <img [src]="pokemon.pixelFrontDefault" class="p-2">
+    <div *ngIf="pokemon != null" class="align-middle">
+        <img [src]="pokemon.pixelFrontDefault" class="p-2 justify-center">
         <span class="text-sm font-semibold text-center">{{pokemon.name}}</span>
     </div>
 </div>

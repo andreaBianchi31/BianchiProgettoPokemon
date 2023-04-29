@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 import { Pokemon } from '../common/pokemon';
 import { PokemonSpecies } from '../common/pokemon-species';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-small-card',
@@ -26,7 +27,7 @@ export class SmallCardComponent
   isShiny: boolean;
 
 
-  constructor(private pokedex: PokedexService)
+  constructor(private pokedex: PokedexService, private title: Title)
   {
     this.pokemonSpecies = new PokemonSpecies(0, [], [], false, false, false, [], '', '', '', [], pokedex);
 
@@ -50,6 +51,16 @@ export class SmallCardComponent
   clickCard()
   {
     this.pokemonForm.emit(this.pokemonSpecies.defaultPokemon);
+
+    if (this.pokemonSpecies.defaultPokemon != null)
+    {
+      this.title.setTitle('Pokédex - ' + this.pokemonSpecies.defaultPokemon.name);
+    }
+    else
+    {
+      this.title.setTitle('Pokédex - ' + this.pokemonSpecies.name);
+    }
+
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
   

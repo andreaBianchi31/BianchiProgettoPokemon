@@ -8,18 +8,21 @@ export class Pokemon
     category: string = 'Missing Number Pokemon';
     generation: number = 0;
 
-    officialArtworkDefault: string = '../images/missing-number/missing-number-sprite.png';
-    officialArtworkShiny: string = '../images/missing-number/missing-number-sprite.png';
+    basePath: string = '../assets/images';
+    imageNotAvailable = '/utility/pokeball-icon.png';
 
-    pixelFrontDefault: string = '../images/missing-number/missing-number-sprite.png';
-    pixelFrontShiny: string = '../images/missing-number/missing-number-sprite.png';
-    pixelBackDefault: string = '../images/missing-number/missing-number-sprite.png';
-    pixelBackShiny: string = '../images/missing-number/missing-number-sprite.png';
+    officialArtworkDefault: string = this.imageNotAvailable;
+    officialArtworkShiny: string = this.imageNotAvailable;
+
+    pixelFrontDefault: string = this.imageNotAvailable;
+    pixelFrontShiny: string = this.imageNotAvailable;
+    pixelBackDefault: string = this.imageNotAvailable;
+    pixelBackShiny: string = this.imageNotAvailable;
 
     pokedexNumber: number; //id
 
-    height: number; //7 = 0,7 m
-    weight: number; //1128 = 112,8 kg
+    height: number; // metri
+    weight: number; // kilogrammi
 
     type1: string = 'bird';
     type2: string = 'bird';
@@ -35,9 +38,11 @@ export class Pokemon
     isDefault: boolean = true;
     pokemonVarieties: Pokemon[] = [];
 
+    entries: string[] = [];
+
     constructor(id: number, name: string, category: string, generation: number, pokedexNumber: number, pixelFrontDefault: any, pixelFrontShiny: any,
         pixelBackDefault: any, pixelBackShiny: any, officialArtworkDefault: any, officialArtworkShiny: any,
-        height: number, weight: number, types: any, stats: any[], forms: any[], isDefault: boolean, pokedex: PokedexService)
+        height: number, weight: number, types: any, stats: any[], forms: any[], isDefault: boolean, entries: string[], pokedex: PokedexService)
     {
         // ===> GENERIC
         this.id = id;
@@ -45,10 +50,14 @@ export class Pokemon
         this.pokedexNumber = pokedexNumber;
         this.forms = forms;
         this.height = height/10;
-        this.weight = weight/1000;
+        this.weight = weight/10;
         this.isDefault = isDefault;
         this.category = category;
         this.generation = generation;
+        this.entries = entries;
+
+        this.basePath = pokedex.basePath;
+        this.imageNotAvailable = this.basePath + pokedex.imageNotAvailable;
 
 
         // ===> STATS
@@ -77,6 +86,19 @@ export class Pokemon
         
         // ===> ARTWORK & SPRITES
 
+               
+        // OFFICIAL - DEFAULT
+        if (officialArtworkDefault == null)
+            this.officialArtworkDefault = pokedex.imageNotAvailable;
+        else
+            this.officialArtworkDefault = officialArtworkDefault;
+        
+        // OFFICIAL - SHINY
+        if (officialArtworkShiny == null)
+            this.officialArtworkShiny = this.officialArtworkDefault;
+        else
+            this.officialArtworkShiny = officialArtworkShiny;
+
         // FRONT - DEFAULT
         if (pixelFrontDefault == null)
             this.pixelFrontDefault = this.officialArtworkDefault;
@@ -100,18 +122,6 @@ export class Pokemon
             this.pixelBackShiny = this.pixelFrontShiny;
         else
             this.pixelBackShiny = pixelBackShiny;
-        
-        // OFFICIAL - DEFAULT
-        if (officialArtworkDefault == null)
-            this.officialArtworkDefault = pokedex.imageNotAvailable;
-        else
-            this.officialArtworkDefault = officialArtworkDefault;
-        
-        // OFFICIAL - SHINY
-        if (officialArtworkShiny == null)
-            this.officialArtworkShiny = this.officialArtworkDefault;
-        else
-            this.officialArtworkShiny = officialArtworkShiny;
         
     }
 

@@ -13,9 +13,9 @@ export class PokedexService
   missingNumberNormal: string = this.basePath + '/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = this.basePath + '/missing-number/missing-number-shiny.jpg';
   missingNumberSprite: string = this.basePath + '/missing-number/missing-number-sprite.png';
-  imageNotAvailable: string = this.basePath + 'utility/pokeball-icon.png';
+  imageNotAvailable: string = this.basePath + '/utility/pokeball-icon.png';
   typeNormal: string = this.basePath + '/types/type-';
-  typeUnknown: string = this.basePath + 'types/unknown-';
+  typeUnknown: string = this.basePath + '/types/unknown-';
 
   searchBaseURL: string = 'https://pokeapi.co/api/v2/';
   searchPokemon: string = this.searchBaseURL + 'pokemon/';
@@ -31,11 +31,10 @@ export class PokedexService
   lastPokemonNumber: number = 905;
   searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
 
-  private favouriteList: Pokemon[] = [];
+  //private favouriteList: Pokemon[] = [];
+  private favouritePokemonSpeciesList: number[] = [];
 
   private language: string = 'en';
-
-  currentPokemon!: Pokemon;
 
 
   /*
@@ -69,23 +68,11 @@ export class PokedexService
   }
 
 
-  getCurrentPokemon(): Pokemon | null
-  {
-    return this.currentPokemon;
-  }
-
-
-  setCurrentPokemon(pokemon: Pokemon)
-  {
-    this.currentPokemon = pokemon;
-  }
-
-
 // ======================================================================================================================================================
 
 
   //===> USELESS <===
-  getFavouritePokemonListSorted(): Pokemon[]
+  /*getFavouritePokemonListSorted(): Pokemon[]
   {
     this.favouriteList = this.sortPokemonList(this.favouriteList);
     return this.favouriteList;
@@ -147,6 +134,66 @@ export class PokedexService
     }
 
     return -1;
+  }*/
+
+
+  // ===========================================================================================================
+  
+
+  getFavouritePokemonList(): number[]
+  {
+    this.sortFavouritePokemonList;
+    return this.favouritePokemonSpeciesList;
+  }
+
+
+  sortFavouritePokemonList()
+  {
+    this.favouritePokemonSpeciesList = this.favouritePokemonSpeciesList.sort();
+  }
+
+  
+  addFavouritePokemonSpecies(pokedexNumber: number)
+  {
+    if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
+    {
+      this.favouritePokemonSpeciesList.push(pokedexNumber);
+      this.sortFavouritePokemonList();
+      console.log(this.favouritePokemonSpeciesList);
+    }
+    else
+    {
+      console.log('Pokémon #' + pokedexNumber + ' is already one of your favourite pokemon!')
+    }
+  }
+
+
+  removeFavouritePokemonSpecies(pokedexNumber: number)
+  {
+    if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
+    {
+      console.log('Pokémon #' + pokedexNumber + ' does not exist!')
+    }
+    else
+    {
+      this.favouritePokemonSpeciesList.splice(this.favouritePokemonSpeciesList.indexOf(pokedexNumber), 1);
+    }
+
+    this.sortFavouritePokemonList();
+    console.log(this.favouritePokemonSpeciesList);
+  }
+
+  
+  isFavouritePokemonSpecies(pokedexNumber: number): boolean
+  {
+    if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
   }
 
 
@@ -282,6 +329,16 @@ export class PokedexService
             finalEntries.push(entryText);
         }
     });
+
+    // Elimina i duplicati
+    for (let i = 0; i < finalEntries.length; i++)
+    {
+      for (let j = i; j < finalEntries.length; j++)
+      {
+        if (finalEntries[i].toUpperCase() == finalEntries[j].toUpperCase())
+          finalEntries.splice(j, 1);
+      }
+    }
 
     return finalEntries;
   }

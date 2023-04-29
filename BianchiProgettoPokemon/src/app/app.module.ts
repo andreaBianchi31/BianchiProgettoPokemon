@@ -18,6 +18,7 @@ import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
 import { MiniCardComponent } from './mini-card/mini-card.component';
 import { MaxiContainerComponent } from './maxi-container/maxi-container.component';
 import { MyChartComponent } from './my-chart/my-chart.component';
+import { DescriptionSliderComponent } from './description-slider/description-slider.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MyChartComponent } from './my-chart/my-chart.component';
     InfoPokemonComponent,
     MiniCardComponent,
     MaxiContainerComponent,
-    MyChartComponent
+    MyChartComponent,
+    DescriptionSliderComponent
   ],
   imports: [
     BrowserModule,

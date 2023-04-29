@@ -24,16 +24,21 @@
             </button>
         </div>
 
-        <div class="border-t-2 border-t-slate-400 pt-4 mt-4">Generation: {{currentPokemon.generation}}</div>
+        <div class="border-t-2 border-t-slate-400 pt-4 mt-4">Generation - {{currentPokemon.generation}}</div>
 
-        <app-my-chart [stats]="[currentPokemon.hp, currentPokemon.attack, currentPokemon.defense, currentPokemon.specialAttack, currentPokemon.specialDefense, currentPokemon.speed]"  [hp]="currentPokemon.hp" [attack]="currentPokemon.attack" [defense]="currentPokemon.defense"
-        [specialAttack]="currentPokemon.attack" [specialDefense]="currentPokemon.specialDefense" [speed]="currentPokemon.speed"></app-my-chart>
+        <div>Height - {{currentPokemon.height}} m</div>
 
-        <div>Description List</div>
+        <div>Weight - {{currentPokemon.weight}} kg</div>
 
-        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Related Pokémon</div>
+        <!--<app-my-chart [stats]="[currentPokemon.hp, currentPokemon.attack, currentPokemon.defense, currentPokemon.specialAttack, currentPokemon.specialDefense, currentPokemon.speed]"  [hp]="currentPokemon.hp" [attack]="currentPokemon.attack" [defense]="currentPokemon.defense"
+        [specialAttack]="currentPokemon.attack" [specialDefense]="currentPokemon.specialDefense" [speed]="currentPokemon.speed"></app-my-chart>-->
 
-        <div>Alternative Forms</div>
+            
+        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Descriptions</div>
+
+        <app-description-slider [entries]="currentPokemon.entries"></app-description-slider>
+
+        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Alternative forms</div>
 
         <div>
             <button *ngFor="let pokemon of currentPokemon.pokemonVarieties" >
@@ -41,7 +46,7 @@
             </button>
         </div>
 
-        <div>Line Evolutiva</div>
+        <div>Evolution Line</div>
 
     </div>
 

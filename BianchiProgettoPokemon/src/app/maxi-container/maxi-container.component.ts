@@ -41,7 +41,7 @@ export class MaxiContainerComponent
     if (this.generation == 0)
     {
       console.log('Searching pokemon of All Generations...');
-      this.title.setTitle('Pokedex - All Generations');
+      this.title.setTitle('Pokédex - All Generations');
 
       this.pokemonList = [];
       this.datiDisponibili = false;
@@ -77,7 +77,7 @@ export class MaxiContainerComponent
     else
     {
       console.log('Searching pokemon of Generation ' + this.generation + '...');
-      this.title.setTitle('Pokedex - Generation ' + this.generation);
+      this.title.setTitle('Pokédex - Generation ' + this.generation);
 
       this.pokemonList = [];
       this.datiDisponibili = false;
@@ -124,7 +124,7 @@ export class MaxiContainerComponent
 
   getPokemonByGameversion()
   {
-    let tmp = 'Pokedex - ';
+    let tmp = 'Pokédex - ';
     if (this.game == 1)
     tmp += 'National';
     console.log(this.game);
