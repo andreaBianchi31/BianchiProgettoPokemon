@@ -124,22 +124,6 @@ export class PokemonSpecies
         // ===> VARIETIES
         this.varieties = varieties;
 
-        
-
-        /*let entryText = '';
-        flavorTextEntries.forEach(entry => {
-            if (entry.language != undefined && entry.language != null && entry.language.name == pokedex.language)
-            {
-                entryText = entry.flavor_text;
-                entryText = entryText.replace(/\n/g,' ');
-                entryText = entryText.replace(/\f/g,' ');
-                entryText = entryText.replace('POKéMON', 'Pokémon');
-                entryText = entryText.trim();
-
-                this.flavorTextEntries.push(entryText);
-            }
-        });*/
-
 
         /*
         // ===> EVOLVES FROM
@@ -211,7 +195,7 @@ export class PokemonSpecies
                 (data) => {
                     let pokemon = new Pokemon(data.id, data.name, this.category, this.generation, this.pokedexNumber, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, this.flavorTextEntries, pokedex);
                     this.pokemonVarieties.push(pokemon);
-                    //console.log(this.name + ': ' + this.pokemonVarieties.length + ' - ' + this.varieties.length)
+                    //console.log(this.name + ': ' + this.pokemonVarieties.length + ' - ' + this.varieties.length);
 
                     if (this.pokemonVarieties.length == this.varieties.length)
                     {
@@ -225,6 +209,7 @@ export class PokemonSpecies
                             }
                         }
 
+                        //this.setAllPokemonForms(pokedex);
                         this.setPokemonFormNames(pokedex);
                     }
                 }
@@ -235,11 +220,36 @@ export class PokemonSpecies
     }
 
 
+    /* (UNUSED)
+    setAllPokemonForms(pokedex: PokedexService)
+    {
+        let count = this.pokemonVarieties.length;
+
+        this.defaultPokemon.forms.forEach((form: any) => {
+            pokedex.getPokemonFormByUrl(form.url).subscribe (
+                (data: any) => {
+                    pokedex.getPokemonByURL(data.pokemon.url).subscribe (
+                        (data2: any) => {
+                            let pokemon = new Pokemon(data2.id, data2.name, this.category, this.generation, this.pokedexNumber, data2.sprites.front_default, data2.sprites.front_shiny, data2.sprites.back_default, data2.sprites.back_shiny, data2.sprites.other['official-artwork'].front_default, data2.sprites.other['official-artwork'].front_shiny, data2.height, data2.weight, data2.types, data2.stats, data2.forms, data2.is_default, this.flavorTextEntries, pokedex);
+                            this.pokemonVarieties.push(pokemon);
+                            console.log(pokemon);
+
+                            if (this.pokemonVarieties.length == count + (this.defaultPokemon.forms.length - 1))
+                            {
+                                this.setPokemonFormNames(pokedex);
+                            }
+
+                        }
+                    )
+                }
+            );
+        });
+    }*/
+
+
     setPokemonFormNames(pokedex: PokedexService): Pokemon[]
     {
         this.pokemonVarieties.forEach((variety: any) => {
-            /*if (variety.forms.length > 1)
-                console.log(variety.forms);*/
             variety.forms.forEach((form: any) => {
                 pokedex.getPokemonFormByUrl(form.url).subscribe (
                     (data: any) => {

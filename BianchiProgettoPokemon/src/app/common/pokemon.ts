@@ -19,10 +19,10 @@ export class Pokemon
     pixelBackDefault: string = this.imageNotAvailable;
     pixelBackShiny: string = this.imageNotAvailable;
 
-    pokedexNumber: number; //id
+    pokedexNumber: number = 0; //id
 
-    height: number; // metri
-    weight: number; // kilogrammi
+    height: number = 0; // metri
+    weight: number = 0; // kilogrammi
 
     type1: string = 'bird';
     type2: string = 'bird';
