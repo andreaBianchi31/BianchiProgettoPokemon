@@ -10,16 +10,16 @@
 
 
 <div *ngIf="parameter == 'generation'" class="ml-6 mt-6 p-2 text-base w-80 border-2 bg-slate-50 font-bold">
-    <p>Generation <select [(ngModel)]="generation" (change)="getPokemonByGeneration()" class="bg-transparent italic">
+    <div>Generation <select [(ngModel)]="generation" (change)="getPokemonByGeneration()" class="bg-transparent italic text-center">
         <option *ngFor="let gen of generationList" [value]="gen">{{gen}}</option>
         <option value="0">All</option>
     </select>
-    </p>
+</div>
 </div>
 
 
 <div *ngIf="parameter == 'game-versions'" class="ml-6 mt-6 p-2 text-base w-96 border-2 bg-slate-50 font-bold">
-    <p>Game Version<select [(ngModel)]="game" (change)="getPokemonByGameVersion()" class="bg-transparent italic">
+    <div>Game Version<select [(ngModel)]="game" (change)="getPokemonByGameVersion()" class="bg-transparent italic text-center">
         <option value="1">National</option>
         <option value="2">Red | Blue | Yellow</option>
         <option value="3">Gold | Silver | Crystal</option>
@@ -41,7 +41,7 @@
         <option value="29">Chrown Tundra</option>
         <option value="30">Legends: Arceus</option>
     </select>
-    </p>
+    </div>
 </div>
 
 
