@@ -1,7 +1,7 @@
 
 
-<div class="ml-6 p-2 text-base w-80 border-2 bg-slate-50 font-bold">Search Pokémon by
-<select [(ngModel)]="parameter" (change)="changeOption()" class="bg-transparent italic">
+<div class="ml-6 p-2 text-base w-80 border-2 bg-slate-50 font-bold rounded-lg flex justify-center">Search Pokémon by
+<select [(ngModel)]="parameter" (change)="changeOption()" class="bg-transparent italic ml-2">
     <option value="generation">Generation</option>
     <option value="game-versions">Game Version</option>
     <option value="favourites">Favourites</option>
@@ -9,8 +9,8 @@
 </div>
 
 
-<div *ngIf="parameter == 'generation'" class="ml-6 mt-6 p-2 text-base w-80 border-2 bg-slate-50 font-bold">
-    <div>Generation <select [(ngModel)]="generation" (change)="getPokemonByGeneration()" class="bg-transparent italic text-center">
+<div *ngIf="parameter == 'generation'" class="ml-6 mt-6 p-2 text-base w-80 border-2 bg-slate-50 font-bold rounded-lg flex justify-center">
+    <div>Generation <select [(ngModel)]="generation" (change)="getPokemonByGeneration()" class="bg-transparent italic text-left ml-2">
         <option *ngFor="let gen of generationList" [value]="gen">{{gen}}</option>
         <option value="0">All</option>
     </select>
@@ -18,8 +18,8 @@
 </div>
 
 
-<div *ngIf="parameter == 'game-versions'" class="ml-6 mt-6 p-2 text-base w-96 border-2 bg-slate-50 font-bold">
-    <div>Game Version<select [(ngModel)]="game" (change)="getPokemonByGameVersion()" class="bg-transparent italic text-center">
+<div *ngIf="parameter == 'game-versions'" class="ml-6 mt-6 p-2 text-base w-96 border-2 bg-slate-50 font-bold rounded-lg flex justify-center">
+    <div>Game Version<select [(ngModel)]="game" (change)="getPokemonByGameVersion()" class="bg-transparent italic text-left ml-2">
         <option value="1">National</option>
         <option value="2">Red | Blue | Yellow</option>
         <option value="3">Gold | Silver | Crystal</option>
@@ -45,13 +45,13 @@
 </div>
 
 
-<div *ngIf="parameter == 'favourites'" class="ml-6 mt-6 p-2 text-base w-96 border-2 bg-slate-50 font-bold">
-    <button (click)="deleteAllFavourites()">DELETE ALL FAVOURITES</button>
+<div *ngIf="parameter == 'favourites'" class="ml-6 mt-6 p-2 text-base w-96 border-2 border-red-600 bg-red-300 hover:bg-red-200 font-bold rounded-lg text-center">
+    <button (click)="deleteAllFavourites()" class="h-full w-full bg-transparent">DELETE ALL FAVOURITE POKEMON</button>
 </div>
 
 
 
-<div class="grid grid-cols-2 content-center p-6 gap-6 md:visible">
+<div class="grid grid-cols-2 content-center p-6 gap-6">
     <div class="w-full">
         <app-card-container (pokemonForm)="modificaPokemon($event)" [pokemonList]="pokemonList" [datiDisponibili]="datiDisponibili"></app-card-container>
     </div>

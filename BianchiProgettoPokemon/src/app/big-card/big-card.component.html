@@ -2,7 +2,13 @@
     
     <div *ngIf="currentPokemon != null; else PokemonVuoto">
 
-        <div class="text-4xl font-bold">#{{currentPokemon.pokedexNumber}} - {{currentPokemon.name}}</div>
+        <div class="flex justify-between">
+            <div class="text-4xl font-bold">#{{currentPokemon.pokedexNumber}} - {{currentPokemon.name}}</div>
+            <div class="flex space-x-4">
+                <app-tipo [tipo]="currentPokemon.type1"></app-tipo>
+                <app-tipo *ngIf="currentPokemon.type2 != 'bird'" [tipo]="currentPokemon.type2"></app-tipo>
+            </div>
+        </div>
 
         <div class="text-xl italic mt-4 mb-8 font-semibold">{{currentPokemon.category}}</div>
             
@@ -26,13 +32,9 @@
 
         <div class="border-t-2 border-t-slate-400 pt-4 mt-4"><b>Generation</b> - {{currentPokemon.generation}}</div>
 
-        <div><b>Height</b> - {{currentPokemon.height}} m</div>
+        <div class="mt-2"><b>Height</b> - {{currentPokemon.height}} m</div>
 
-        <div><b>Weight</b> - {{currentPokemon.weight}} kg</div>
-
-        <!--<app-my-chart [stats]="[currentPokemon.hp, currentPokemon.attack, currentPokemon.defense, currentPokemon.specialAttack, currentPokemon.specialDefense, currentPokemon.speed]"  [hp]="currentPokemon.hp" [attack]="currentPokemon.attack" [defense]="currentPokemon.defense"
-        [specialAttack]="currentPokemon.attack" [specialDefense]="currentPokemon.specialDefense" [speed]="currentPokemon.speed"></app-my-chart>-->
-
+        <div class="mt-2"><b>Weight</b> - {{currentPokemon.weight}} kg</div>
             
         <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Descriptions</div>
 

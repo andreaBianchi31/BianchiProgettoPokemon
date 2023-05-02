@@ -19,6 +19,7 @@ import { MiniCardComponent } from './mini-card/mini-card.component';
 import { MaxiContainerComponent } from './maxi-container/maxi-container.component';
 import { MyChartComponent } from './my-chart/my-chart.component';
 import { DescriptionSliderComponent } from './description-slider/description-slider.component';
+import { TipoComponent } from './tipo/tipo.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DescriptionSliderComponent } from './description-slider/description-sli
     MiniCardComponent,
     MaxiContainerComponent,
     MyChartComponent,
-    DescriptionSliderComponent
+    DescriptionSliderComponent,
+    TipoComponent
   ],
   imports: [
     BrowserModule,
