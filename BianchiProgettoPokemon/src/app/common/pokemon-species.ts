@@ -232,9 +232,9 @@ export class PokemonSpecies
                         (data2: any) => {
                             let pokemon = new Pokemon(data2.id, data2.name, this.category, this.generation, this.pokedexNumber, data2.sprites.front_default, data2.sprites.front_shiny, data2.sprites.back_default, data2.sprites.back_shiny, data2.sprites.other['official-artwork'].front_default, data2.sprites.other['official-artwork'].front_shiny, data2.height, data2.weight, data2.types, data2.stats, data2.forms, data2.is_default, this.flavorTextEntries, pokedex);
                             this.pokemonVarieties.push(pokemon);
-                            console.log(pokemon);
+                            //console.log(pokemon);
 
-                            if (this.pokemonVarieties.length == count + (this.defaultPokemon.forms.length - 1))
+                            if (this.pokemonVarieties.length == count + (this.defaultPokemon.forms.length))
                             {
                                 this.setPokemonFormNames(pokedex);
                             }
