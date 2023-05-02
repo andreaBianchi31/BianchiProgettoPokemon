@@ -119,10 +119,11 @@ export class MaxiContainerComponent
     this.pokemonList.forEach((pokemonSpecie: PokemonSpecies) => {
       pokemonSpecie.setPokemonVarieties(this.pokedex);
     });
+
   }
 
 
-  getPokemonByGameversion()
+  getPokemonByGameVersion()
   {
     let tmp = 'Pokédex - ';
     if (this.game == 1)
@@ -191,9 +192,72 @@ export class MaxiContainerComponent
     );
   }
 
+
+  getPokemonByFavourites()
+  {
+    console.log('Searching your favourite Pokémon...');
+    this.title.setTitle('Pokédex - Favourites');
+
+    this.pokemonList = [];
+    this.datiDisponibili = false;
+
+    let favoruiteList = this.pokedex.getFavouritePokemonList();
+
+    favoruiteList.forEach(pokemonName => {
+      this.pokedex.getPokemonSpecies('' + pokemonName).subscribe (
+        (data: any) => {
+          console.log(data);
+          let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
+          this.pokemonList.push(pokemon);
+
+          if (favoruiteList.length == this.pokemonList.length)
+          {
+            this.datiDisponibili = true;
+            this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
+
+            console.log(this.pokemonList);
+            this.getAllVarieties();
+          }
+        },
+        (error) => {
+          console.log('Failed search!');
+        }
+      );
+    });
+  }
+
+
   modificaPokemon(pokemon: Pokemon)
   {
     this.selectedPokemon = pokemon;
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
+
+
+  changeOption()
+  {
+    console.log('Scelta: ' + this.parameter);
+
+    switch(this.parameter)
+    {
+      case 'generation':
+        this.getPokemonByGeneration();
+        break;
+      case 'game-versions':
+        this.getPokemonByGameVersion();
+        break;
+      case 'favourites':
+        this.pokedex.reloadFavouriteList();
+        this.getPokemonByFavourites();
+        break;
+    }
+  }
+
+
+  deleteAllFavourites()
+  {
+    this.pokedex.clearFavouriteList();
+    this.getPokemonByFavourites();
+  }
+
 }

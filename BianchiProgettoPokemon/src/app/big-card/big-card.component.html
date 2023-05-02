@@ -24,11 +24,11 @@
             </button>
         </div>
 
-        <div class="border-t-2 border-t-slate-400 pt-4 mt-4">Generation - {{currentPokemon.generation}}</div>
+        <div class="border-t-2 border-t-slate-400 pt-4 mt-4"><b>Generation</b> - {{currentPokemon.generation}}</div>
 
-        <div>Height - {{currentPokemon.height}} m</div>
+        <div><b>Height</b> - {{currentPokemon.height}} m</div>
 
-        <div>Weight - {{currentPokemon.weight}} kg</div>
+        <div><b>Weight</b> - {{currentPokemon.weight}} kg</div>
 
         <!--<app-my-chart [stats]="[currentPokemon.hp, currentPokemon.attack, currentPokemon.defense, currentPokemon.specialAttack, currentPokemon.specialDefense, currentPokemon.speed]"  [hp]="currentPokemon.hp" [attack]="currentPokemon.attack" [defense]="currentPokemon.defense"
         [specialAttack]="currentPokemon.attack" [specialDefense]="currentPokemon.specialDefense" [speed]="currentPokemon.speed"></app-my-chart>-->
@@ -38,15 +38,13 @@
 
         <app-description-slider [entries]="currentPokemon.entries"></app-description-slider>
 
-        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Alternative forms</div>
+        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Varieties</div>
 
         <div>
             <button *ngFor="let pokemon of currentPokemon.pokemonVarieties" >
                 <app-mini-card [pokemon]="pokemon" (click)="changeCurrentPokemon(pokemon)"></app-mini-card>
             </button>
         </div>
-
-        <div>Evolution Line</div>
 
     </div>
 

@@ -129,7 +129,7 @@ export class Pokemon
     // EQUALS => ID
     equals(pokemon: Pokemon): boolean
     {
-        if (pokemon == null || pokemon == undefined || pokemon.id != this.id)
+        if (pokemon == null || pokemon == undefined || pokemon.name.toUpperCase() != this.name.toUpperCase())
             return false;
         else
             return true;

@@ -5,6 +5,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
 
 const routes: Routes = [
+  {path: '', component: MaxiContainerComponent},
   {path: 'home', component: MaxiContainerComponent},
   {path: 'about-us', component: AboutUsComponent},
   {path: 'what-is-a-pokemon', component: InfoPokemonComponent}

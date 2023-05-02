@@ -149,7 +149,20 @@ export class PokedexService
 
   sortFavouritePokemonList()
   {
-    this.favouritePokemonSpeciesList = this.favouritePokemonSpeciesList.sort();
+    for(let i = 0; i <= this.favouritePokemonSpeciesList.length-1; i++)
+    {
+        for(let j = 0; j < (this.favouritePokemonSpeciesList.length-i-1); j++)
+        {
+            if(this.favouritePokemonSpeciesList[j] > this.favouritePokemonSpeciesList[j+1])
+            {
+              let temp = this.favouritePokemonSpeciesList[j]
+              this.favouritePokemonSpeciesList[j] = this.favouritePokemonSpeciesList[j + 1]
+              this.favouritePokemonSpeciesList[j+1] = temp
+            }
+        }
+    }
+
+    return this.favouritePokemonSpeciesList;
   }
 
   
@@ -160,6 +173,8 @@ export class PokedexService
       this.favouritePokemonSpeciesList.push(pokedexNumber);
       this.sortFavouritePokemonList();
       console.log(this.favouritePokemonSpeciesList);
+
+      this.saveFavouritesLocalStorage();
     }
     else
     {
@@ -177,10 +192,11 @@ export class PokedexService
     else
     {
       this.favouritePokemonSpeciesList.splice(this.favouritePokemonSpeciesList.indexOf(pokedexNumber), 1);
-    }
+      this.sortFavouritePokemonList();
+      console.log(this.favouritePokemonSpeciesList);
 
-    this.sortFavouritePokemonList();
-    console.log(this.favouritePokemonSpeciesList);
+      this.saveFavouritesLocalStorage();
+    }
   }
 
   
@@ -194,6 +210,69 @@ export class PokedexService
     {
       return true;
     }
+  }
+
+
+  saveFavouritesLocalStorage()
+  {
+    let favouriteListString = '';
+
+    for (let i = 0; i < this.favouritePokemonSpeciesList.length-1; i++)
+    {
+      if (i < this.favouritePokemonSpeciesList.length-1)
+      {
+        favouriteListString += this.favouritePokemonSpeciesList[i] + '-';
+      }
+    }
+
+    favouriteListString += this.favouritePokemonSpeciesList[this.favouritePokemonSpeciesList.length-1];
+
+    document.cookie = favouriteListString;
+
+    console.log('Local Storage: ' + document.cookie);
+  }
+
+
+  reloadFavouriteList()
+  {
+    if (document.cookie)
+    {
+      let favouriteList = document.cookie.split('-');
+      this.favouritePokemonSpeciesList = [];
+
+      favouriteList.forEach(number => {
+        this.favouritePokemonSpeciesList.push(parseInt(number));
+      });
+    }
+    else
+    {
+      this.favouritePokemonSpeciesList = [];
+    }
+  }
+
+
+  clearFavouriteList()
+  {
+    this.favouritePokemonSpeciesList = [];
+    document.cookie = '';
+
+    console.log(document.cookie);
+  }
+
+
+  createCookie()
+  {
+
+  }
+
+  addCookie()
+  {
+
+  }
+
+  deleteCookie()
+  {
+
   }
 
 
