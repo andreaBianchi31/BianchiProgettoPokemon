@@ -1,58 +1,10 @@
 
-<!--
-<div class="w-96 rounded overflow-hidden shadow-lg">
-  <img class="w-full bg-gray-100" [src]="artwork">
-  <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">{{name}}</div>
-    <p class="text-gray-700 text-base">
-      {{pokemon.flavorTextEntries[0]}}
-    </p>
-  </div>
-  <div class="px-6">
-    <button (click)="invertArtwork()" class="w-6">
-      <img [src]="redStar">
-    </button>
-  </div>
-  <div class="px-6">
-    <button (click)="invertFavourite()" class="w-6">
-      <img [src]="favourite">
-    </button>
-  </div>
-  <div class="px-6 pt-4 pb-2">
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-  </div>
-</div>-->
-
-
 <button class="w-full" (click)="clickCard()">
   <div class="border-2 border-slate-300 flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-200 group hover:shadow">
       <img [src]="pokemonSpecies.defaultPokemonArtwork" class="w-20">
-      <span class="flex-1 ml-3 whitespace-nowrap">#{{pokemonSpecies.pokedexNumber}} - {{pokemonSpecies.name}}</span>
+      <span class="flex-1 ml-3 overflow-hidden overflow-ellipsis">#{{pokemonSpecies.pokedexNumber}} - {{pokemonSpecies.name}}</span>
       <span *ngIf="pokemonSpecies.isLegendary" class="inline-flex items-center justify-center px-2 py-0.5 ml-3 text-sm font-medium text-black bg-yellow-200 rounded">Legendary</span>
       <span *ngIf="pokemonSpecies.isMythical" class="inline-flex items-center justify-center px-2 py-0.5 ml-3 text-sm font-medium text-black bg-sky-300 rounded">Mythical</span>
       <span *ngIf="pokemonSpecies.isBaby" class="inline-flex items-center justify-center px-2 py-0.5 ml-3 text-sm font-medium text-black bg-pink-300 rounded">Baby</span>
     </div>
 </button>
-
-
-<!-- INFO CARD - ADVERTISEMENT
-<div class="container mx-auto p-9 bg-white max-w-sm rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300">
-  <img class="rounded-xl" src="https://images.unsplash.com/photo-1547517023-7ca0c162f816" alt="" />
-  <div class="flex justify-between items-center">
-    <div>
-      <h1 class="mt-5 text-2xl font-semibold">Aloe Cactus</h1>
-      <p class="mt-2">$11.99</p>
-    </div>
-    <div>
-      <button class="text-white text-md font-semibold bg-green-400 py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-500 transform-gpu hover:scale-110 ">Buy Now</button>
-    </div>
-  </div>
-</div>-->
-
-<!-- MINI CARD
-<div class="h-44 w-32 bg-gray-100 rounded-xl flex flex-col justify-center shadow duration-300 hover:bg-white hover:shadow-xl m-7">
-  <img [src]="artwork" class="p-2">
-  <span class="text-sm font-semibold text-center">Necrozma</span>
-</div>-->

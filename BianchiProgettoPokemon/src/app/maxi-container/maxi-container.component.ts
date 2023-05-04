@@ -17,7 +17,7 @@ export class MaxiContainerComponent
   generation: number = 1;
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  game: number = 1;
+  game: number = 2;
 
   parameter: string = 'generation';
 
@@ -29,7 +29,7 @@ export class MaxiContainerComponent
   {
     this.title.setTitle('Pokedex - Home');
     this.generation = 1;
-    this.game = 1;
+    this.game = 2;
     this.getPokemonByGeneration();
     this.datiDisponibili = false;
     this.cambioForma = false;
@@ -201,29 +201,39 @@ export class MaxiContainerComponent
     this.pokemonList = [];
     this.datiDisponibili = false;
 
-    let favoruiteList = this.pokedex.getFavouritePokemonList();
+    let favouriteList = this.pokedex.getFavouritePokemonList();
+    console.log('Favourites List');
+    console.log(favouriteList);
 
-    favoruiteList.forEach(pokemonName => {
-      this.pokedex.getPokemonSpecies('' + pokemonName).subscribe (
-        (data: any) => {
-          console.log(data);
-          let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
-          this.pokemonList.push(pokemon);
-
-          if (favoruiteList.length == this.pokemonList.length)
-          {
-            this.datiDisponibili = true;
-            this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-
-            console.log(this.pokemonList);
-            this.getAllVarieties();
+    if (favouriteList.length == 1)
+    {
+      this.datiDisponibili = true;
+    }
+    else
+    {
+      favouriteList.forEach(pokemonName => {
+        this.pokedex.getPokemonSpecies('' + pokemonName).subscribe (
+          (data: any) => {
+            console.log(data);
+            let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
+            this.pokemonList.push(pokemon);
+  
+            if (favouriteList.length == this.pokemonList.length)
+            {
+              this.datiDisponibili = true;
+              this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
+  
+              console.log(this.pokemonList);
+              this.getAllVarieties();
+            }
+          },
+          (error) => {
+            console.log('Failed search!');
           }
-        },
-        (error) => {
-          console.log('Failed search!');
-        }
-      );
-    });
+        );
+      });
+    }
+
   }
 
 
@@ -258,6 +268,7 @@ export class MaxiContainerComponent
   {
     this.pokedex.clearFavouriteList();
     this.getPokemonByFavourites();
+    this.datiDisponibili = true;
   }
 
 }
