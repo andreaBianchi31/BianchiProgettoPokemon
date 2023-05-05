@@ -61,7 +61,7 @@ export class MaxiContainerComponent
                     {
                       this.datiDisponibili = true;
                       this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-                      this.pokemonList = this.pokemonList.splice(0, this.pokedex.lastPokemonNumber);
+                      this.pokemonList = this.pokemonList.splice(0, this.pokedex.getLastPokemon());
                       console.log(this.pokemonList);
                       this.getAllVarieties();
                     }
@@ -176,7 +176,7 @@ export class MaxiContainerComponent
                     this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
 
                     if (this.game == 1) {
-                      this.pokemonList = this.pokemonList.splice(0, this.pokedex.lastPokemonNumber);
+                      this.pokemonList = this.pokemonList.splice(0, this.pokedex.getLastPokemon());
                     }
 
                     console.log(this.pokemonList);

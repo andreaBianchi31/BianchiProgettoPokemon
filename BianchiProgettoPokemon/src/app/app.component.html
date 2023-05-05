@@ -1,11 +1,14 @@
-<div class="bg-yellow-100">
+
+<div *ngIf="pokedex.getValidato()" class="bg-yellow-100">
 
     <app-navbar></app-navbar>
-
-    <!--<app-maxi-container></app-maxi-container>-->
 
     <router-outlet></router-outlet>
 
     <app-footer></app-footer>
 
+</div>
+
+<div *ngIf="!pokedex.getValidato()" class="bg-gradient-to-r from-sky-500 to-blue-700">
+    <app-login></app-login>
 </div>

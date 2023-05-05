@@ -28,13 +28,15 @@ export class PokedexService
   searchPokedex: string = this.searchBaseURL + 'pokedex/';
   serachRegion: string = this.searchBaseURL + 'region/';
 
-  lastPokemonNumber: number = 905;
+  private lastPokemonNumber: number = 905;
   searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
   
   private favouritePokemonSpeciesList: number[] = [];
   favouriteLocalStorageKey: string = 'favourites';
 
   private language: string = 'en';
+
+  private validato: boolean = false;
 
 
   /*
@@ -65,6 +67,24 @@ export class PokedexService
   setLanguage(language: string)
   {
     this.language = language;
+  }
+
+
+  getValidato(): boolean
+  {
+    return this.validato;
+  }
+
+
+  setValidato(validato: boolean)
+  {
+    this.validato = validato;
+  }
+
+
+  getLastPokemon(): number
+  {
+    return this.lastPokemonNumber;
   }
 
 
