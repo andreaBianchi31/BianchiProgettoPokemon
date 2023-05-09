@@ -14,14 +14,39 @@ export class LoginComponent
   username: string = '';
   password: string = '';
 
+  usersUrl: string = '../app/common/users.json';
+
   constructor(private pokedex: PokedexService, private httpAssistant: HttpClient)
   {
-
   }
+
 
   login()
   {
-    //this.httpAssistant.get('./assets')
+    /*this.httpAssistant.get(this.usersUrl).subscribe(
+      (data: any) => {
+        let trovato = false;
+        for (let index = 0; index < data.length && !trovato; index++)
+        {
+          if (data[index].username == this.username && data[index].password == this.password)
+          {
+            trovato = true;
+          }
+        }
+
+        if (trovato)
+        {
+          this.pokedex.setValidato(true);
+        }
+        else
+        {
+          this.pokedex.setValidato(false);
+        }
+      },
+      (error: any) => {
+        console.log('Error => reading users.');
+      }
+    );*/
 
     if (true)
     {
@@ -31,6 +56,7 @@ export class LoginComponent
     {
       this.pokedex.setValidato(false);
     }
+
   }
 
 }

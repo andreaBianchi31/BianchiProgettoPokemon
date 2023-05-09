@@ -10,9 +10,9 @@ import { PokemonSpecies } from './pokemon-species';
 export class PokedexService
 {
   basePath: string = '../assets/images';
-  missingNumberNormal: string = this.basePath + '/missing-number/missing-number-normal.jpg';
+  /*missingNumberNormal: string = this.basePath + '/missing-number/missing-number-normal.jpg';
   missingNumberShiny: string = this.basePath + '/missing-number/missing-number-shiny.jpg';
-  missingNumberSprite: string = this.basePath + '/missing-number/missing-number-sprite.png';
+  missingNumberSprite: string = this.basePath + '/missing-number/missing-number-sprite.png';*/
   imageNotAvailable: string = this.basePath + '/utility/pokeball-icon.png';
   typeNormal: string = this.basePath + '/types/type-';
   typeUnknown: string = this.basePath + '/types/unknown-';
@@ -29,10 +29,10 @@ export class PokedexService
   serachRegion: string = this.searchBaseURL + 'region/';
 
   private lastPokemonNumber: number = 905;
-  searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
+  private searchLimit: string = '?limit=' + this.lastPokemonNumber + '&offset=0';
   
   private favouritePokemonSpeciesList: number[] = [];
-  favouriteLocalStorageKey: string = 'favourites';
+  private favouriteLocalStorageKey: string = 'favourites';
 
   private language: string = 'en';
 
