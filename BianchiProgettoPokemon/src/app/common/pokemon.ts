@@ -8,7 +8,6 @@ export class Pokemon
     category: string = 'Missing Number Pokemon';
     generation: number = 0;
 
-    basePath: string = '../assets/images';
     imageNotAvailable = '/utility/pokeball-icon.png';
 
     officialArtworkDefault: string = this.imageNotAvailable;
@@ -34,7 +33,7 @@ export class Pokemon
     specialDefense: number = 0;
     speed: number = 0;
 
-    forms: any[] = [];
+    forms: any[] = []; // [!] => DA ELIMINARE
     isDefault: boolean = true;
     pokemonVarieties: Pokemon[] = [];
 
@@ -55,9 +54,8 @@ export class Pokemon
         this.category = category;
         this.generation = generation;
         this.entries = entries;
-
-        this.basePath = pokedex.basePath;
-        this.imageNotAvailable = this.basePath + pokedex.imageNotAvailable;
+        
+        this.imageNotAvailable = pokedex.imageNotAvailable;
 
 
         // ===> STATS

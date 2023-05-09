@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent
 {
+  styleSelected: string = '';
+  styleNormal: string = '';
+
+  styleHome: string = '';
+  styleAboutUs: string = '';
+  styleWhatIsAPokemon: string = '';
+
   changeSelection()
   {
     console.log('soooos');

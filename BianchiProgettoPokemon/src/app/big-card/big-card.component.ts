@@ -14,6 +14,30 @@ export class BigCardComponent
 {
   @Input() currentPokemon: Pokemon | null = null;
   @Output() newSelectedForm = new EventEmitter<Pokemon>();
+  @Output() favouriteChange = new EventEmitter<number>();
+  
+  artwork: string = '';
+  isFront: boolean = true;
+  isShiny: boolean = false;
+
+  redStarNormal: string = this.pokedex.basePath + '/utility/star-icon-red-normal.png';
+  redStarShiny: string = this.pokedex.basePath + '/utility/star-icon-red-shiny.png';
+  redStar: string = this.redStarNormal;
+
+  arrowFront: string = this.pokedex.basePath + '/utility/arrow-icon-front.png';
+  arrowBack: string = this.pokedex.basePath + '/utility/arrow-icon-back.png';
+  arrow: string = this.arrowFront;
+
+  heartNormal: string = this.pokedex.basePath + '/utility/heart-icon-normal.png';
+  heartFavourite: string = this.pokedex.basePath + '/utility/heart-icon-favourite.png';
+  heart: string = this.heartNormal;
+
+
+  constructor(private pokedex: PokedexService, private title: Title)
+  {
+    this.currentPokemon = null;
+  }
+
 
   ngOnChanges(changes: SimpleChanges)
   {
@@ -34,29 +58,6 @@ export class BigCardComponent
     {
       this.heart = this.heartNormal;
     }
-  }
-
-  artwork: string = '';
-  isFront: boolean = true;
-  isShiny: boolean = false;
-
-  basePath: string = '../assets/images/utility/'
-
-  redStarNormal: string = this.basePath + 'star-icon-red-normal.png';
-  redStarShiny: string = this.basePath + 'star-icon-red-shiny.png';
-  redStar: string = this.redStarNormal;
-
-  arrowFront: string = this.basePath + 'arrow-icon-front.png';
-  arrowBack: string = this.basePath + 'arrow-icon-back.png';
-  arrow: string = this.arrowFront;
-
-  heartNormal: string = this.basePath + 'heart-icon-normal.png';
-  heartFavourite: string = this.basePath + 'heart-icon-favourite.png';
-  heart: string = this.heartNormal;
-
-  constructor(private pokedex: PokedexService, private title: Title)
-  {
-    this.currentPokemon = null;
   }
 
 
@@ -87,6 +88,7 @@ export class BigCardComponent
     }
   }
 
+
   changeShiny()
   {
     if (this.currentPokemon != null)
@@ -114,6 +116,7 @@ export class BigCardComponent
     }
   }
 
+
   changeFavourite()
   {
     if (this.currentPokemon != null)
@@ -128,13 +131,25 @@ export class BigCardComponent
         this.pokedex.addFavouritePokemonSpecies(this.currentPokemon.pokedexNumber);
         this.heart = this.heartFavourite;
       }
+
+      this.favouriteChange.emit(this.currentPokemon.pokedexNumber);
     }
   }
+
 
   changeCurrentPokemon(pokemon: Pokemon)
   {
     this.newSelectedForm.emit(pokemon);
     this.title.setTitle('Pokédex - ' + pokemon.name);
     console.log(pokemon);
+  }
+
+
+  updateFavourite(pokedexNumber: number)
+  {
+    if (this.currentPokemon != null && this.currentPokemon.pokedexNumber == pokedexNumber)
+    {
+      this.changeFavourite();
+    }
   }
 }
