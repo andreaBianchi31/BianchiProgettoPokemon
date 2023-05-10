@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 import { HttpClient } from '@angular/common/http';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +16,18 @@ export class LoginComponent
 
   usersUrl: string = './assets/users.json';
 
-  constructor(public pokedex: PokedexService, private httpAssistant: HttpClient)
+  constructor(public pokedex: PokedexService, private httpAssistant: HttpClient, private router: Router)
   {
     console.log(pokedex.getValidato());
+  }
+
+
+  ngOnInit()
+  {
+    if (this.pokedex.getValidato())
+    {
+      this.router.navigate(['/pokedex/home']);
+    }
   }
 
 
@@ -38,6 +47,7 @@ export class LoginComponent
         if (trovato)
         {
           this.pokedex.setValidato(true);
+          this.router.navigate(['/pokedex']);
         }
         else
         {

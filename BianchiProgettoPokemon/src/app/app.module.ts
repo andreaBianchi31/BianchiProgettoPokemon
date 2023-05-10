@@ -20,6 +20,8 @@ import { MaxiContainerComponent } from './maxi-container/maxi-container.componen
 import { MyChartComponent } from './my-chart/my-chart.component';
 import { DescriptionSliderComponent } from './description-slider/description-slider.component';
 import { TipoComponent } from './tipo/tipo.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { TipoComponent } from './tipo/tipo.component';
     MaxiContainerComponent,
     MyChartComponent,
     DescriptionSliderComponent,
-    TipoComponent
+    TipoComponent,
+    MainPageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

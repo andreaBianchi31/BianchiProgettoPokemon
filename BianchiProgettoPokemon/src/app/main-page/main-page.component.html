@@ -1,0 +1,23 @@
+
+<div class="bg-yellow-100" *ngIf="pokedex.getValidato(); else NonValidato">
+
+    <app-navbar></app-navbar>
+
+    <router-outlet></router-outlet>
+
+    <app-footer></app-footer>
+
+</div>
+
+<ng-template #NonValidato>
+    <h1 class="w-screen h-screen bg-black text-red-700 font-bold text-4xl flex justify-center">
+        <div class="mt-96 text-center border border-double border-red-700 rounded-2xl w-5/12 h-1/5 p-4">
+            <div class="">
+                WARNING!
+            </div>
+            <div class="">
+                You need to be logged to access data.
+            </div>
+        </div>
+    </h1>
+</ng-template>
