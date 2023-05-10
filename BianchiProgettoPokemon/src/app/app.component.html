@@ -1,5 +1,5 @@
 
-<div *ngIf="pokedex.getValidato()" class="bg-yellow-100">
+<div *ngIf="pokedex.getValidato(); else NotValidato" class="bg-yellow-100">
 
     <app-navbar></app-navbar>
 
@@ -9,6 +9,8 @@
 
 </div>
 
-<div *ngIf="!pokedex.getValidato()" class="bg-gradient-to-r from-sky-500 to-blue-700">
-    <app-login></app-login>
-</div>
+<ng-template #NotValidato>
+    <div class="bg-gradient-to-r from-sky-500 to-blue-700">
+        <app-login></app-login>
+    </div>
+</ng-template>

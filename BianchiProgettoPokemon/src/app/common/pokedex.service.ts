@@ -172,6 +172,11 @@ export class PokedexService
 
   saveFavouritesLocalStorage()
   {
+    if (localStorage.getItem(this.favouriteLocalStorageKey) == undefined)
+    {
+      localStorage.setItem(this.favouriteLocalStorageKey, '');
+    }
+
     let favouriteListString = '';
 
     for (let i = 0; i < this.favouritePokemonSpeciesList.length-1; i++)
@@ -182,7 +187,10 @@ export class PokedexService
       }
     }
 
-    favouriteListString += this.favouritePokemonSpeciesList[this.favouritePokemonSpeciesList.length-1];
+    if(this.favouritePokemonSpeciesList.length > 1)
+    {
+      favouriteListString += this.favouritePokemonSpeciesList[this.favouritePokemonSpeciesList.length-1];
+    }
 
     localStorage.setItem(this.favouriteLocalStorageKey, favouriteListString);
 
@@ -192,8 +200,9 @@ export class PokedexService
 
   clearFavouriteList()
   {
-    this.favouritePokemonSpeciesList = [];
-    localStorage.setItem(this.favouriteLocalStorageKey, '');
+    this.favouritePokemonSpeciesList.forEach((pokedexNumber) => {
+      this.removeFavouritePokemonSpecies(pokedexNumber);
+    });
 
     console.log(localStorage);
   }
@@ -203,6 +212,8 @@ export class PokedexService
   {
     if (localStorage)
     {
+      console.log('Prova SUUUUUS');
+      console.log(localStorage.getItem(this.favouriteLocalStorageKey));
       let favouriteList = localStorage.getItem(this.favouriteLocalStorageKey)?.split('-');
       this.favouritePokemonSpeciesList = [];
 
