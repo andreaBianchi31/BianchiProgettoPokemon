@@ -119,7 +119,6 @@ export class MaxiContainerComponent
     this.pokemonList.forEach((pokemonSpecie: PokemonSpecies) => {
       pokemonSpecie.setPokemonVarieties(this.pokedex);
     });
-
   }
 
 
@@ -201,12 +200,14 @@ export class MaxiContainerComponent
     this.pokemonList = [];
     this.datiDisponibili = false;
 
+    console.log(this.pokedex.getFavouritePokemonList());
     let favouriteList = this.pokedex.getFavouritePokemonList();
     console.log('Favourites List');
     console.log(favouriteList);
 
-    if (favouriteList.length == 1)
+    if (favouriteList.length == 0)
     {
+      console.log('The favourite list is blank!');
       this.datiDisponibili = true;
     }
     else
@@ -217,12 +218,12 @@ export class MaxiContainerComponent
             console.log(data);
             let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
             this.pokemonList.push(pokemon);
-  
+
             if (favouriteList.length == this.pokemonList.length)
             {
               this.datiDisponibili = true;
               this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-  
+
               console.log(this.pokemonList);
               this.getAllVarieties();
             }

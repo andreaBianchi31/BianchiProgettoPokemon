@@ -48,6 +48,7 @@ export class LoginComponent
         {
           this.pokedex.setValidato(true);
           this.router.navigate(['/pokedex']);
+          console.log(localStorage.getItem('very-very-sus'));
         }
         else
         {
