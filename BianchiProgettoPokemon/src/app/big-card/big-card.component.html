@@ -3,7 +3,7 @@
     <div *ngIf="currentPokemon != null; else PokemonVuoto">
 
         <div class="flex justify-between">
-            <div class="text-4xl font-bold overflow-hidden overflow-ellipsis">#{{currentPokemon.pokedexNumber}} - {{currentPokemon.name}}<br><span class="text-xl italic font-semibold">{{currentPokemon.category}}</span></div>
+            <div class="text-4xl font-bold overflow-hidden overflow-ellipsis p-3">#{{currentPokemon.pokedexNumber}} - {{currentPokemon.name}}<br><span class="text-xl italic font-semibold">{{currentPokemon.category}}</span></div>
             <div class="flex space-x-4">
                 <app-tipo [tipo]="currentPokemon.type1"></app-tipo>
                 <app-tipo *ngIf="currentPokemon.type2 != 'bird'" [tipo]="currentPokemon.type2"></app-tipo>
@@ -14,6 +14,8 @@
             <img [src]="artwork" class="w-96 border-2 rounded-3xl border-gray-500 bg-slate-100 p-8">
         </div>
 
+
+        <!-- =====> BUTTONI - RETRO, SHINY, CUORE <===== -->
         <div class="flex justify-between px-24">
             <button (click)="changeFrontBack()">
                 <img [src]="arrow" class="w-16">
@@ -28,18 +30,71 @@
             </button>
         </div>
 
-        <div class="border-t-2 border-t-slate-400 pt-4 mt-4"><b>Generation</b> - {{currentPokemon.generation}}</div>
 
-        <div class="mt-2"><b>Height</b> - {{currentPokemon.height}} m</div>
+        <!-- =====> GENERAL INFORMATION <===== -->
+        <div class="border-t-2 border-t-slate-400 pt-4 mt-4 grid grid-rows-3 gap-4">
+            <div class="text-xl font-bold">General information</div>
 
-        <div class="mt-2"><b>Weight</b> - {{currentPokemon.weight}} kg</div>
-            
-        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Descriptions</div>
+            <div class="h-8 w-56 rounded-xl border-2 border-slate-300 bg-slate-50 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Generation</div>
+                <div class="border-l-2 border-slate-300">{{currentPokemon.generation}}</div>
+            </div>
 
+            <div class="h-8 w-56 rounded-xl border-2 border-slate-300 bg-slate-50 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Height</div>
+                <div class="border-l-2 border-slate-300">{{currentPokemon.height}} m</div>
+            </div>
+
+            <div class="h-8 w-56 rounded-xl border-2 border-slate-300 bg-slate-50 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Weight</div>
+                <div class="border-l-2 border-slate-300">{{currentPokemon.weight}} kg</div>
+            </div>
+        </div>
+
+
+        <!-- =====> DESCRIPTIONS <===== -->
+        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-6">Descriptions</div>
         <app-description-slider [entries]="currentPokemon.entries"></app-description-slider>
 
-        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Varieties</div>
 
+        <!-- =====> STATS <===== -->
+        <div class="border-t-2 border-t-slate-400 pt-4 mt-4 text-xl font-bold">Stats</div>
+        <div class="mt-4 grid grid-rows-3 grid-cols-2 grid-flow-col gap-6 w-3/5"><!--place-content-center place-items-center-->
+            <div class="h-8 w-56 rounded-xl border-2 border-green-500 bg-green-300 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">HP</div>
+                <div class="border-l-2 border-green-500">{{currentPokemon.hp}}</div>
+            </div>
+
+            <div class="h-8 w-56 rounded-xl border-2 border-red-500 bg-red-300 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Attack</div>
+                <div class="border-l-2 border-red-500">{{currentPokemon.attack}}</div>
+            </div>
+
+            <div class="h-8 w-56 rounded-xl border-2 border-blue-500 bg-blue-300 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Defense</div>
+                <div class="border-l-2 border-blue-500">{{currentPokemon.defense}}</div>
+            </div>
+
+            <div class="h-8 w-56 rounded-xl border-2 border-orange-500 bg-orange-300 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Sp. Attack</div>
+                <div class="border-l-2 border-orange-500">{{currentPokemon.specialAttack}}</div>
+            </div>
+
+            <div class="h-8 w-56 rounded-xl border-2 border-purple-500 bg-purple-300 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Sp. Defense</div>
+                <div class="border-l-2 border-purple-500">{{currentPokemon.specialDefense}}</div>
+            </div>
+
+            <div class="h-8 w-56 rounded-xl border-2 border-cyan-400 bg-cyan-200 grid grid-cols-2 text-center text-base content-center font-bold">
+                <div class="">Speed</div>
+                <div class="border-l-2 border-cyan-400">{{currentPokemon.speed}}</div>
+            </div>
+
+        </div>
+
+
+        <!-- =====> VARIETIES <===== -->
+        <div class="text-xl font-bold border-t-2 border-t-slate-400 pt-4 mt-4">Varieties</div>
         <div>
             <button *ngFor="let pokemon of currentPokemon.pokemonVarieties" >
                 <app-mini-card [pokemon]="pokemon" (click)="changeCurrentPokemon(pokemon)"></app-mini-card>

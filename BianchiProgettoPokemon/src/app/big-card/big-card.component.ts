@@ -13,7 +13,7 @@ import { Title } from '@angular/platform-browser';
 export class BigCardComponent
 {
   @Input() currentPokemon: Pokemon | null = null;
-  @Output() newSelectedForm = new EventEmitter<Pokemon>();
+  @Output() newSelectedForm = new EventEmitter<Pokemon | null>();
   @Output() favouriteChange = new EventEmitter<number>();
   
   artwork: string = '';

@@ -12,7 +12,7 @@ import { Pokemon } from '../common/pokemon';
 export class MaxiContainerComponent
 {
   pokemonList: PokemonSpecies[] = [];
-  selectedPokemon!: Pokemon;
+  selectedPokemon: Pokemon | null = null;
 
   generation: number = 1;
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -238,7 +238,7 @@ export class MaxiContainerComponent
   }
 
 
-  modificaPokemon(pokemon: Pokemon)
+  modificaPokemon(pokemon: Pokemon | null)
   {
     this.selectedPokemon = pokemon;
     window.scrollTo({top: 0, behavior: 'smooth'});
@@ -262,6 +262,8 @@ export class MaxiContainerComponent
         this.getPokemonByFavourites();
         break;
     }
+
+    this.modificaPokemon(null);
   }
 
 

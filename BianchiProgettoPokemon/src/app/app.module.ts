@@ -42,7 +42,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     DescriptionSliderComponent,
     TipoComponent,
     MainPageComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

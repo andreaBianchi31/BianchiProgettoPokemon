@@ -157,7 +157,6 @@ export class PokemonSpecies
                 (data) => {
                     let pokemon = new Pokemon(data.id, data.name, this.category, this.generation, this.pokedexNumber, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, this.flavorTextEntries, pokedex);
                     this.pokemonVarieties.push(pokemon);
-                    //console.log(this.name + ': ' + this.pokemonVarieties.length + ' - ' + this.varieties.length);
 
                     if (this.pokemonVarieties.length == this.varieties.length)
                     {
