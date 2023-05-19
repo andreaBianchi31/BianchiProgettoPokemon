@@ -16,10 +16,16 @@ export class CardContainerComponent
   @Input() datiDisponibili: boolean = false;
 
   @Output() pokemonForm = new EventEmitter<Pokemon>();
+  @Output() reloadList = new EventEmitter();
 
   modificaPokemon(pokemon: Pokemon)
   {
     this.pokemonForm.emit(pokemon);
+  }
+
+  reloadPokemonList()
+  {
+    this.reloadList.emit();
   }
 
 }

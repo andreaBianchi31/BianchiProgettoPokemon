@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { PokedexService } from '../common/pokedex.service';
 import { PokemonSpecies } from '../common/pokemon-species';
@@ -26,6 +26,8 @@ export class MaxiContainerComponent
 
   tmp: number = 0;
 
+  @Output() changeNavbar = new EventEmitter<string>();
+
 
   constructor(private pokedex: PokedexService, private title: Title)
   {
@@ -37,11 +39,19 @@ export class MaxiContainerComponent
     this.cambioForma = false;
   }
 
+  ngOnInit()
+  {
+    this.changeSelection();
+  }
+
+  changeSelection()
+  {
+    this.changeNavbar.emit('home');
+  }
+
 
   getPokemonByGeneration()
   {
-    
-    
     if (this.generation == 0)
     {
       console.log('Searching pokemon of All Generations...');
@@ -157,49 +167,29 @@ export class MaxiContainerComponent
 
     console.log(this.game);
     
-    switch(this.game) {
-      case '1':
-        tmp += 'National'; break;
-      case '2':
-        tmp += 'Red | Blue | Yellow'; break;
-      case '3':
-        tmp += 'Gold | Silver | Crystal'; break;
-      case '4':
-        tmp += 'Ruby | Sapphire | Emerald'; break;
-      case '5':
-        tmp += 'Diamond | Pearl'; break;
-      case '6':
-        tmp += 'Platinum'; break;
-      case '7':
-        tmp += 'HeartGold | SoulSilver'; break;
-      case '8':
-        tmp += 'Black | White'; break;
-      case '9':
-        tmp += 'Black 2 | White 2'; break;
-      case '11':
-        tmp += 'Pokemon Conquest'; break;
-      case '12':
-        tmp += 'X | Y (plain)'; break;
-      case '13':
-        tmp += 'X | Y (coast)'; break;
-      case '14':
-        tmp += 'National'; break;
-      case '15':
-        tmp += 'National'; break;
-      case '16':
-        tmp += 'Sun | Moon'; break;
-      case '21':
-        tmp += 'UltraSun | UltraMoon'; break;
-      case '26':
-        tmp += 'Let\'s Go Pikachu | Eevee'; break;
-      case '27':
-        tmp += 'Sword | Shield'; break;
-      case '28':
-        tmp += 'Isle of Armoral'; break;
-      case '29':
-        tmp += 'Chrown Tundra'; break;
-      case '30':
-        tmp += 'Legends: Arceus'; break;
+    switch(this.game)
+    {
+      case '1': tmp += 'National'; break;
+      case '2': tmp += 'Red | Blue | Yellow'; break;
+      case '3': tmp += 'Gold | Silver | Crystal'; break;
+      case '4': tmp += 'Ruby | Sapphire | Emerald'; break;
+      case '5': tmp += 'Diamond | Pearl'; break;
+      case '6': tmp += 'Platinum'; break;
+      case '7': tmp += 'HeartGold | SoulSilver'; break;
+      case '8': tmp += 'Black | White'; break;
+      case '9': tmp += 'Black 2 | White 2'; break;
+      case '11': tmp += 'Pokemon Conquest'; break;
+      case '12': tmp += 'X | Y (plain)'; break;
+      case '13': tmp += 'X | Y (coast)'; break;
+      case '14': tmp += 'National'; break;
+      case '15': tmp += 'National'; break;
+      case '16': tmp += 'Sun | Moon'; break;
+      case '21': tmp += 'UltraSun | UltraMoon'; break;
+      case '26': tmp += 'Let\'s Go Pikachu | Eevee'; break;
+      case '27': tmp += 'Sword | Shield'; break;
+      case '28': tmp += 'Isle of Armoral'; break;
+      case '29': tmp += 'Chrown Tundra'; break;
+      case '30': tmp += 'Legends: Arceus'; break;
     }
     this.title.setTitle(tmp);
 
@@ -242,15 +232,15 @@ export class MaxiContainerComponent
 
   getPokemonByFavourites()
   {
-    console.log('Searching your favourite Pokémon...');
+    //console.log('Searching your favourite Pokémon...');
     this.title.setTitle('Pokédex - Favourites');
 
     this.pokemonList = [];
     this.datiDisponibili = false;
 
-    console.log(this.pokedex.getFavouritePokemonList());
+    //console.log(this.pokedex.getFavouritePokemonList());
     let favouriteList = this.pokedex.getFavouritePokemonList();
-    console.log('Favourites List');
+    //console.log('Favourites List');
     console.log(favouriteList);
 
     if (favouriteList.length == 0)
@@ -326,13 +316,17 @@ export class MaxiContainerComponent
   }
 
 
-  prova()
+  reloadList()
   {
-    this.pokedex.getPokemonSpeciesByUrl('https://pokeapi.co/api/v2/pokemon-species/125/').subscribe(
-      (data) => {
-        console.log(data);
-      }
-    );
+    this.changeOption();
+  }
+
+  reloadFavourite()
+  {
+    if (this.parameter == 'favourites')
+    {
+      this.changeOption();
+    }
   }
 
 }

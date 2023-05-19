@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 
 @Component({
@@ -8,8 +8,16 @@ import { PokedexService } from '../common/pokedex.service';
 })
 export class MainPageComponent
 {
+  navbarSelection: string = 'home';
+
   constructor(public pokedex: PokedexService)
   {
-
   }
+
+
+  changeSelection(selection: string)
+  {
+    this.navbarSelection = selection;
+  }
+
 }

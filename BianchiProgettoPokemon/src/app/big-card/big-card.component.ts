@@ -15,6 +15,7 @@ export class BigCardComponent
   @Input() currentPokemon: Pokemon | null = null;
   @Output() newSelectedForm = new EventEmitter<Pokemon | null>();
   @Output() favouriteChange = new EventEmitter<number>();
+  @Output() reloadFavouriteList = new EventEmitter();
   
   artwork: string = '';
   isFront: boolean = true;
@@ -125,6 +126,7 @@ export class BigCardComponent
       {
         this.pokedex.removeFavouritePokemonSpecies(this.currentPokemon.pokedexNumber);
         this.heart = this.heartNormal;
+        this.reloadFavouriteList.emit();
       }
       else
       {

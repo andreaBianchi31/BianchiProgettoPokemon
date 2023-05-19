@@ -10,9 +10,6 @@ import { PokemonSpecies } from './pokemon-species';
 export class PokedexService
 {
   basePath: string = '../assets/images';
-  /*missingNumberNormal: string = this.basePath + '/missing-number/missing-number-normal.jpg';
-  missingNumberShiny: string = this.basePath + '/missing-number/missing-number-shiny.jpg';
-  missingNumberSprite: string = this.basePath + '/missing-number/missing-number-sprite.png';*/
   imageNotAvailable: string = this.basePath + '/utility/pokeball-icon.png';
   typeNormal: string = this.basePath + '/types/type-';
   typeUnknown: string = this.basePath + '/types/unknown-';
@@ -37,20 +34,6 @@ export class PokedexService
   private language: string = 'en';
 
   private validato: boolean = true;
-
-
-  /*
-  =====> MESSAGGIO IMPORTANTE <====
-  Questo sito web sfutta PokéAPI per ricavare dati precisi e abbondanti, sempre aggiornati.
-  Nonostante ciò, i dati dei pokemon di 9° Generazione (in particolare le loro immagini)
-  non sono del tutto aggiornati. Portate pazienza e scusate per il disagio!
-
-  ====> IMPORTANT MESSAGE <=====
-  This website relies on PokéAPI [link] to get accurate and abundant data that is always up to date.
-  Despite this, the data of the 9th Generation pokemon, expecially their images, are not  up to date.
-  It doesn't depend on me. PokéAPI dev-team is keen on keeping the data updated.
-  Please be patient and sorry for the inconvenience!
-  */
 
 
   constructor(private httpAssistant: HttpClient)
@@ -95,19 +78,14 @@ export class PokedexService
   {
     this.sortFavouritePokemonList();
 
-    /*if (this.favouritePokemonSpeciesList.length == 1 && isNaN(this.favouritePokemonSpeciesList[0]))
-    {
-      return [];
-    }*/
-
-    this.removeAllNaN();
-
     return this.favouritePokemonSpeciesList;
   }
 
 
   sortFavouritePokemonList()
-  {
+  {    
+    this.removeAllNaN();
+
     for(let i = 0; i <= this.favouritePokemonSpeciesList.length-1; i++)
     {
         for(let j = 0; j < (this.favouritePokemonSpeciesList.length-i-1); j++)
@@ -129,7 +107,7 @@ export class PokedexService
   {
     for (let index = 0; index < this.favouritePokemonSpeciesList.length; index++)
     {
-      if (isNaN(this.favouritePokemonSpeciesList[index]))
+      if (Number.isNaN(this.favouritePokemonSpeciesList[index]))
       {
         this.favouritePokemonSpeciesList.splice(index, 1);
       }

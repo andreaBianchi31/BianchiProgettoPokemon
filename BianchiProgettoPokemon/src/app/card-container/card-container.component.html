@@ -4,9 +4,14 @@
 
   <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow">
 
-    <h5 class="mb-3 text-base font-bold text-gray-900 md:text-xl">
-        List of Pokemon Species
-    </h5>
+    <div class="flex justify-between">
+      <h5 class="mb-3 font-bold text-gray-900 text-xl">
+          List of Pokemon Species
+      </h5>
+      <button class="w-10 hover:animate-spin" (click)="reloadPokemonList()">
+        <img class="w-full" src="../assets/images/utility/reload-icon-active.png">
+      </button>
+    </div>
 
     <p class="text-sm font-semibold italic text-gray-500">{{pokemonList.length}} pokémon species found.</p>
 
