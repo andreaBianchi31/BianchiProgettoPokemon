@@ -14,11 +14,9 @@ const routes: Routes = [
       {path: 'home', component: MaxiContainerComponent},
       {path: 'about-us', component: AboutUsComponent},
       {path: 'what-is-a-pokemon', component: InfoPokemonComponent},
-      //{path: 'not-found', component: NotFoundComponent}
     ]},
   {path: 'login', component: LoginComponent},
-  //{path: '**', pathMatch: 'full', redirectTo: '/pokedex/not-found'},
-  {path: '**', pathMatch: 'full', component: NotFoundComponent}
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

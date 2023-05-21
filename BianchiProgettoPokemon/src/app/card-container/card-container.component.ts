@@ -3,7 +3,6 @@ import { PokedexService } from '../common/pokedex.service';
 import { Pokemon } from '../common/pokemon';
 import { Title } from '@angular/platform-browser';
 import { PokemonSpecies } from '../common/pokemon-species';
-import { PokemonSpeciesCollection } from '../common/pokemon-species-collection';
 
 @Component({
   selector: 'app-card-container',
@@ -18,11 +17,13 @@ export class CardContainerComponent
   @Output() pokemonForm = new EventEmitter<Pokemon>();
   @Output() reloadList = new EventEmitter();
 
+  
   modificaPokemon(pokemon: Pokemon)
   {
     this.pokemonForm.emit(pokemon);
   }
 
+  
   reloadPokemonList()
   {
     this.reloadList.emit();

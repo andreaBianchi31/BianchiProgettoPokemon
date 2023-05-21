@@ -36,9 +36,15 @@ export class PokedexService
   private validato: boolean = true;
 
 
+
   constructor(private httpAssistant: HttpClient)
   {
   }
+
+
+  // ===========================================================================================================================================================
+  // ========================================================> GENERIC - SETTERS & GETTERS <====================================================================
+  // ===========================================================================================================================================================
 
 
   getLanguage(): string
@@ -71,7 +77,9 @@ export class PokedexService
   }
 
 
-  // ===========================================================================================================
+  // ===========================================================================================================================================================
+  // =========================================================================> FAVOURITES <====================================================================
+  // ===========================================================================================================================================================
   
 
   getFavouritePokemonList(): number[]
@@ -238,148 +246,9 @@ export class PokedexService
   }
 
 
-// ======================================================================================================================================================
-
-  /*favouriteGet(): number[]
-  {
-    this.favouriteSort();
-    return this.favouritePokemonSpeciesList;
-  }
-
-
-  favouriteSort()
-  {
-    // Bubble Sort
-
-    for(let i = 0; i <= this.favouritePokemonSpeciesList.length-1; i++)
-    {
-        for(let j = 0; j < (this.favouritePokemonSpeciesList.length-i-1); j++)
-        {
-          if (this.favouritePokemonSpeciesList[j] > this.favouritePokemonSpeciesList[j+1])
-          {
-            let temp = this.favouritePokemonSpeciesList[j]
-            this.favouritePokemonSpeciesList[j] = this.favouritePokemonSpeciesList[j + 1]
-            this.favouritePokemonSpeciesList[j+1] = temp
-          }
-        }
-    }
-
-    return this.favouritePokemonSpeciesList;
-  }
-
-  
-  favouriteAdd(pokedexNumber: number)
-  {
-    if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
-    {
-      this.favouritePokemonSpeciesList.push(pokedexNumber);
-      this.favouriteSort();
-      this.favouriteSave();
-    }
-    else
-    {
-      console.error('ERROR => Pokémon #' + pokedexNumber + 'is already a favourite Pokémon!');
-    }
-  }
-
-
-  favouriteRemove(pokedexNumber: number)
-  {
-    if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
-    {
-      console.error('ERROR => Pokémon #' + pokedexNumber + 'is NOT a favourite Pokémon!');
-    }
-    else
-    {
-      let trovato = false;
-
-      for (let index = 0; index < this.favouritePokemonSpeciesList.length && !trovato; index++)
-      {
-        if (this.favouritePokemonSpeciesList[index] == pokedexNumber)
-        {
-          this.favouritePokemonSpeciesList.splice(index, 1);
-          trovato = true;
-        }
-      }
-
-      this.favouriteSave();
-    }
-  }
-
-  
-  isFavourite(pokedexNumber: number): boolean
-  {
-    if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
-    {
-      return false;
-    }
-
-    return true;
-  }
-
-
-  favouriteSave()
-  {
-    let favouriteListString = '';
-
-    if (this.favouritePokemonSpeciesList.length == 0)
-    {
-      localStorage.setItem(this.favouriteLocalStorageKey, favouriteListString);
-    }
-    else
-    {
-      for (let index = 0; index < this.favouritePokemonSpeciesList.length-1; index++)
-      {
-        favouriteListString += this.favouritePokemonSpeciesList[index] + '-';
-      }
-
-      favouriteListString += this.favouritePokemonSpeciesList[this.favouritePokemonSpeciesList.length-1];
-    }
-  }
-
-
-  favouriteClear()
-  {
-    this.favouritePokemonSpeciesList.forEach((pokedexNumber) => {
-      this.removeFavouritePokemonSpecies(pokedexNumber);
-    });
-
-    this.favouriteSave();
-  }
-
-
-  favouriteReload()
-  {
-    if (localStorage)
-    {
-      let favouriteListString = localStorage.getItem(this.favouriteLocalStorageKey);
-      this.favouritePokemonSpeciesList = [];
-
-      if (favouriteListString == null)
-      {
-        localStorage.setItem(this.favouriteLocalStorageKey, '');
-      }
-      else
-      {
-        if (favouriteListString.includes('-'))
-        {
-          let favouriteArray = favouriteListString.split('');
-
-          favouriteArray.forEach(pokedexNumber => {
-            this.favouritePokemonSpeciesList.push(parseInt(pokedexNumber));
-          });
-        }
-        else
-        {
-          if (favouriteListString != null)
-            this.favouritePokemonSpeciesList.push(parseInt(favouriteListString));
-        }
-      }
-    }
-  }*/
-
-
-// ======================================================================================================================================================
+  // ===========================================================================================================================================================
+  // ============================================================> GETTERS - HTTP REQUESTS <====================================================================
+  // ===========================================================================================================================================================
 
 
   getPokemonByID(id: string): Observable<any>
@@ -429,13 +298,62 @@ export class PokedexService
     return this.httpAssistant.get(this.searchGame + gameVersion);
   }
 
-
-
   getPokemonByRegion(region: string): Observable<any>
   {
     return this.httpAssistant.get(this.serachRegion + region);
   }
 
+
+  getPokemonSpecies(name: string): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchPokemonSpecies + name);
+  }
+
+
+  getAllPokemonSpecies(): Observable<any>
+  {
+    return this.httpAssistant.get(this.searchPokemonSpecies + '?limit=' + this.lastPokemonNumber);
+  }
+  
+  
+  getPokemonSpeciesByUrl(url: string): Observable<any>
+  {
+    return this.httpAssistant.get(url);
+  }
+
+
+
+  // ===========================================================================================================================================================
+  // ==============================================================> UTILITY - METHODS <========================================================================
+  // ===========================================================================================================================================================
+
+
+  getEntryByLanguage(flavorTextEntries: any[], language: string): string[]
+  {
+    let finalEntries: string[] = [];
+    
+    let entryText = '';
+    flavorTextEntries.forEach(entry => {
+        if (entry.language != undefined && entry.language != null && entry.language.name == language)
+        {
+          entryText = entry.flavor_text;
+          entryText = entryText.replace(/\n/g,' ');
+          entryText = entryText.replace(/\f/g,' ');
+          entryText = entryText.replace('POKéMON', 'Pokémon');
+          entryText = entryText.trim();
+
+          if (!finalEntries.includes(entryText))
+          {
+            finalEntries.push(entryText);
+          }
+        }
+    });
+
+    return finalEntries;
+  }
+
+
+  
 
   sortPokemonList(pokemonList: Pokemon[]): Pokemon[]
   {
@@ -474,55 +392,6 @@ export class PokedexService
     }
 
     return pokemonList;
-  }
-
-
-  getPokemonSpecies(name: string): Observable<any>
-  {
-    return this.httpAssistant.get(this.searchPokemonSpecies + name);
-  }
-
-
-  getAllPokemonSpecies(): Observable<any>
-  {
-    return this.httpAssistant.get(this.searchPokemonSpecies + '?limit=' + this.lastPokemonNumber);
-  }
-  
-  
-  getPokemonSpeciesByUrl(url: string): Observable<any>
-  {
-    return this.httpAssistant.get(url);
-  }
-
-
-  getEntryByLanguage(flavorTextEntries: any[], language: string): string[]
-  {
-    let finalEntries: string[] = [];
-    
-    let entryText = '';
-    flavorTextEntries.forEach(entry => {
-        if (entry.language != undefined && entry.language != null && entry.language.name == language)
-        {
-            entryText = entry.flavor_text;
-            entryText = entryText.replace(/\n/g,' ');
-            entryText = entryText.replace(/\f/g,' ');
-            entryText = entryText.replace('POKéMON', 'Pokémon');
-            entryText = entryText.trim();
-            finalEntries.push(entryText);
-        }
-    });
-
-    // Elimina i duplicati
-    for (let i = 0; i < finalEntries.length; i++)
-    {
-      for (let j = i; j < finalEntries.length; j++)
-      {
-        if (finalEntries[i].toUpperCase() == finalEntries[j].toUpperCase())
-          finalEntries.splice(j, 1);
-      }
-    }
-
-    return finalEntries;
   }
 
 }

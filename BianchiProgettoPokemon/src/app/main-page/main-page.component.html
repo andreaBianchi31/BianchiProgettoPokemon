@@ -11,12 +11,17 @@
 
 <ng-template #NonValidato>
     <h1 class="w-screen h-screen bg-black text-red-700 font-bold text-4xl flex justify-center">
-        <div class="mt-96 text-center border border-double border-red-700 rounded-2xl w-5/12 h-1/5 p-4">
-            <div class="">
+        <div class="mt-48 text-center border border-double border-red-700 rounded-2xl w-5/12 h-2/6 p-4">
+            <div class="mt-6">
                 WARNING!
             </div>
-            <div class="">
+            <div class="mt-6">
                 You need to be logged to access data.
+            </div>
+            <div class="mt-6">
+                <a routerLink="/login" class="underline">
+                    LOGIN
+                </a>
             </div>
         </div>
     </h1>
