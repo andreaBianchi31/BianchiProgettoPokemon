@@ -7,15 +7,4 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class AboutUsComponent
 {
-  @Output() changeNavbar = new EventEmitter<string>();
-
-  ngOnInit()
-  {
-    this.changeSelection();
-  }
-
-  changeSelection()
-  {
-    this.changeNavbar.emit('about-us');
-  }
 }

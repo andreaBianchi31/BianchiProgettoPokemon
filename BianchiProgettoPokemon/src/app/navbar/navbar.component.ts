@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent
 {
-  @Input() selection: string = 'home';
+  selection: string = 'home';
 
   styleBase: string = 'border-2 border-black rounded font-bold ';
   styleNormal: string = this.styleBase + 'bg-gray-300 hover:bg-gray-100 text-black';

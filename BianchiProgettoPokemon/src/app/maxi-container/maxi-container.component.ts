@@ -26,8 +26,6 @@ export class MaxiContainerComponent
 
   tmp: number = 0;
 
-  @Output() changeNavbar = new EventEmitter<string>();
-
 
   constructor(private pokedex: PokedexService, private title: Title)
   {
@@ -37,16 +35,6 @@ export class MaxiContainerComponent
     this.getPokemonByGeneration();
     this.datiDisponibili = false;
     this.cambioForma = false;
-  }
-
-  ngOnInit()
-  {
-    this.changeSelection();
-  }
-
-  changeSelection()
-  {
-    this.changeNavbar.emit('home');
   }
 
 
