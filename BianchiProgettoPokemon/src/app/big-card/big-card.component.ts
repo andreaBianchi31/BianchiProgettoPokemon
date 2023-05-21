@@ -17,7 +17,7 @@ export class BigCardComponent
   @Output() favouriteChange = new EventEmitter<number>();
   @Output() reloadFavouriteList = new EventEmitter();
   
-  artwork: string = '';
+  artwork: string = this.pokedex.basePath + '/utility/pokeball-icon.png';
   isFront: boolean = true;
   isShiny: boolean = false;
 
@@ -42,22 +42,25 @@ export class BigCardComponent
 
   ngOnChanges(changes: SimpleChanges)
   {
-    this.artwork = changes['currentPokemon'].currentValue.pixelFrontDefault;
-
-    this.redStar = this.redStarNormal;
-    this.arrow = this.arrowFront;
-    this.heart = this.heartNormal;
-
-    this.isFront = true;
-    this.isShiny = false;
-
-    if (this.currentPokemon != null && this.pokedex.isFavouritePokemonSpecies(this.currentPokemon.pokedexNumber))
+    if (changes['currentPokemon'].currentValue != null)
     {
-      this.heart = this.heartFavourite;
-    }
-    else
-    {
+      this.artwork = changes['currentPokemon'].currentValue.pixelFrontDefault;
+
+      this.redStar = this.redStarNormal;
+      this.arrow = this.arrowFront;
       this.heart = this.heartNormal;
+  
+      this.isFront = true;
+      this.isShiny = false;
+  
+      if (this.currentPokemon != null && this.pokedex.isFavouritePokemonSpecies(this.currentPokemon.pokedexNumber))
+      {
+        this.heart = this.heartFavourite;
+      }
+      else
+      {
+        this.heart = this.heartNormal;
+      }
     }
   }
 
@@ -146,12 +149,4 @@ export class BigCardComponent
     console.log(pokemon);
   }
 
-
-  updateFavourite(pokedexNumber: number)
-  {
-    if (this.currentPokemon != null && this.currentPokemon.pokedexNumber == pokedexNumber)
-    {
-      this.changeFavourite();
-    }
-  }
 }

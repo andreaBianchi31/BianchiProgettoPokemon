@@ -86,6 +86,8 @@ export class PokedexService
   {
     this.sortFavouritePokemonList();
 
+    this.reloadFavouriteList();
+
     return this.favouritePokemonSpeciesList;
   }
 
@@ -228,6 +230,7 @@ export class PokedexService
       else if(favouriteListString === '')
       {
         this.favouritePokemonSpeciesList = [];
+        console.log('FAILURE OF INFITY!');
       }
       else
       {

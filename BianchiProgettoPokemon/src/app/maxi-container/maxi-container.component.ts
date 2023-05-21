@@ -38,6 +38,61 @@ export class MaxiContainerComponent
   }
 
 
+  modificaPokemon(pokemon: Pokemon | null)
+  {
+    this.selectedPokemon = pokemon;
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+
+  changeOption()
+  {
+    console.log('Scelta: ' + this.parameter);
+
+    switch(this.parameter)
+    {
+      case 'generation':
+        this.getPokemonByGeneration();
+        this.tmp = 0;
+        break;
+      case 'game-versions':
+        this.getPokemonByGameVersion();
+        this.tmp = 0;
+        break;
+      case 'favourites':
+        this.pokedex.reloadFavouriteList();
+        this.tmp = 0;
+        this.getPokemonByFavourites();
+        break;
+    }
+
+    this.modificaPokemon(null);
+  }
+
+
+  deleteAllFavourites()
+  {
+    this.pokedex.clearFavouriteList();
+    this.getPokemonByFavourites();
+    this.datiDisponibili = true;
+  }
+
+
+  reloadList()
+  {
+    this.changeOption();
+  }
+
+  
+  reloadFavourite()
+  {
+    if (this.parameter == 'favourites')
+    {
+      this.changeOption();
+    }
+  }
+
+
   getPokemonByGeneration()
   {
     if (this.generation == 0)
@@ -98,7 +153,6 @@ export class MaxiContainerComponent
             this.tmp = pokemonSpeciesList.length;
 
 
-            // =======> controllo
             pokemonSpeciesList.forEach((pokemon: any) => {
               this.pokedex.getPokemonSpeciesByUrl(pokemon.url).subscribe(
                 (data: any) => {
@@ -217,15 +271,13 @@ export class MaxiContainerComponent
 
   getPokemonByFavourites()
   {
-    //console.log('Searching your favourite Pokémon...');
     this.title.setTitle('Pokédex | Favourites');
 
     this.pokemonList = [];
     this.datiDisponibili = false;
 
-    //console.log(this.pokedex.getFavouritePokemonList());
     let favouriteList = this.pokedex.getFavouritePokemonList();
-    //console.log('Favourites List');
+
     console.log(favouriteList);
 
     if (favouriteList.length == 0)
@@ -258,60 +310,6 @@ export class MaxiContainerComponent
       });
     }
 
-  }
-
-
-  modificaPokemon(pokemon: Pokemon | null)
-  {
-    this.selectedPokemon = pokemon;
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
-
-
-  changeOption()
-  {
-    console.log('Scelta: ' + this.parameter);
-
-    switch(this.parameter)
-    {
-      case 'generation':
-        this.getPokemonByGeneration();
-        this.tmp = 0;
-        break;
-      case 'game-versions':
-        this.getPokemonByGameVersion();
-        this.tmp = 0;
-        break;
-      case 'favourites':
-        this.pokedex.reloadFavouriteList();
-        this.tmp = 0;
-        this.getPokemonByFavourites();
-        break;
-    }
-
-    this.modificaPokemon(null);
-  }
-
-
-  deleteAllFavourites()
-  {
-    this.pokedex.clearFavouriteList();
-    this.getPokemonByFavourites();
-    this.datiDisponibili = true;
-  }
-
-
-  reloadList()
-  {
-    this.changeOption();
-  }
-
-  reloadFavourite()
-  {
-    if (this.parameter == 'favourites')
-    {
-      this.changeOption();
-    }
   }
 
 }
