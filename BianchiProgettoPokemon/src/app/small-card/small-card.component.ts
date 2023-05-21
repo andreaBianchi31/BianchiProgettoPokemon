@@ -54,11 +54,11 @@ export class SmallCardComponent
 
     if (this.pokemonSpecies.defaultPokemon != null)
     {
-      this.title.setTitle('Pokédex - ' + this.pokemonSpecies.defaultPokemon.name);
+      this.title.setTitle('Pokédex | ' + this.pokemonSpecies.defaultPokemon.name);
     }
     else
     {
-      this.title.setTitle('Pokédex - ' + this.pokemonSpecies.name);
+      this.title.setTitle('Pokédex | ' + this.pokemonSpecies.name);
     }
 
     window.scrollTo({top: 0, behavior: 'smooth'});

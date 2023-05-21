@@ -29,7 +29,7 @@ export class MaxiContainerComponent
 
   constructor(private pokedex: PokedexService, private title: Title)
   {
-    this.title.setTitle('Pokedex - Home');
+    this.title.setTitle('Pokedex | Home');
     this.generation = 1;
     this.game = '2';
     this.getPokemonByGeneration();
@@ -43,7 +43,7 @@ export class MaxiContainerComponent
     if (this.generation == 0)
     {
       console.log('Searching pokemon of All Generations...');
-      this.title.setTitle('Pokédex - All Generations');
+      this.title.setTitle('Pokédex | All Generations');
 
       this.pokemonList = [];
       this.datiDisponibili = false;
@@ -60,8 +60,6 @@ export class MaxiContainerComponent
                   (data: any) => {
                     let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
                     this.pokemonList.push(pokemon);
-
-                    console.log('ses');
 
                     if (this.tmp == this.pokemonList.length)
                     {
@@ -87,7 +85,7 @@ export class MaxiContainerComponent
     else
     {
       console.log('Searching pokemon of Generation ' + this.generation + '...');
-      this.title.setTitle('Pokédex - Generation ' + this.generation);
+      this.title.setTitle('Pokédex | Generation ' + this.generation);
 
       this.pokemonList = [];
       this.datiDisponibili = false;
@@ -151,30 +149,29 @@ export class MaxiContainerComponent
 
   getPokemonByGameVersion()
   {
-    let tmp = 'Pokédex - ';
+    let tmp = 'Pokédex | ';
 
     console.log(this.game);
     
     switch(this.game)
     {
       case '1': tmp += 'National'; break;
-      case '2': tmp += 'Red | Blue | Yellow'; break;
-      case '3': tmp += 'Gold | Silver | Crystal'; break;
-      case '4': tmp += 'Ruby | Sapphire | Emerald'; break;
-      case '5': tmp += 'Diamond | Pearl'; break;
+      case '2': tmp += 'Red, Blue & Yellow'; break;
+      case '3': tmp += 'Gold, Silver & Crystal'; break;
+      case '4': tmp += 'Ruby, Sapphire & Emerald'; break;
+      case '5': tmp += 'Diamond & Pearl'; break;
       case '6': tmp += 'Platinum'; break;
-      case '7': tmp += 'HeartGold | SoulSilver'; break;
-      case '8': tmp += 'Black | White'; break;
-      case '9': tmp += 'Black 2 | White 2'; break;
+      case '7': tmp += 'HeartGold & SoulSilver'; break;
+      case '8': tmp += 'Black & White'; break;
+      case '9': tmp += 'Black 2 & White 2'; break;
       case '11': tmp += 'Pokemon Conquest'; break;
-      case '12': tmp += 'X | Y (plain)'; break;
-      case '13': tmp += 'X | Y (coast)'; break;
-      case '14': tmp += 'National'; break;
-      case '15': tmp += 'National'; break;
-      case '16': tmp += 'Sun | Moon'; break;
-      case '21': tmp += 'UltraSun | UltraMoon'; break;
-      case '26': tmp += 'Let\'s Go Pikachu | Eevee'; break;
-      case '27': tmp += 'Sword | Shield'; break;
+      case '12': tmp += 'X & Y (plain)'; break;
+      case '13': tmp += 'X & Y (coast)'; break;
+      case '14': tmp += 'X & Y (mountain)'; break;
+      case '16': tmp += 'Sun & Moon'; break;
+      case '21': tmp += 'UltraSun & UltraMoon'; break;
+      case '26': tmp += 'Let\'s Go Pikachu & Eevee'; break;
+      case '27': tmp += 'Sword & Shield'; break;
       case '28': tmp += 'Isle of Armoral'; break;
       case '29': tmp += 'Chrown Tundra'; break;
       case '30': tmp += 'Legends: Arceus'; break;
@@ -221,7 +218,7 @@ export class MaxiContainerComponent
   getPokemonByFavourites()
   {
     //console.log('Searching your favourite Pokémon...');
-    this.title.setTitle('Pokédex - Favourites');
+    this.title.setTitle('Pokédex | Favourites');
 
     this.pokemonList = [];
     this.datiDisponibili = false;

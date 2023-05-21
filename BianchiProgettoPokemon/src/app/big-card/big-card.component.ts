@@ -142,7 +142,7 @@ export class BigCardComponent
   changeCurrentPokemon(pokemon: Pokemon)
   {
     this.newSelectedForm.emit(pokemon);
-    this.title.setTitle('Pokédex - ' + pokemon.name);
+    this.title.setTitle('Pokédex | ' + pokemon.name);
     console.log(pokemon);
   }
 

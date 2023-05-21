@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 
 @Component({
@@ -13,7 +13,6 @@ export class MainPageComponent
   constructor(public pokedex: PokedexService)
   {
   }
-
 
   changeSelection(selection: string)
   {

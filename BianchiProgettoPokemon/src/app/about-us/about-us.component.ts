@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-about-us',
@@ -7,4 +8,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class AboutUsComponent
 {
+  constructor(private title: Title)
+  {
+
+  }
+
+  ngOnInit()
+  {
+    this.title.setTitle('Pokédex | About Me')
+  }
 }

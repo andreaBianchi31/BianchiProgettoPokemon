@@ -33,7 +33,7 @@ export class PokedexService
 
   private language: string = 'en';
 
-  private validato: boolean = true;
+  private validato: boolean = false;
 
 
 
@@ -218,11 +218,16 @@ export class PokedexService
     if (localStorage)
     {
       let favouriteListString = localStorage.getItem(this.favouriteLocalStorageKey);
+      console.log(favouriteListString);
       this.favouritePokemonSpeciesList = [];
 
       if (favouriteListString == null)
       {
         localStorage.setItem(this.favouriteLocalStorageKey, '');
+      }
+      else if(favouriteListString === '')
+      {
+        this.favouritePokemonSpeciesList = [];
       }
       else
       {
@@ -243,6 +248,7 @@ export class PokedexService
     }
 
     console.log(this.favouritePokemonSpeciesList);
+    console.log(localStorage.getItem(this.favouriteLocalStorageKey));
   }
 
 
