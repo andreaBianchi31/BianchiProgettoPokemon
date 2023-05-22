@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PokedexService } from '../common/pokedex.service';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({

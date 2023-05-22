@@ -49,22 +49,12 @@ export class MaxiContainerComponent
   {
     console.log('Scelta: ' + this.parameter);
 
-    switch(this.parameter)
+    if (this.parameter == 'favourites')
     {
-      case 'generation':
-        this.getPokemonByGeneration();
-        this.tmp = 0;
-        break;
-      case 'game-versions':
-        this.getPokemonByGameVersion();
-        this.tmp = 0;
-        break;
-      case 'favourites':
-        this.pokedex.reloadFavouriteList();
-        this.tmp = 0;
-        this.getPokemonByFavourites();
-        break;
+      this.pokedex.reloadFavouriteList();
     }
+
+    this.getPokemonByGeneration();
 
     this.modificaPokemon(null);
   }
@@ -73,7 +63,7 @@ export class MaxiContainerComponent
   deleteAllFavourites()
   {
     this.pokedex.clearFavouriteList();
-    this.getPokemonByFavourites();
+    this.getPokemonByGeneration();
     this.datiDisponibili = true;
   }
 
@@ -95,99 +85,125 @@ export class MaxiContainerComponent
 
   getPokemonByGeneration()
   {
-    if (this.generation == 0)
+    this.setSelectionTitle();
+
+    this.pokemonList = [];
+    this.datiDisponibili = false;
+    this.tmp = 0;
+
+    if (this.parameter == 'favourites')
     {
-      console.log('Searching pokemon of All Generations...');
-      this.title.setTitle('Pokédex | All Generations');
+      let favouriteList = this.pokedex.getFavouritePokemonList();
 
-      this.pokemonList = [];
-      this.datiDisponibili = false;
+      console.log(favouriteList);
 
-      let dati = this.pokedex.getAllPokemonSpecies().subscribe (
-        (data) => {
-            this.pokemonList = [];
-            let pokemonSpeciesList = data.results;
+      this.tmp = favouriteList.length;
+  
+      if (this.tmp == 0)
+      {
+        console.log('The favourite list is blank!');
+        this.datiDisponibili = true;
+      }
+      else
+      {
+        favouriteList.forEach(pokemonName => {
+          this.pokedex.getPokemonSpecies('' + pokemonName).subscribe (
+            (data: any) => {
+              console.log(data);
+              let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
+              this.pokemonList.push(pokemon);
+              console.log(pokemon);
 
-            this.tmp = pokemonSpeciesList.length;
-
-            pokemonSpeciesList.forEach((pokemon: any, index: number) => {
-                this.pokedex.getPokemonSpeciesByUrl(pokemon.url).subscribe(
-                  (data: any) => {
-                    let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
-                    this.pokemonList.push(pokemon);
-
-                    if (this.tmp == this.pokemonList.length)
-                    {
-                      this.datiDisponibili = true;
-                      this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-                      this.pokemonList = this.pokemonList.splice(0, this.pokedex.getLastPokemon());
-                      console.log(this.pokemonList);
-                      this.getAllVarieties();
-                    }
-                  },
-                  (error: any) => {
-                    this.tmp -= 1;
-                    console.log(this.tmp);
-                  }
-                )
-            });
-        },
-        (error) => {
-          console.log('Failed search!');
-        }
-      );
+              this.checkCompletation();
+            },
+            (error: any) => {
+              this.tmp -= 1;
+            }
+          );
+        });
+      }
     }
     else
     {
-      console.log('Searching pokemon of Generation ' + this.generation + '...');
-      this.title.setTitle('Pokédex | Generation ' + this.generation);
+      let observable;
 
-      this.pokemonList = [];
-      this.datiDisponibili = false;
+      if (this.parameter == 'generation')
+      {
+        if (this.generation == 0) {
+          observable = this.pokedex.getAllPokemonSpecies();
+        }
+        else {
+          observable = this.pokedex.getPokemonByGeneration('' + this.generation);
+        }
+      }
+      else
+      {
+        observable = this.pokedex.getPokemonByPokedex('' + this.game);
+        console.log('afdhjgtbnkijnbtsyadgkio');
+      }
+  
+      observable.subscribe(
+        (data: any) => {
+          console.log(data);
 
-      let dati = this.pokedex.getPokemonByGeneration('' + this.generation).subscribe (
-        (data) => {
-            this.pokemonList = [];
-            let pokemonSpeciesList = data.pokemon_species;
+          let pokemonSpecList;
+          if (this.parameter == 'game-versions') {
+            pokemonSpecList = data.pokemon_entries;
+          }
+          else if (this.generation == 0) {
+            pokemonSpecList = data.results;
+          }
+          else {
+            pokemonSpecList = data.pokemon_species;
+          }
+  
+          this.tmp = pokemonSpecList.length;
+          console.log(this.tmp);
+  
+          pokemonSpecList.forEach((pokemon: any) => {
 
-            this.tmp = pokemonSpeciesList.length;
+            let observable2;
+            if (this.parameter == 'game-versions') {
+              observable2 = this.pokedex.getPokemonSpeciesByUrl(pokemon.pokemon_species.url);
+            }
+            else {
+              observable2 = this.pokedex.getPokemonSpeciesByUrl(pokemon.url);
+            }
 
+            observable2.subscribe (
+              (data: any) => {
+                let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
+                this.pokemonList.push(pokemon);
 
-            pokemonSpeciesList.forEach((pokemon: any) => {
-              this.pokedex.getPokemonSpeciesByUrl(pokemon.url).subscribe(
-                (data: any) => {
-                  let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
-                  this.pokemonList.push(pokemon);
-
-                  if (this.tmp == this.pokemonList.length)
-                  {
-                    this.datiDisponibili = true;
-                    this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-                    console.log(this.pokemonList.length + ' pokemon species found!');
-                    console.log(this.pokemonList);
-                    this.getAllVarieties();
-                  }
-                },
-                (error: any) => {
-                  this.tmp -= 1;
-                  console.log(this.tmp);
-                }
-              )
-            });
+                this.checkCompletation();
+              },
+              (error: any) => {
+                this.tmp -= 1;
+              }
+            )
+          });
         },
-        (error) => {
-          console.log('Failed search!');
+        (error: any) => {
+          console.log('ERROR => Failed search!');
         }
       );
+    }
 
-      if (this.tmp == this.pokemonList.length)
-      {
-        this.datiDisponibili = true;
-        this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-        console.log(this.pokemonList.length + ' pokemon species found!');
-        console.log(this.pokemonList);
-        this.getAllVarieties();
+  }
+
+
+  checkCompletation()
+  {
+    if (this.tmp == this.pokemonList.length) {
+      this.datiDisponibili = true;
+      this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
+
+      if (this.parameter == 'generation' && this.generation == 0) {
+        this.pokemonList = this.pokemonList.splice(0, this.pokedex.getLastPokemon());
       }
+
+      console.log(this.pokemonList);
+      this.getAllVarieties();
     }
   }
 
@@ -200,116 +216,56 @@ export class MaxiContainerComponent
     });
   }
 
-
-  getPokemonByGameVersion()
+  
+  setSelectionTitle()
   {
-    let tmp = 'Pokédex | ';
+    let title = 'Pokédex | ';
 
-    console.log(this.game);
-    
-    switch(this.game)
+    if (this.parameter == 'generation')
     {
-      case '1': tmp += 'National'; break;
-      case '2': tmp += 'Red, Blue & Yellow'; break;
-      case '3': tmp += 'Gold, Silver & Crystal'; break;
-      case '4': tmp += 'Ruby, Sapphire & Emerald'; break;
-      case '5': tmp += 'Diamond & Pearl'; break;
-      case '6': tmp += 'Platinum'; break;
-      case '7': tmp += 'HeartGold & SoulSilver'; break;
-      case '8': tmp += 'Black & White'; break;
-      case '9': tmp += 'Black 2 & White 2'; break;
-      case '11': tmp += 'Pokemon Conquest'; break;
-      case '12': tmp += 'X & Y (plain)'; break;
-      case '13': tmp += 'X & Y (coast)'; break;
-      case '14': tmp += 'X & Y (mountain)'; break;
-      case '16': tmp += 'Sun & Moon'; break;
-      case '21': tmp += 'UltraSun & UltraMoon'; break;
-      case '26': tmp += 'Let\'s Go Pikachu & Eevee'; break;
-      case '27': tmp += 'Sword & Shield'; break;
-      case '28': tmp += 'Isle of Armoral'; break;
-      case '29': tmp += 'Chrown Tundra'; break;
-      case '30': tmp += 'Legends: Arceus'; break;
-    }
-    this.title.setTitle(tmp);
-
-    this.pokemonList = [];
-    this.datiDisponibili = false;
-
-    let dati = this.pokedex.getPokemonByPokedex('' + this.game).subscribe (
-      (data) => {
-          this.pokemonList = [];
-          let pokemonSpeciesList = data.pokemon_entries;
-
-          pokemonSpeciesList.forEach((pokemon: any, index: number) => {
-              this.pokedex.getPokemonSpeciesByUrl(pokemon.pokemon_species.url).subscribe(
-                (data: any) => {
-                  let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
-                  this.pokemonList.push(pokemon);
-
-                  if (pokemonSpeciesList.length == this.pokemonList.length)
-                  {
-                    this.datiDisponibili = true;
-                    this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-
-                    if (this.game == '1') {
-                      this.pokemonList = this.pokemonList.splice(0, this.pokedex.getLastPokemon());
-                    }
-
-                    console.log(this.pokemonList);
-                    this.getAllVarieties();
-                  }
-                }
-              )
-          });
-      },
-      (error) => {
-        console.log('Failed search!');
+      if (this.generation == 0) {
+        title += 'All Generations';
       }
-    );
-  }
-
-
-  getPokemonByFavourites()
-  {
-    this.title.setTitle('Pokédex | Favourites');
-
-    this.pokemonList = [];
-    this.datiDisponibili = false;
-
-    let favouriteList = this.pokedex.getFavouritePokemonList();
-
-    console.log(favouriteList);
-
-    if (favouriteList.length == 0)
+      else {
+        title += 'Generation ' + this.generation;
+      }
+    }
+    else if (this.parameter == 'game-versions')
     {
-      console.log('The favourite list is blank!');
-      this.datiDisponibili = true;
+      switch(this.game)
+      {
+        case '1': title += 'National'; break;
+        case '2': title += 'Red, Blue & Yellow'; break;
+        case '3': title += 'Gold, Silver & Crystal'; break;
+        case '4': title += 'Ruby, Sapphire & Emerald'; break;
+        case '5': title += 'Diamond & Pearl'; break;
+        case '6': title += 'Platinum'; break;
+        case '7': title += 'HeartGold & SoulSilver'; break;
+        case '8': title += 'Black & White'; break;
+        case '9': title += 'Black 2 & White 2'; break;
+        case '11': title += 'Pokemon Conquest'; break;
+        case '12': title += 'X & Y (plain)'; break;
+        case '13': title += 'X & Y (coast)'; break;
+        case '14': title += 'X & Y (mountain)'; break;
+        case '16': title += 'Sun & Moon'; break;
+        case '21': title += 'UltraSun & UltraMoon'; break;
+        case '26': title += 'Let\'s Go Pikachu & Eevee'; break;
+        case '27': title += 'Sword & Shield'; break;
+        case '28': title += 'Isle of Armoral'; break;
+        case '29': title += 'Chrown Tundra'; break;
+        case '30': title += 'Legends: Arceus'; break;
+      }
+    }
+    else if (this.parameter == 'favourites')
+    {
+      title += 'Favourites';
     }
     else
     {
-      favouriteList.forEach(pokemonName => {
-        this.pokedex.getPokemonSpecies('' + pokemonName).subscribe (
-          (data: any) => {
-            console.log(data);
-            let pokemon = new PokemonSpecies(data.id, data.names, data.pokedex_numbers, data.is_baby, data.is_legendary, data.is_mythical, data.flavor_text_entries, data.form_descriptions, data.genera, data.generation.name, data.varieties, this.pokedex);
-            this.pokemonList.push(pokemon);
-
-            if (favouriteList.length == this.pokemonList.length)
-            {
-              this.datiDisponibili = true;
-              this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
-
-              console.log(this.pokemonList);
-              this.getAllVarieties();
-            }
-          },
-          (error) => {
-            console.log('Failed search!');
-          }
-        );
-      });
+      title += 'Error';
     }
 
+    this.title.setTitle(title);
   }
 
 }

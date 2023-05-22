@@ -10,7 +10,7 @@
 
 
 <div *ngIf="parameter == 'generation'" class="ml-6 mt-6 p-2 text-base w-80 border-2 bg-slate-50 font-bold rounded-lg flex justify-center">
-    <div>Generation <select [(ngModel)]="generation" (change)="getPokemonByGeneration()" class="bg-transparent italic text-left ml-2" [disabled]="!datiDisponibili">
+    <div>Generation <select [(ngModel)]="generation" (change)="changeOption()" class="bg-transparent italic text-left ml-2" [disabled]="!datiDisponibili">
         <option *ngFor="let gen of generationList" [value]="gen">{{gen}}</option>
         <option value="0">All</option>
     </select>
@@ -19,7 +19,7 @@
 
 
 <div *ngIf="parameter == 'game-versions'" class="ml-6 mt-6 p-2 text-base w-96 border-2 bg-slate-50 font-bold rounded-lg flex justify-center">
-    <div>Game Version<select [(ngModel)]="game" (change)="getPokemonByGameVersion()" class="bg-transparent italic text-left ml-2" [disabled]="!datiDisponibili">
+    <div>Game Version<select [(ngModel)]="game" (change)="changeOption()" class="bg-transparent italic text-left ml-2" [disabled]="!datiDisponibili">
         <!--<option value="1">National</option>-->
         <option value="2">Red | Blue | Yellow</option>
         <option value="3">Gold | Silver | Crystal</option>

@@ -77,6 +77,18 @@ export class PokedexService
   }
 
 
+  getFavouriteLocalStorageKey(): string
+  {
+    return this.favouriteLocalStorageKey;
+  }
+
+
+  getSearchLimitString(): string
+  {
+    return this.searchLimit;
+  }
+
+
   // ===========================================================================================================================================================
   // =========================================================================> FAVOURITES <====================================================================
   // ===========================================================================================================================================================
@@ -94,7 +106,7 @@ export class PokedexService
 
   sortFavouritePokemonList()
   {    
-    this.removeAllNaN();
+    //this.removeAllNaN();
 
     for(let i = 0; i <= this.favouritePokemonSpeciesList.length-1; i++)
     {
@@ -110,18 +122,6 @@ export class PokedexService
     }
 
     return this.favouritePokemonSpeciesList;
-  }
-
-
-  removeAllNaN()
-  {
-    for (let index = 0; index < this.favouritePokemonSpeciesList.length; index++)
-    {
-      if (Number.isNaN(this.favouritePokemonSpeciesList[index]))
-      {
-        this.favouritePokemonSpeciesList.splice(index, 1);
-      }
-    }
   }
 
   
@@ -227,25 +227,24 @@ export class PokedexService
       {
         localStorage.setItem(this.favouriteLocalStorageKey, '');
       }
-      else if(favouriteListString === '')
+      else if(favouriteListString !== '')
       {
-        this.favouritePokemonSpeciesList = [];
         console.log('FAILURE OF INFITY!');
-      }
-      else
-      {
-        if (favouriteListString.includes('-'))
-        {
-          let favouriteArray = favouriteListString.split('-');
 
-          favouriteArray.forEach(pokedexNumber => {
-            this.favouritePokemonSpeciesList.push(parseInt(pokedexNumber));
-          });
-        }
-        else
         {
-          if (favouriteListString != null)
-            this.favouritePokemonSpeciesList.push(parseInt(favouriteListString));
+          if (favouriteListString.includes('-'))
+          {
+            let favouriteArray = favouriteListString.split('-');
+  
+            favouriteArray.forEach(pokedexNumber => {
+              this.favouritePokemonSpeciesList.push(parseInt(pokedexNumber));
+            });
+          }
+          else
+          {
+            if (favouriteListString != null)
+              this.favouritePokemonSpeciesList.push(parseInt(favouriteListString));
+          }
         }
       }
     }
@@ -253,6 +252,18 @@ export class PokedexService
     console.log(this.favouritePokemonSpeciesList);
     console.log(localStorage.getItem(this.favouriteLocalStorageKey));
   }
+
+  /* =====> UNUSED <=====
+  removeAllNaN()
+  {
+    for (let index = 0; index < this.favouritePokemonSpeciesList.length; index++)
+    {
+      if (Number.isNaN(this.favouritePokemonSpeciesList[index]))
+      {
+        this.favouritePokemonSpeciesList.splice(index, 1);
+      }
+    }
+  }*/
 
 
   // ===========================================================================================================================================================
@@ -346,7 +357,6 @@ export class PokedexService
         if (entry.language != undefined && entry.language != null && entry.language.name == language)
         {
           entryText = entry.flavor_text;
-          entryText = entryText.replace(/\n/g,' ');
           entryText = entryText.replace(/\f/g,' ');
           entryText = entryText.replace('POKéMON', 'Pokémon');
           entryText = entryText.trim();

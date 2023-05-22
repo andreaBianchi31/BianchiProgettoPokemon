@@ -26,7 +26,6 @@ export class NavbarComponent
 
   constructor(private router: Router)
   {
-    this.router.navigate(['/pokedex/home']);
     this.changeSelection('home');
   }
 

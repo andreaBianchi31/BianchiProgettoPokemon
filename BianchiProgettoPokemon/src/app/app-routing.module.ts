@@ -9,14 +9,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'pokedex', component: MainPageComponent,
-    children: [
+  {path: 'pokedex', component: MainPageComponent, children: [
       {path: 'home', component: MaxiContainerComponent},
       {path: 'about-us', component: AboutUsComponent},
+      {path: 'about-me', redirectTo: '/pokedex/about-us'},
       {path: 'what-is-a-pokemon', component: InfoPokemonComponent},
+      {path: 'pokemon-info', redirectTo: '/pokedex/what-is-a-pokemon'},
+      {path: 'info-pokemon', redirectTo: '/pokedex/what-is-a-pokemon'},
     ]},
   {path: 'login', component: LoginComponent},
-  {path: '**', component: NotFoundComponent}
+  {path: '**', component: NotFoundComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

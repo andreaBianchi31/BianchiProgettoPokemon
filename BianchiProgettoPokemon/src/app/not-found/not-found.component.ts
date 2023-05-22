@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-not-found',
@@ -7,8 +8,12 @@ import { Component } from '@angular/core';
 })
 export class NotFoundComponent
 {
-  constructor()
+  constructor(private title: Title)
   {
-    console.log('sooooooooos');
+  }
+
+  ngOnInit()
+  {
+    this.title.setTitle('Pokédex | Not Found');
   }
 }

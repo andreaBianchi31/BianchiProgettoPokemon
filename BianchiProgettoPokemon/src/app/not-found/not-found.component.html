@@ -1,13 +1,18 @@
 
-<app-navbar></app-navbar>
-
-<div>
-    <h1>ERROR 404.</h1>
-    <h3>Something went wrong!</h3>
-    <div class="w-36">
-        <img src="../assets/images/utility/confused-spyduck.gif">
+<div class="bg-gradient-to-tr from-yellow-400 to-slate-100 h-screen flex justify-center">
+    <div class="place-items-center">
+        <h1 class="font-bold text-4xl my-8 text-center">ERROR 404.</h1>
+        <h3 class="font-bold text-2xl my-8 text-center">Something went wrong!</h3>
+        <div class="flex justify-center">
+            <div class="w-72 my-8">
+                <img src="../assets/images/utility/confused-spyduck.gif">
+            </div>
+        </div>
+        <div class="font-bold text-2xl my-8 text-center">The page you are looking for does not exist!</div>
+        <div class="flex justify-center">
+            <a routerLink="/login" class="border-2 border-yellow-500 rounded-xl w-72 bg-yellow-300 hover:bg-yellow-200 font-bold text-xl my-8 text-center p-4">
+                Get started by LOGGING
+            </a>
+        </div>
     </div>
-    <div>The page you are looking for does not exist.</div>
 </div>
-
-<app-footer></app-footer>

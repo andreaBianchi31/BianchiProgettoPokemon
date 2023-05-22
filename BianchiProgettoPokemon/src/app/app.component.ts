@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PokedexService } from './common/pokedex.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,7 @@ import { PokedexService } from './common/pokedex.service';
 })
 export class AppComponent
 {
-  title = 'BianchiProgettoPokemon';
-
-  constructor(public pokedex: PokedexService)
+  constructor()
   {
   }
 }

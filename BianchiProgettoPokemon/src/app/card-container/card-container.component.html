@@ -15,13 +15,9 @@
 
     <p class="text-sm font-semibold italic text-gray-500">{{pokemonList.length}} pokémon species found.</p>
 
-    <div class="my-4 grid grid-cols-2" *ngIf="datiDisponibili; else nonArrivati">
+    <div class="my-4 grid grid-cols-2" *ngIf="datiDisponibili">
       <app-small-card (pokemonForm)="modificaPokemon($event)" *ngFor="let pokemon of pokemonList; let i = index" [pokemonSpecies]="pokemon" class="m-2"></app-small-card>
     </div>
-
-    <ng-template #nonArrivati>
-      <p class="font-bold my-4">Data not available.</p>
-    </ng-template>
 
   </div>
 
