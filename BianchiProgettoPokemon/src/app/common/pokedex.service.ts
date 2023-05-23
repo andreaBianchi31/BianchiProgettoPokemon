@@ -127,10 +127,16 @@ export class PokedexService
   
   addFavouritePokemonSpecies(pokedexNumber: number)
   {
+    //Se il pokemon (numero di pokedex) non è gia presente nella lista...
     if (this.favouritePokemonSpeciesList.indexOf(pokedexNumber) == -1)
     {
+      //Aggiunge il pokemon (numero di pokedex) alla lista
       this.favouritePokemonSpeciesList.push(pokedexNumber);
+
+      //Ordina la lista
       this.sortFavouritePokemonList();
+
+      //Salva la lista aggiornata nel local storage
       this.saveFavouritesLocalStorage();
     }
     else
@@ -148,7 +154,7 @@ export class PokedexService
     {
       console.error('ERROR => Pokémon #' + pokedexNumber + 'is NOT a favourite Pokémon!');
     }
-    else
+    else //Cerca il pokemon (numero di pokedex) nella lista
     {
       let trovato = false;
 
@@ -162,6 +168,7 @@ export class PokedexService
         }
       }
 
+      //Salva la lista aggiornata nel local storage
       this.saveFavouritesLocalStorage();
     }
 
@@ -184,67 +191,69 @@ export class PokedexService
   {
     let favouriteListString = '';
 
+    // Se la lista è vuota, salva la lista vuota
     if (this.favouritePokemonSpeciesList.length == 0)
     {
       localStorage.setItem(this.favouriteLocalStorageKey, favouriteListString);
     }
     else
     {
+      //Forma la stringa con i singoli numeri di pokedex, separati da "-"
       for (let index = 0; index < this.favouritePokemonSpeciesList.length-1; index++)
       {
         favouriteListString += this.favouritePokemonSpeciesList[index] + '-';
       }
 
+      //Aggiunge alla stringa l'ultimo numero di pokedex
       favouriteListString += this.favouritePokemonSpeciesList[this.favouritePokemonSpeciesList.length-1];
 
+      //Salva la stringa completa nel localstorage
       localStorage.setItem(this.favouriteLocalStorageKey, favouriteListString);
-      console.log(localStorage);
+      //console.log(localStorage);
     }
 
     console.log(this.favouritePokemonSpeciesList);
   }
 
 
+  //Svuota tutta la lista e il local storage
   clearFavouriteList()
   {
     this.favouritePokemonSpeciesList = [];
     localStorage.setItem(this.favouriteLocalStorageKey, '');
 
-    console.log(localStorage);
-    console.log(this.favouritePokemonSpeciesList);
+    //console.log(localStorage);
+    //console.log(this.favouritePokemonSpeciesList);
   }
 
 
+  //Ricarica la lista dei preferiti, prendendo i valori dal local storage
   reloadFavouriteList()
   {
-    if (localStorage)
+    if (localStorage) //Controllo se il browser supporta il local storage
     {
       let favouriteListString = localStorage.getItem(this.favouriteLocalStorageKey);
-      console.log(favouriteListString);
       this.favouritePokemonSpeciesList = [];
 
+      //Se non esiste il valore dei preferiti da noi utilizzato nel localstorage, lo "creo"
       if (favouriteListString == null)
       {
         localStorage.setItem(this.favouriteLocalStorageKey, '');
       }
-      else if(favouriteListString !== '')
+      else if(favouriteListString !== '') //Se la lista non è vuota...
       {
-        console.log('FAILURE OF INFITY!');
-
+        //Se la lista del local storage contiene più di 1 elemento, divide gli elementi e gli aggiunge all lista dei preferiti
+        if (favouriteListString.includes('-'))
         {
-          if (favouriteListString.includes('-'))
-          {
-            let favouriteArray = favouriteListString.split('-');
-  
-            favouriteArray.forEach(pokedexNumber => {
-              this.favouritePokemonSpeciesList.push(parseInt(pokedexNumber));
-            });
-          }
-          else
-          {
-            if (favouriteListString != null)
-              this.favouritePokemonSpeciesList.push(parseInt(favouriteListString));
-          }
+          let favouriteArray = favouriteListString.split('-');
+          favouriteArray.forEach(pokedexNumber => {
+            this.favouritePokemonSpeciesList.push(parseInt(pokedexNumber));
+          });
+        }
+        else //Se la lista del local storage contiene 1 solo elemento, inserisce nella lista dei preferiti l'unico valore nel local storage
+        {
+          if (favouriteListString != null)
+            this.favouritePokemonSpeciesList.push(parseInt(favouriteListString));
         }
       }
     }
@@ -253,7 +262,9 @@ export class PokedexService
     console.log(localStorage.getItem(this.favouriteLocalStorageKey));
   }
 
+
   /* =====> UNUSED <=====
+  //Rimuove tutti i valori "NaN" presenti nella lista
   removeAllNaN()
   {
     for (let index = 0; index < this.favouritePokemonSpeciesList.length; index++)
@@ -354,17 +365,15 @@ export class PokedexService
     
     let entryText = '';
     flavorTextEntries.forEach(entry => {
+        //Se la lingua è quella inglese, aggiunge la entry
         if (entry.language != undefined && entry.language != null && entry.language.name == language)
         {
           entryText = entry.flavor_text;
-          entryText = entryText.replace(/\f/g,' ');
+          entryText = entryText.replace(/\f/g,' '); //Trasforma le frecce in spazi
           entryText = entryText.replace('POKéMON', 'Pokémon');
           entryText = entryText.trim();
 
-          if (!finalEntries.includes(entryText))
-          {
-            finalEntries.push(entryText);
-          }
+          finalEntries.push(entryText);
         }
     });
 
@@ -372,8 +381,7 @@ export class PokedexService
   }
 
 
-  
-
+  //Ordine una lista di Pokemon
   sortPokemonList(pokemonList: Pokemon[]): Pokemon[]
   {
     // BubbleSort
@@ -394,6 +402,7 @@ export class PokedexService
   }
 
 
+  //Ordina una lista di Pokemon Species
   sortPokemonSpeciesList(pokemonList: PokemonSpecies[]): PokemonSpecies[]
   {
     // BubbleSort

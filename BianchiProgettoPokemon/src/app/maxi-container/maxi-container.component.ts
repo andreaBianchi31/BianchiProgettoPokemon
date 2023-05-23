@@ -11,14 +11,17 @@ import { Pokemon } from '../common/pokemon';
 })
 export class MaxiContainerComponent
 {
-  pokemonList: PokemonSpecies[] = [];
-  selectedPokemon: Pokemon | null = null;
+  pokemonList: PokemonSpecies[] = []; //Lista dei pokemon da visualizzare (va in CardContainer)
+  selectedPokemon: Pokemon | null = null; //Pokemon scelto
 
+  // =====> GENERATION
   generation: number = 1;
   generationList: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  game: string = '2';
+  // =====> GAME VERSION
+  game: string = '2'; //NB: non esiste '2'
 
+  // =====> PARAMETRO - FILTRO
   parameter: string = 'generation';
 
   datiDisponibili: boolean;
@@ -32,7 +35,7 @@ export class MaxiContainerComponent
     this.title.setTitle('Pokedex | Home');
     this.generation = 1;
     this.game = '2';
-    this.getPokemonByGeneration();
+    this.getPokemonList();
     this.datiDisponibili = false;
     this.cambioForma = false;
   }
@@ -45,35 +48,40 @@ export class MaxiContainerComponent
   }
 
 
+  //Cambia la lista dei pokemon in base al parametro
   changeOption()
   {
     console.log('Scelta: ' + this.parameter);
 
+    //Se il parametro sono i pokemon preferiti, ricarica la lista dei preferiti guardando il local host
     if (this.parameter == 'favourites')
     {
       this.pokedex.reloadFavouriteList();
     }
 
-    this.getPokemonByGeneration();
+    this.getPokemonList();
 
     this.modificaPokemon(null);
   }
 
 
+  //Elimina tutti i pokemon preferiti e ricarica la lista delle specie di pokemon
   deleteAllFavourites()
   {
     this.pokedex.clearFavouriteList();
-    this.getPokemonByGeneration();
+    this.getPokemonList();
     this.datiDisponibili = true;
   }
 
 
+  //Ricarica la lista delle specie di pokemon, in base al parametro di ricerca
   reloadList()
   {
     this.changeOption();
   }
 
-  
+
+  //Ricarica la lista delle specie di pokemon, SOLO SE il parametro di ricerca è "favourites"
   reloadFavourite()
   {
     if (this.parameter == 'favourites')
@@ -83,19 +91,24 @@ export class MaxiContainerComponent
   }
 
 
-  getPokemonByGeneration()
+  //Modifica la lista delle specie di pokemon (effettuando richieste GET), in base al parametro di ricerca
+  getPokemonList()
   {
+    //Modifica il titolo della pagina in base al parametro di ricerca
     this.setSelectionTitle();
 
     this.pokemonList = [];
     this.datiDisponibili = false;
+
+    //Anche se ci sono errori, funziona lo stesso
     this.tmp = 0;
 
+    // =====> FAVOURITES <=====
     if (this.parameter == 'favourites')
     {
       let favouriteList = this.pokedex.getFavouritePokemonList();
 
-      console.log(favouriteList);
+      //console.log(favouriteList);
 
       this.tmp = favouriteList.length;
   
@@ -123,8 +136,9 @@ export class MaxiContainerComponent
         });
       }
     }
-    else
+    else // =====> GENERATION & GAME-VERSION <=====
     {
+      //Observable per la richiesta GET
       let observable;
 
       if (this.parameter == 'generation')
@@ -139,13 +153,13 @@ export class MaxiContainerComponent
       else
       {
         observable = this.pokedex.getPokemonByPokedex('' + this.game);
-        console.log('afdhjgtbnkijnbtsyadgkio');
       }
   
       observable.subscribe(
         (data: any) => {
-          console.log(data);
+          //console.log(data);
 
+          //Parametro che rappresenta la lista delle specie pokemon, in base al parametro di ricerca
           let pokemonSpecList;
           if (this.parameter == 'game-versions') {
             pokemonSpecList = data.pokemon_entries;
@@ -158,10 +172,10 @@ export class MaxiContainerComponent
           }
   
           this.tmp = pokemonSpecList.length;
-          console.log(this.tmp);
   
           pokemonSpecList.forEach((pokemon: any) => {
 
+            //Observable per la richiesta del singolo pokemon
             let observable2;
             if (this.parameter == 'game-versions') {
               observable2 = this.pokedex.getPokemonSpeciesByUrl(pokemon.pokemon_species.url);
@@ -192,17 +206,21 @@ export class MaxiContainerComponent
   }
 
 
+  //Controlla se tutti i pokemon sono stati aggiunti alla lista
   checkCompletation()
   {
     if (this.tmp == this.pokemonList.length) {
       this.datiDisponibili = true;
       this.pokemonList = this.pokedex.sortPokemonSpeciesList(this.pokemonList);
 
+      //Se si stanno cercando TUTTE le specie pokemon di tutte le generazioni, ridimensiona la lista ai primi 905 (esclude la 9 Gen.)
       if (this.parameter == 'generation' && this.generation == 0) {
         this.pokemonList = this.pokemonList.splice(0, this.pokedex.getLastPokemon());
       }
 
       console.log(this.pokemonList);
+
+      //Setta tutte le forme alternative di tutte le specie di pokemon nella lista
       this.getAllVarieties();
     }
   }
@@ -216,7 +234,8 @@ export class MaxiContainerComponent
     });
   }
 
-  
+
+  //Imposta il titolo della pagina in base al parametro di ricerca
   setSelectionTitle()
   {
     let title = 'Pokédex | ';

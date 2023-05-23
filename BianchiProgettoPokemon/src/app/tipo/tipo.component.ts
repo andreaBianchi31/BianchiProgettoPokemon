@@ -46,6 +46,8 @@ export class TipoComponent
       case 'rock': this.typeStyle = 'bg-yellow-700 border-yellow-900'; break;
       case 'steel': this.typeStyle = 'bg-slate-400 border-slate-600'; break;
       case 'water': this.typeStyle = 'bg-sky-400 border-sky-600'; break;
+
+      //Casi di errore
       case 'bird': 
       default: this.typeStyle = 'bg-emerald-400 border-fuchsia-600'; break;
     }

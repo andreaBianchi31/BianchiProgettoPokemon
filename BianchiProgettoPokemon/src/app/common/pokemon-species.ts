@@ -17,19 +17,13 @@ export class PokemonSpecies
     category: string = 'Missing Number pokémon'; //genera
     generation: number = 1;
 
-    varieties: any[] = []; //forme alternative
-    pokemonVarieties: Pokemon[] = [];
-    defaultPokemon: Pokemon = this.varieties[0]; //pokemon da mostrare (es. immagine)
+    varieties: any[] = []; //forme alternative (url)
+    pokemonVarieties: Pokemon[] = []; //forma alternative (pokemon)
+    defaultPokemon: Pokemon = this.varieties[0]; //pokemon di default da mostrare
     defaultPokemonArtwork: string = '../assets/images/utility/pokeball-icon.png';
 
     preferito: boolean = false;
 
-
-    /* DA IMPLEMENTARE (non necessari)
-    evolvesFromSpecies: Pokemon;
-    evolutionChain: Pokemon[];
-    varieties: Pokemon[];
-    */
 
     constructor(id: number,
         names: any[],
@@ -123,20 +117,12 @@ export class PokemonSpecies
 
         // ===> VARIETIES
         this.varieties = varieties;
-
-
-        // ===> EVOLUTION CHAIN
-
-        /*
-            (da inserire)
-        */
         
     }
 
     
     equals(pokemon: PokemonSpecies): boolean
     {
-        //console.log(pokemon.pokedexNumber + ' - ' + this.pokedexNumber);
         if (pokemon == null || pokemon == undefined || pokemon.pokedexNumber != this.pokedexNumber)
             return false;
         else
@@ -144,25 +130,28 @@ export class PokemonSpecies
     }
 
 
-    changeEntries(language: string, pokedex: PokedexService)
-    {
-        this.flavorTextEntries = pokedex.getEntryByLanguage(this.flavorTextEntries, language);
-    }
-
-
+    //Setta tutte le forme alternative dei pokemon
     setPokemonVarieties(pokedex: PokedexService): Pokemon[]
     {
+        //In caso di errori, funziona ugualmente
+        let tmp = 0;
+
         this.varieties.forEach((variety: any) => {
             pokedex.getPokemonByURL(variety.pokemon.url).subscribe (
                 (data) => {
                     let pokemon = new Pokemon(data.id, data.name, this.category, this.generation, this.pokedexNumber, data.sprites.front_default, data.sprites.front_shiny, data.sprites.back_default, data.sprites.back_shiny, data.sprites.other['official-artwork'].front_default, data.sprites.other['official-artwork'].front_shiny, data.height, data.weight, data.types, data.stats, data.forms, data.is_default, this.flavorTextEntries, pokedex);
                     this.pokemonVarieties.push(pokemon);
+                    tmp++;
 
+                    // Se tutte le forma alternative sono state completate
                     if (this.pokemonVarieties.length == this.varieties.length)
                     {
                         for (let index = 0; index < this.pokemonVarieties.length; index++)
                         {
+                            //Imposta le forme alternative di tutte le varieties uguali
                             this.pokemonVarieties[index].pokemonVarieties = this.pokemonVarieties;
+
+                            //Controllo default pokemon
                             if (this.pokemonVarieties[index].isDefault)
                             {
                                 this.defaultPokemon = this.pokemonVarieties[index];
@@ -170,9 +159,12 @@ export class PokemonSpecies
                             }
                         }
 
-                        //this.setAllPokemonForms(pokedex);
+                        //Imposta il nome corretto di tutte le forme
                         this.setPokemonFormNames(pokedex);
                     }
+                },
+                (error) => {
+                    tmp--;
                 }
             );
         });
@@ -181,43 +173,24 @@ export class PokemonSpecies
     }
 
 
-    
-    setAllPokemonForms(pokedex: PokedexService)
-    {
-        let count = this.pokemonVarieties.length;
-
-        this.defaultPokemon.forms.forEach((form: any) => {
-            pokedex.getPokemonFormByUrl(form.url).subscribe (
-                (data: any) => {
-                    pokedex.getPokemonByURL(data.pokemon.url).subscribe (
-                        (data2: any) => {
-                            let pokemon = new Pokemon(data2.id, data2.name, this.category, this.generation, this.pokedexNumber, data2.sprites.front_default, data2.sprites.front_shiny, data2.sprites.back_default, data2.sprites.back_shiny, data2.sprites.other['official-artwork'].front_default, data2.sprites.other['official-artwork'].front_shiny, data2.height, data2.weight, data2.types, data2.stats, data2.forms, data2.is_default, this.flavorTextEntries, pokedex);
-                            this.pokemonVarieties.push(pokemon);
-
-                            if (this.pokemonVarieties.length == count + (this.defaultPokemon.forms.length))
-                            {
-                                this.removeDuplicateForms();
-                                this.setPokemonFormNames(pokedex);
-                            }
-
-                        }
-                    )
-                }
-            );
-        });
-    }
-
-
+    // Setta i nomi corretti di tutte le forme alternative
     setPokemonFormNames(pokedex: PokedexService): Pokemon[]
     {
+        //Per tutte le forme alternative della specie...
         this.pokemonVarieties.forEach((variety: any) => {
+
+            //Per tutte le forme del singolo pokemon...
             variety.forms.forEach((form: any) => {
+
+                //Ottiene informazioni sulla forma
                 pokedex.getPokemonFormByUrl(form.url).subscribe (
                     (data: any) => {
-                        if (data.names.length == 0) {
+                        //Se la lista dei nomi è vuota, imposta come nome quello normale ma con la prima lettera maiuscola
+                        if (data.names.length == 0)
+                        {
                             variety.name = variety.name.charAt(0).toUpperCase() + variety.name.slice(1);
                         }
-                        else
+                        else //Se la lista dei nomi è piena, imposta quello della lingua corretta
                         {
                             let trovato = false;
                             for (let index = 0; index < data.names.length && !trovato; index++) {
@@ -228,10 +201,10 @@ export class PokemonSpecies
                             }
                         }
 
-                        if (variety.isDefault)
+                        /*if (variety.isDefault)
                         {
                             this.defaultPokemon.name = this.name;
-                        }
+                        }*/
                     }
                 ); 
             });
@@ -241,12 +214,14 @@ export class PokemonSpecies
     }
 
 
+    //Verifica se questa specie pokemon è preferita
     isPokemonPreferito(pokedex: PokedexService)
     {
         return pokedex.isFavouritePokemonSpecies(this.pokedexNumber);
     }
 
 
+    //Rimuove tutti i duplicati
     removeDuplicateForms()
     {
         for (let i = 0; i < this.pokemonVarieties.length; i++)

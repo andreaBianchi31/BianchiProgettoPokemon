@@ -10,7 +10,6 @@ export class AboutUsComponent
 {
   constructor(private title: Title)
   {
-
   }
 
   ngOnInit()

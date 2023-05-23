@@ -17,13 +17,15 @@ export class CardContainerComponent
   @Output() pokemonForm = new EventEmitter<Pokemon>();
   @Output() reloadList = new EventEmitter();
 
-  
+
+  // (click su una small-card) => manda a MaxiContainer il pokemon scelto
   modificaPokemon(pokemon: Pokemon)
   {
     this.pokemonForm.emit(pokemon);
   }
 
-  
+
+  // (click sul pulsante reload) => Ricarica tutta la lista dei pokemon (ordina a MaxiContainer di rifare la chiamata di GET)
   reloadPokemonList()
   {
     this.reloadList.emit();

@@ -33,6 +33,7 @@ export class LoginComponent
   {
     this.httpAssistant.get(this.usersUrl).subscribe (
       (data: any) => {
+        //Controlla se esiste un utente con usename e password uguali a quelli inseriti
         let trovato = false;
         for (let index = 0; index < data.length && !trovato; index++)
         {
@@ -42,12 +43,13 @@ export class LoginComponent
           }
         }
 
+        // Se username e password sono corretti, setta validato a true e naviga alla home
         if (trovato)
         {
           this.pokedex.setValidato(true);
           this.router.navigate(['/pokedex/home']);
         }
-        else
+        else // Se username e password NON sono corretti, setta validato a false
         {
           this.pokedex.setValidato(false);
         }

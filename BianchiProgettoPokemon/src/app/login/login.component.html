@@ -20,14 +20,14 @@
                                 <div>Password</div>
                                 <input [(ngModel)]="password" type="password" placeholder="cisco" [ngModelOptions]="{standalone: true}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
-                            <button (click)="login()" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+                            <button (click)="login()" class="mt-6 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium text-sm px-5 py-2.5 text-center p-2 border-2 rounded-lg hover:bg-blue-900">Sign in</button>
                         </form>
                     </div>
                     <ng-template #AlreadyAbilitato>
                         <div class="font-bold text-white text-center text-2xl">
                             Hey! You are already logged.
                         </div>
-                        <div class="font-bold text-white text-center text-2xl rounded-xl border-2 border-white place-items-center p-4">
+                        <div class="font-bold text-white text-center text-2xl rounded-xl border-2 border-white place-items-center p-4 hover:bg-blue-900">
                             <a routerLink="/pokedex/home">
                                 Click here to access data
                             </a>

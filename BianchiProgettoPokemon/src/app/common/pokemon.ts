@@ -82,7 +82,7 @@ export class Pokemon
             this.type2 = 'bird';
         
         
-        // ===> ARTWORK & SPRITES
+        // =====> ARTWORK & SPRITES
 
                
         // OFFICIAL - DEFAULT

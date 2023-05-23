@@ -12,11 +12,6 @@ export class DescriptionSliderComponent
   entry: string = 'No entry.';
 
 
-  constructor()
-  {
-  }
-
-
   ngOnChanges(change: SimpleChange)
   {
     this.index = 0;

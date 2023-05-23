@@ -12,10 +12,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class BigCardComponent
 {
-  @Input() currentPokemon: Pokemon | null = null;
-  @Output() newSelectedForm = new EventEmitter<Pokemon | null>();
-  @Output() favouriteChange = new EventEmitter<number>();
-  @Output() reloadFavouriteList = new EventEmitter();
+  @Input() currentPokemon: Pokemon | null = null;                   //Pokemon selezionato
+  @Output() newSelectedForm = new EventEmitter<Pokemon | null>();   //(click su varieties) => cambio pokemon selezionato (forma alternativa)
+  @Output() reloadFavouriteList = new EventEmitter();               //(click sul cuore) => ricarica lista dei preferiti, se il parametro di ricerca è "favourites"
   
   artwork: string = this.pokedex.basePath + '/utility/pokeball-icon.png';
   isFront: boolean = true;
@@ -44,6 +43,7 @@ export class BigCardComponent
   {
     if (changes['currentPokemon'].currentValue != null)
     {
+      // Reset immagini
       this.artwork = changes['currentPokemon'].currentValue.pixelFrontDefault;
 
       this.redStar = this.redStarNormal;
@@ -52,7 +52,8 @@ export class BigCardComponent
   
       this.isFront = true;
       this.isShiny = false;
-  
+
+      // Controllo se il nuovo pokemon è preferito
       if (this.currentPokemon != null && this.pokedex.isFavouritePokemonSpecies(this.currentPokemon.pokedexNumber))
       {
         this.heart = this.heartFavourite;
@@ -65,6 +66,7 @@ export class BigCardComponent
   }
 
 
+  // Cambio fronte-retro
   changeFrontBack()
   {
     if (this.currentPokemon != null)
@@ -93,6 +95,7 @@ export class BigCardComponent
   }
 
 
+  // Cambio normale-shiny (colore alternativo)
   changeShiny()
   {
     if (this.currentPokemon != null)
@@ -121,32 +124,33 @@ export class BigCardComponent
   }
 
 
+  //Cambio preferito
   changeFavourite()
   {
     if (this.currentPokemon != null)
     {
+      //Se il pokemon è già preferito, lo rimuovi dai preferiti
       if (this.pokedex.isFavouritePokemonSpecies(this.currentPokemon.pokedexNumber))
       {
         this.pokedex.removeFavouritePokemonSpecies(this.currentPokemon.pokedexNumber);
         this.heart = this.heartNormal;
-        this.reloadFavouriteList.emit();
+        this.reloadFavouriteList.emit(); //Ricarica la lista dei preferiti se la selezione è "favourites"
       }
-      else
+      else //Altrimenti, aggiunti il nuovo pokemon ai preferiti
       {
         this.pokedex.addFavouritePokemonSpecies(this.currentPokemon.pokedexNumber);
         this.heart = this.heartFavourite;
       }
 
-      this.favouriteChange.emit(this.currentPokemon.pokedexNumber);
     }
   }
 
 
+  // Cambio pokemon (forma alternativa)
   changeCurrentPokemon(pokemon: Pokemon)
   {
     this.newSelectedForm.emit(pokemon);
     this.title.setTitle('Pokédex | ' + pokemon.name);
-    console.log(pokemon);
   }
 
 }
