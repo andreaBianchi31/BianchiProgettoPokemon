@@ -12,8 +12,13 @@ import { Title } from '@angular/platform-browser';
 export class LoginComponent
 {
   pokedexLogo: string = this.pokedex.basePath + '/utility/pokedex-icon.png';
-  username: string = '';
-  password: string = '';
+
+  placeholderUsername: string = 'admin';
+  placeholderPassword: string = 'cisco';
+
+  username: string = this.placeholderUsername;
+  password: string = this.placeholderPassword;
+
   usersUrl: string = './assets/users.json';
 
 

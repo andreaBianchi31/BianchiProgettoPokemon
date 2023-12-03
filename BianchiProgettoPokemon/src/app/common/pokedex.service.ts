@@ -33,7 +33,7 @@ export class PokedexService
 
   private language: string = 'en';
 
-  private validato: boolean = false;
+  private validato: boolean = true;
 
 
 
